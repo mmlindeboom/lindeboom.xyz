@@ -14,7 +14,6 @@ export default ({ children }) => (
       <script defer src={withPrefix('pt/bundle.js')}></script>
     </Helmet>
 
-    {children}
   </ProjectLayout>
 
 );
