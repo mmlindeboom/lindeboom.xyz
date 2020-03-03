@@ -25,7 +25,7 @@ const ProjectLayout = ({ children, title, description }: Props) => (
 
       <script defer src={withPrefix('pt/bundle.js')}></script>
     </Helmet>
-    {children}
+
   </div>
 );
 
