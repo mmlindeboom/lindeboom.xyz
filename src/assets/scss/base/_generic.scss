@@ -119,7 +119,7 @@ ul {
 
 }
 
-p {
+body:not(.periodic-table) {
   @include line-height(1);
   @include margin-bottom(1);
 }

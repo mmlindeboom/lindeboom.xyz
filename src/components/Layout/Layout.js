@@ -12,7 +12,7 @@ type Props = {
 
 const Layout = ({ children, title, description }: Props) => (
   <div className={styles.layout}>
-    <Helmet bodyAttributes>
+    <Helmet>
       <html lang="en" />
       <title>{title}</title>
       <meta name="description" content={description} />
