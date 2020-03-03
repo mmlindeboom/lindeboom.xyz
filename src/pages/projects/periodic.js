@@ -1,9 +1,10 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { withPrefix } from 'gatsby';
+import Layout from '../../components/Layout';
 
 export default () => (
-  <div>
+  <Layout>
     <Helmet bodyAttributes={{
       class: 'periodic-table'
     }}>
@@ -16,5 +17,5 @@ export default () => (
       <script defer src={withPrefix('pt/bundle.js')}></script>
     </Helmet>
     <div className='pt-container' ></div>
-  </div>
+  </Layout>
 );
