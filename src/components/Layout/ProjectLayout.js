@@ -19,7 +19,6 @@ const ProjectLayout = ({ children, title, description }: Props) => (
       <meta name="description" content={description} />
       <meta property="og:site_name" content={title} />
     </Helmet>
-    {children}
   </div>
 );
 
