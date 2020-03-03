@@ -1,3 +1,10 @@
 'use strict';
+import { withPrefix } from 'gatsby';
+export function onRouteUpdate({ location }) {
+  if (location.pathname === withPrefix('/')) {
+    require('./src/assets/scss/init.scss');
+  }
+}
 
-exports.onClientEntry = () => {};
+
+export const onClientEntry = () => {};
