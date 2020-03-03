@@ -2,8 +2,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import type { Node as ReactNode } from 'react';
-import styles from './Layout.module.scss';
-import '../../assets/scss/init.scss';
 
 type Props = {
   children: ReactNode,
@@ -11,9 +9,11 @@ type Props = {
   description?: string
 };
 
-const Layout = ({ children, title, description }: Props) => (
-  <div className={styles.layout}>
-    <Helmet bodyAttributes>
+const ProjectLayout = ({ children, title, description }: Props) => (
+  <div>
+    <Helmet bodyAttributes={{
+      class: 'periodic-table'
+    }}>
       <html lang="en" />
       <title>{title}</title>
       <meta name="description" content={description} />
@@ -23,4 +23,4 @@ const Layout = ({ children, title, description }: Props) => (
   </div>
 );
 
-export default Layout;
+export default ProjectLayout;
