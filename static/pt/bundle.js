@@ -113,6 +113,38 @@ var app = (function () {
     function children(element) {
         return Array.from(element.childNodes);
     }
+    function claim_element(nodes, name, attributes, svg) {
+        for (let i = 0; i < nodes.length; i += 1) {
+            const node = nodes[i];
+            if (node.nodeName === name) {
+                let j = 0;
+                while (j < node.attributes.length) {
+                    const attribute = node.attributes[j];
+                    if (attributes[attribute.name]) {
+                        j++;
+                    }
+                    else {
+                        node.removeAttribute(attribute.name);
+                    }
+                }
+                return nodes.splice(i, 1)[0];
+            }
+        }
+        return svg ? svg_element(name) : element(name);
+    }
+    function claim_text(nodes, data) {
+        for (let i = 0; i < nodes.length; i += 1) {
+            const node = nodes[i];
+            if (node.nodeType === 3) {
+                node.data = '' + data;
+                return nodes.splice(i, 1)[0];
+            }
+        }
+        return text(data);
+    }
+    function claim_space(nodes) {
+        return claim_text(nodes, ' ');
+    }
     function set_style(node, key, value, important) {
         node.style.setProperty(key, value, important ? 'important' : '');
     }
@@ -678,6 +710,9 @@ var app = (function () {
     function create_component(block) {
         block && block.c();
     }
+    function claim_component(block, parent_nodes) {
+        block && block.l(parent_nodes);
+    }
     function mount_component(component, target, anchor) {
         const { fragment, on_mount, on_destroy, after_update } = component.$$;
         fragment && fragment.m(target, anchor);
@@ -863,9 +898,7 @@ var app = (function () {
     function create_fragment(ctx) {
     	const block = {
     		c: noop,
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
+    		l: noop,
     		m: noop,
     		p: noop,
     		i: noop,
@@ -920,6 +953,7 @@ var app = (function () {
     	let input3;
     	let t7;
     	let button;
+    	let t8;
     	let dispose;
 
     	const block = {
@@ -942,7 +976,44 @@ var app = (function () {
     			input3 = element("input");
     			t7 = space();
     			button = element("button");
-    			button.textContent = "Clear Filters";
+    			t8 = text("Clear Filters");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true });
+    			var div_nodes = children(div);
+    			label0 = claim_element(div_nodes, "LABEL", { class: true });
+    			var label0_nodes = children(label0);
+    			t0 = claim_text(label0_nodes, "Alkali Metals\n    ");
+    			input0 = claim_element(label0_nodes, "INPUT", { type: true });
+    			label0_nodes.forEach(detach_dev);
+    			t1 = claim_space(div_nodes);
+    			label1 = claim_element(div_nodes, "LABEL", { class: true });
+    			var label1_nodes = children(label1);
+    			t2 = claim_text(label1_nodes, "Alkaline Earth Metals\n    ");
+    			input1 = claim_element(label1_nodes, "INPUT", { type: true });
+    			label1_nodes.forEach(detach_dev);
+    			t3 = claim_space(div_nodes);
+    			label2 = claim_element(div_nodes, "LABEL", { class: true });
+    			var label2_nodes = children(label2);
+    			t4 = claim_text(label2_nodes, "Transition Metals\n    ");
+    			input2 = claim_element(label2_nodes, "INPUT", { type: true });
+    			label2_nodes.forEach(detach_dev);
+    			t5 = claim_space(div_nodes);
+    			label3 = claim_element(div_nodes, "LABEL", { class: true });
+    			var label3_nodes = children(label3);
+    			t6 = claim_text(label3_nodes, "Noble Gases\n    ");
+    			input3 = claim_element(label3_nodes, "INPUT", { type: true });
+    			label3_nodes.forEach(detach_dev);
+    			t7 = claim_space(div_nodes);
+    			button = claim_element(div_nodes, "BUTTON", { class: true });
+    			var button_nodes = children(button);
+    			t8 = claim_text(button_nodes, "Clear Filters");
+    			button_nodes.forEach(detach_dev);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			attr_dev(input0, "type", "checkbox");
     			add_location(input0, file, 110, 4, 2422);
     			attr_dev(label0, "class", "svelte-5f1u4w");
@@ -963,9 +1034,6 @@ var app = (function () {
     			add_location(button, file, 124, 2, 2948);
     			attr_dev(div, "class", "filters svelte-5f1u4w");
     			add_location(div, file, 106, 0, 2367);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -990,6 +1058,7 @@ var app = (function () {
     			/*input3_binding*/ ctx[24](input3);
     			append_dev(div, t7);
     			append_dev(div, button);
+    			append_dev(button, t8);
 
     			dispose = [
     				listen_dev(input0, "change", /*change_handler*/ ctx[19], false, false, false),
@@ -1399,7 +1468,7 @@ var app = (function () {
 
     var emotion_umd_min = createCommonjsModule(function (module, exports) {
     !function(e,r){r(exports);}(commonjsGlobal,function(e){var r=function(){function e(e){this.isSpeedy=void 0===e.speedy||e.speedy,this.tags=[],this.ctr=0,this.nonce=e.nonce,this.key=e.key,this.container=e.container,this.before=null;}var r=e.prototype;return r.insert=function(e){if(this.ctr%(this.isSpeedy?65e3:1)==0){var r,t=function(e){var r=document.createElement("style");return r.setAttribute("data-emotion",e.key),void 0!==e.nonce&&r.setAttribute("nonce",e.nonce),r.appendChild(document.createTextNode("")),r}(this);r=0===this.tags.length?this.before:this.tags[this.tags.length-1].nextSibling,this.container.insertBefore(t,r),this.tags.push(t);}var a=this.tags[this.tags.length-1];if(this.isSpeedy){var n=function(e){if(e.sheet)return e.sheet;for(var r=0;r<document.styleSheets.length;r++)if(document.styleSheets[r].ownerNode===e)return document.styleSheets[r]}(a);try{var i=105===e.charCodeAt(1)&&64===e.charCodeAt(0);n.insertRule(e,i?0:n.cssRules.length);}catch(e){}}else a.appendChild(document.createTextNode(e));this.ctr++;},r.flush=function(){this.tags.forEach(function(e){return e.parentNode.removeChild(e)}),this.tags=[],this.ctr=0;},e}();function t(e){function r(e,r,a){var n=r.trim().split(b);r=n;var i=n.length,s=e.length;switch(s){case 0:case 1:var c=0;for(e=0===s?"":e[0]+" ";c<i;++c)r[c]=t(e,r[c],a).trim();break;default:var o=c=0;for(r=[];c<i;++c)for(var l=0;l<s;++l)r[o++]=t(e[l]+" ",n[c],a).trim();}return r}function t(e,r,t){var a=r.charCodeAt(0);switch(33>a&&(a=(r=r.trim()).charCodeAt(0)),a){case 38:return r.replace(g,"$1"+e.trim());case 58:return e.trim()+r.replace(g,"$1"+e.trim());default:if(0<1*t&&0<r.indexOf("\f"))return r.replace(g,(58===e.charCodeAt(0)?"":"$1")+e.trim())}return e+r}function a(e,r,t,i){var s=e+";",c=2*r+3*t+4*i;if(944===c){e=s.indexOf(":",9)+1;var o=s.substring(e,s.length-1).trim();return o=s.substring(0,e).trim()+o+";",1===z||2===z&&n(o,1)?"-webkit-"+o+o:o}if(0===z||2===z&&!n(s,1))return s;switch(c){case 1015:return 97===s.charCodeAt(10)?"-webkit-"+s+s:s;case 951:return 116===s.charCodeAt(3)?"-webkit-"+s+s:s;case 963:return 110===s.charCodeAt(5)?"-webkit-"+s+s:s;case 1009:if(100!==s.charCodeAt(4))break;case 969:case 942:return "-webkit-"+s+s;case 978:return "-webkit-"+s+"-moz-"+s+s;case 1019:case 983:return "-webkit-"+s+"-moz-"+s+"-ms-"+s+s;case 883:if(45===s.charCodeAt(8))return "-webkit-"+s+s;if(0<s.indexOf("image-set(",11))return s.replace(S,"$1-webkit-$2")+s;break;case 932:if(45===s.charCodeAt(4))switch(s.charCodeAt(5)){case 103:return "-webkit-box-"+s.replace("-grow","")+"-webkit-"+s+"-ms-"+s.replace("grow","positive")+s;case 115:return "-webkit-"+s+"-ms-"+s.replace("shrink","negative")+s;case 98:return "-webkit-"+s+"-ms-"+s.replace("basis","preferred-size")+s}return "-webkit-"+s+"-ms-"+s+s;case 964:return "-webkit-"+s+"-ms-flex-"+s+s;case 1023:if(99!==s.charCodeAt(8))break;return "-webkit-box-pack"+(o=s.substring(s.indexOf(":",15)).replace("flex-","").replace("space-between","justify"))+"-webkit-"+s+"-ms-flex-pack"+o+s;case 1005:return d.test(s)?s.replace(u,":-webkit-")+s.replace(u,":-moz-")+s:s;case 1e3:switch(r=(o=s.substring(13).trim()).indexOf("-")+1,o.charCodeAt(0)+o.charCodeAt(r)){case 226:o=s.replace(v,"tb");break;case 232:o=s.replace(v,"tb-rl");break;case 220:o=s.replace(v,"lr");break;default:return s}return "-webkit-"+s+"-ms-"+o+s;case 1017:if(-1===s.indexOf("sticky",9))break;case 975:switch(r=(s=e).length-10,c=(o=(33===s.charCodeAt(r)?s.substring(0,r):s).substring(e.indexOf(":",7)+1).trim()).charCodeAt(0)+(0|o.charCodeAt(7))){case 203:if(111>o.charCodeAt(8))break;case 115:s=s.replace(o,"-webkit-"+o)+";"+s;break;case 207:case 102:s=s.replace(o,"-webkit-"+(102<c?"inline-":"")+"box")+";"+s.replace(o,"-webkit-"+o)+";"+s.replace(o,"-ms-"+o+"box")+";"+s;}return s+";";case 938:if(45===s.charCodeAt(5))switch(s.charCodeAt(6)){case 105:return o=s.replace("-items",""),"-webkit-"+s+"-webkit-box-"+o+"-ms-flex-"+o+s;case 115:return "-webkit-"+s+"-ms-flex-item-"+s.replace(A,"")+s;default:return "-webkit-"+s+"-ms-flex-line-pack"+s.replace("align-content","").replace(A,"")+s}break;case 973:case 989:if(45!==s.charCodeAt(3)||122===s.charCodeAt(4))break;case 931:case 953:if(!0===x.test(e))return 115===(o=e.substring(e.indexOf(":")+1)).charCodeAt(0)?a(e.replace("stretch","fill-available"),r,t,i).replace(":fill-available",":stretch"):s.replace(o,"-webkit-"+o)+s.replace(o,"-moz-"+o.replace("fill-",""))+s;break;case 962:if(s="-webkit-"+s+(102===s.charCodeAt(5)?"-ms-"+s:"")+s,211===t+i&&105===s.charCodeAt(13)&&0<s.indexOf("transform",10))return s.substring(0,s.indexOf(";",27)+1).replace(h,"$1-webkit-$2")+s}return s}function n(e,r){var t=e.indexOf(1===r?":":"{"),a=e.substring(0,3!==r?t:10);return t=e.substring(t+1,e.length-1),G(2!==r?a:a.replace(C,"$1"),t,r)}function i(e,r){var t=a(r,r.charCodeAt(0),r.charCodeAt(1),r.charCodeAt(2));return t!==r+";"?t.replace(y," or ($1)").substring(4):"("+r+")"}function s(e,r,t,a,n,i,s,c,l,f){for(var u,d=0,h=r;d<_;++d)switch(u=R[d].call(o,e,h,t,a,n,i,s,c,l,f)){case void 0:case!1:case!0:case null:break;default:h=u;}if(h!==r)return h}function c(e){return void 0!==(e=e.prefix)&&(G=null,e?"function"!=typeof e?z=1:(z=2,G=e):z=0),c}function o(e,t){var c=e;if(33>c.charCodeAt(0)&&(c=c.trim()),c=[c],0<_){var o=s(-1,t,c,c,$,O,0,0,0,0);void 0!==o&&"string"==typeof o&&(t=o);}var u=function e(t,c,o,u,d){for(var h,b,g,v,y,A=0,C=0,x=0,S=0,R=0,G=0,I=g=h=0,M=0,W=0,P=0,D=0,F=o.length,L=F-1,T="",q="",B="",H="";M<F;){if(b=o.charCodeAt(M),M===L&&0!==C+S+x+A&&(0!==C&&(b=47===C?10:47),S=x=A=0,F++,L++),0===C+S+x+A){if(M===L&&(0<W&&(T=T.replace(f,"")),0<T.trim().length)){switch(b){case 32:case 9:case 59:case 13:case 10:break;default:T+=o.charAt(M);}b=59;}switch(b){case 123:for(h=(T=T.trim()).charCodeAt(0),g=1,D=++M;M<F;){switch(b=o.charCodeAt(M)){case 123:g++;break;case 125:g--;break;case 47:switch(b=o.charCodeAt(M+1)){case 42:case 47:e:{for(I=M+1;I<L;++I)switch(o.charCodeAt(I)){case 47:if(42===b&&42===o.charCodeAt(I-1)&&M+2!==I){M=I+1;break e}break;case 10:if(47===b){M=I+1;break e}}M=I;}}break;case 91:b++;case 40:b++;case 34:case 39:for(;M++<L&&o.charCodeAt(M)!==b;);}if(0===g)break;M++;}switch(g=o.substring(D,M),0===h&&(h=(T=T.replace(l,"").trim()).charCodeAt(0)),h){case 64:switch(0<W&&(T=T.replace(f,"")),b=T.charCodeAt(1)){case 100:case 109:case 115:case 45:W=c;break;default:W=E;}if(D=(g=e(c,W,g,b,d+1)).length,0<_&&(y=s(3,g,W=r(E,T,P),c,$,O,D,b,d,u),T=W.join(""),void 0!==y&&0===(D=(g=y.trim()).length)&&(b=0,g="")),0<D)switch(b){case 115:T=T.replace(w,i);case 100:case 109:case 45:g=T+"{"+g+"}";break;case 107:g=(T=T.replace(p,"$1 $2"))+"{"+g+"}",g=1===z||2===z&&n("@"+g,3)?"@-webkit-"+g+"@"+g:"@"+g;break;default:g=T+g,112===u&&(q+=g,g="");}else g="";break;default:g=e(c,r(c,T,P),g,u,d+1);}B+=g,g=P=W=I=h=0,T="",b=o.charCodeAt(++M);break;case 125:case 59:if(1<(D=(T=(0<W?T.replace(f,""):T).trim()).length))switch(0===I&&(h=T.charCodeAt(0),45===h||96<h&&123>h)&&(D=(T=T.replace(" ",":")).length),0<_&&void 0!==(y=s(1,T,c,t,$,O,q.length,u,d,u))&&0===(D=(T=y.trim()).length)&&(T="\0\0"),h=T.charCodeAt(0),b=T.charCodeAt(1),h){case 0:break;case 64:if(105===b||99===b){H+=T+o.charAt(M);break}default:58!==T.charCodeAt(D-1)&&(q+=a(T,h,b,T.charCodeAt(2)));}P=W=I=h=0,T="",b=o.charCodeAt(++M);}}switch(b){case 13:case 10:47===C?C=0:0===1+h&&107!==u&&0<T.length&&(W=1,T+="\0"),0<_*N&&s(0,T,c,t,$,O,q.length,u,d,u),O=1,$++;break;case 59:case 125:if(0===C+S+x+A){O++;break}default:switch(O++,v=o.charAt(M),b){case 9:case 32:if(0===S+A+C)switch(R){case 44:case 58:case 9:case 32:v="";break;default:32!==b&&(v=" ");}break;case 0:v="\\0";break;case 12:v="\\f";break;case 11:v="\\v";break;case 38:0===S+C+A&&(W=P=1,v="\f"+v);break;case 108:if(0===S+C+A+j&&0<I)switch(M-I){case 2:112===R&&58===o.charCodeAt(M-3)&&(j=R);case 8:111===G&&(j=G);}break;case 58:0===S+C+A&&(I=M);break;case 44:0===C+x+S+A&&(W=1,v+="\r");break;case 34:case 39:0===C&&(S=S===b?0:0===S?b:S);break;case 91:0===S+C+x&&A++;break;case 93:0===S+C+x&&A--;break;case 41:0===S+C+A&&x--;break;case 40:if(0===S+C+A){if(0===h)switch(2*R+3*G){case 533:break;default:h=1;}x++;}break;case 64:0===C+x+S+A+I+g&&(g=1);break;case 42:case 47:if(!(0<S+A+x))switch(C){case 0:switch(2*b+3*o.charCodeAt(M+1)){case 235:C=47;break;case 220:D=M,C=42;}break;case 42:47===b&&42===R&&D+2!==M&&(33===o.charCodeAt(D+2)&&(q+=o.substring(D,M+1)),v="",C=0);}}0===C&&(T+=v);}G=R,R=b,M++;}if(0<(D=q.length)){if(W=c,0<_&&void 0!==(y=s(2,q,W,t,$,O,D,u,d,u))&&0===(q=y).length)return H+q+B;if(q=W.join(",")+"{"+q+"}",0!=z*j){switch(2!==z||n(q,2)||(j=0),j){case 111:q=q.replace(k,":-moz-$1")+q;break;case 112:q=q.replace(m,"::-webkit-input-$1")+q.replace(m,"::-moz-$1")+q.replace(m,":-ms-input-$1")+q;}j=0;}}return H+q+B}(E,c,t,0,0);return 0<_&&(void 0!==(o=s(-2,u,c,c,$,O,u.length,0,0,0))&&(u=o)),j=0,O=$=1,u}var l=/^\0+/g,f=/[\0\r\f]/g,u=/: */g,d=/zoo|gra/,h=/([,: ])(transform)/g,b=/,\r+?/g,g=/([\t\r\n ])*\f?&/g,p=/@(k\w+)\s*(\S*)\s*/,m=/::(place)/g,k=/:(read-only)/g,v=/[svh]\w+-[tblr]{2}/,w=/\(\s*(.*)\s*\)/g,y=/([\s\S]*?);/g,A=/-self|flex-/g,C=/[^]*?(:[rp][el]a[\w-]+)[^]*/,x=/stretch|:\s*\w+\-(?:conte|avail)/,S=/([^-])(image-set\()/,O=1,$=1,j=0,z=1,E=[],R=[],_=0,G=null,N=0;return o.use=function e(r){switch(r){case void 0:case null:_=R.length=0;break;default:if("function"==typeof r)R[_++]=r;else if("object"==typeof r)for(var t=0,a=r.length;t<a;++t)e(r[t]);else N=0|!!r;}return e},o.set=c,void 0!==e&&c(e),o}function a(e){e&&n.current.insert(e+"}");}var n={current:null},i=function(e,r,t,i,s,c,o,l,f,u){switch(e){case 1:switch(r.charCodeAt(0)){case 64:return n.current.insert(r+";"),"";case 108:if(98===r.charCodeAt(2))return ""}break;case 2:if(0===l)return r+"/*|*/";break;case 3:switch(l){case 102:case 112:return n.current.insert(t[0]+r),"";default:return r+(0===u?"/*|*/":"")}case-2:r.split("/*|*/}").forEach(a);}};var s={animationIterationCount:1,borderImageOutset:1,borderImageSlice:1,borderImageWidth:1,boxFlex:1,boxFlexGroup:1,boxOrdinalGroup:1,columnCount:1,columns:1,flex:1,flexGrow:1,flexPositive:1,flexShrink:1,flexNegative:1,flexOrder:1,gridRow:1,gridRowEnd:1,gridRowSpan:1,gridRowStart:1,gridColumn:1,gridColumnEnd:1,gridColumnSpan:1,gridColumnStart:1,msGridRow:1,msGridRowSpan:1,msGridColumn:1,msGridColumnSpan:1,fontWeight:1,lineHeight:1,opacity:1,order:1,orphans:1,tabSize:1,widows:1,zIndex:1,zoom:1,WebkitLineClamp:1,fillOpacity:1,floodOpacity:1,stopOpacity:1,strokeDasharray:1,strokeDashoffset:1,strokeMiterlimit:1,strokeOpacity:1,strokeWidth:1};var c=/[A-Z]|^ms/g,o=/_EMO_([^_]+?)_([^]*?)_EMO_/g,l=function(e){return 45===e.charCodeAt(1)},f=function(e){return null!=e&&"boolean"!=typeof e},u=function(e){var r={};return function(t){return void 0===r[t]&&(r[t]=e(t)),r[t]}}(function(e){return l(e)?e:e.replace(c,"-$&").toLowerCase()}),d=function(e,r){switch(e){case"animation":case"animationName":if("string"==typeof r)return r.replace(o,function(e,r,t){return b={name:r,styles:t,next:b},r})}return 1===s[e]||l(e)||"number"!=typeof r||0===r?r:r+"px"};function h(e,r,t,a){if(null==t)return "";if(void 0!==t.__emotion_styles)return t;switch(typeof t){case"boolean":return "";case"object":if(1===t.anim)return b={name:t.name,styles:t.styles,next:b},t.name;if(void 0!==t.styles){var n=t.next;if(void 0!==n)for(;void 0!==n;)b={name:n.name,styles:n.styles,next:b},n=n.next;return t.styles+";"}return function(e,r,t){var a="";if(Array.isArray(t))for(var n=0;n<t.length;n++)a+=h(e,r,t[n],!1);else for(var i in t){var s=t[i];if("object"!=typeof s)null!=r&&void 0!==r[s]?a+=i+"{"+r[s]+"}":f(s)&&(a+=u(i)+":"+d(i,s)+";");else if(!Array.isArray(s)||"string"!=typeof s[0]||null!=r&&void 0!==r[s[0]]){var c=h(e,r,s,!1);switch(i){case"animation":case"animationName":a+=u(i)+":"+c+";";break;default:a+=i+"{"+c+"}";}}else for(var o=0;o<s.length;o++)f(s[o])&&(a+=u(i)+":"+d(i,s[o])+";");}return a}(e,r,t);case"function":if(void 0!==e){var i=b,s=t(e);return b=i,h(e,r,s,a)}}if(null==r)return t;var c=r[t];return void 0===c||a?t:c}var b,g=/label:\s*([^\s;\n{]+)\s*;/g,p=function(e,r,t){if(1===e.length&&"object"==typeof e[0]&&null!==e[0]&&void 0!==e[0].styles)return e[0];var a=!0,n="";b=void 0;var i=e[0];null==i||void 0===i.raw?(a=!1,n+=h(t,r,i,!1)):n+=i[0];for(var s=1;s<e.length;s++)n+=h(t,r,e[s],46===n.charCodeAt(n.length-1)),a&&(n+=i[s]);g.lastIndex=0;for(var c,o="";null!==(c=g.exec(n));)o+="-"+c[1];return {name:function(e){for(var r,t=e.length,a=t^t,n=0;t>=4;)r=1540483477*(65535&(r=255&e.charCodeAt(n)|(255&e.charCodeAt(++n))<<8|(255&e.charCodeAt(++n))<<16|(255&e.charCodeAt(++n))<<24))+((1540483477*(r>>>16)&65535)<<16),a=1540483477*(65535&a)+((1540483477*(a>>>16)&65535)<<16)^(r=1540483477*(65535&(r^=r>>>24))+((1540483477*(r>>>16)&65535)<<16)),t-=4,++n;switch(t){case 3:a^=(255&e.charCodeAt(n+2))<<16;case 2:a^=(255&e.charCodeAt(n+1))<<8;case 1:a=1540483477*(65535&(a^=255&e.charCodeAt(n)))+((1540483477*(a>>>16)&65535)<<16);}return a=1540483477*(65535&(a^=a>>>13))+((1540483477*(a>>>16)&65535)<<16),((a^=a>>>15)>>>0).toString(36)}(n)+o,styles:n,next:b}};function m(e,r,t){var a="";return t.split(" ").forEach(function(t){void 0!==e[t]?r.push(e[t]):a+=t+" ";}),a}function k(e,r){if(void 0===e.inserted[r.name])return e.insert("",r,e.sheet,!0)}function v(e,r,t){var a=[],n=m(e,a,t);return a.length<2?t:n+r(a)}var w=function e(r){for(var t="",a=0;a<r.length;a++){var n=r[a];if(null!=n){var i=void 0;switch(typeof n){case"boolean":break;case"object":if(Array.isArray(n))i=e(n);else for(var s in i="",n)n[s]&&s&&(i&&(i+=" "),i+=s);break;default:i=n;}i&&(t&&(t+=" "),t+=i);}}return t},y=function(e){var a=function(e){void 0===e&&(e={});var a,s=e.key||"css";void 0!==e.prefix&&(a={prefix:e.prefix});var c,o=new t(a),l={};c=e.container||document.head;var f,u=document.querySelectorAll("style[data-emotion-"+s+"]");Array.prototype.forEach.call(u,function(e){e.getAttribute("data-emotion-"+s).split(" ").forEach(function(e){l[e]=!0;}),e.parentNode!==c&&c.appendChild(e);}),o.use(e.stylisPlugins)(i),f=function(e,r,t,a){var i=r.name;n.current=t,o(e,r.styles),a&&(d.inserted[i]=!0);};var d={key:s,sheet:new r({key:s,container:c,nonce:e.nonce,speedy:e.speedy}),nonce:e.nonce,inserted:l,registered:{},insert:f};return d}(e);a.sheet.speedy=function(e){this.isSpeedy=e;},a.compat=!0;var s=function(){for(var e=arguments.length,r=new Array(e),t=0;t<e;t++)r[t]=arguments[t];var n=p(r,a.registered,void 0);return function(e,r,t){var a=e.key+"-"+r.name;if(!1===t&&void 0===e.registered[a]&&(e.registered[a]=r.styles),void 0===e.inserted[r.name]){var n=r;do{e.insert("."+a,n,e.sheet,!0),n=n.next;}while(void 0!==n)}}(a,n,!1),a.key+"-"+n.name};return {css:s,cx:function(){for(var e=arguments.length,r=new Array(e),t=0;t<e;t++)r[t]=arguments[t];return v(a.registered,s,w(r))},injectGlobal:function(){for(var e=arguments.length,r=new Array(e),t=0;t<e;t++)r[t]=arguments[t];var n=p(r,a.registered);k(a,n);},keyframes:function(){for(var e=arguments.length,r=new Array(e),t=0;t<e;t++)r[t]=arguments[t];var n=p(r,a.registered),i="animation-"+n.name;return k(a,{name:n.name,styles:"@keyframes "+i+"{"+n.styles+"}"}),i},hydrate:function(e){e.forEach(function(e){a.inserted[e]=!0;});},flush:function(){a.registered={},a.inserted={},a.sheet.flush();},sheet:a.sheet,cache:a,getRegisteredStyles:m.bind(null,a.registered),merge:v.bind(null,a.registered,s)}}(),A=y.flush,C=y.hydrate,x=y.cx,S=y.merge,O=y.getRegisteredStyles,$=y.injectGlobal,j=y.keyframes,z=y.css,E=y.sheet,R=y.cache;e.cache=R,e.css=z,e.cx=x,e.flush=A,e.getRegisteredStyles=O,e.hydrate=C,e.injectGlobal=$,e.keyframes=j,e.merge=S,e.sheet=E,Object.defineProperty(e,"__esModule",{value:!0});});
-    //# sourceMappingURL=emotion.umd.min.js.map
+
     });
 
     var emotion = unwrapExports(emotion_umd_min);
@@ -1479,6 +1548,14 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			div = element("div");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true });
+    			children(div).forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			attr_dev(div, "class", div_class_value = "" + (null_to_empty(elementStyle(/*color*/ ctx[4], /*visible*/ ctx[5], /*count*/ ctx[6])) + " svelte-1e0mg8r"));
     			add_location(div, file$1, 83, 2, 1480);
     		},
@@ -1540,6 +1617,34 @@ var app = (function () {
     			t5 = space();
     			p3 = element("p");
     			t6 = text(/*mass*/ ctx[3]);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true });
+    			var div_nodes = children(div);
+    			p0 = claim_element(div_nodes, "P", { class: true });
+    			var p0_nodes = children(p0);
+    			t0 = claim_text(p0_nodes, /*id*/ ctx[0]);
+    			p0_nodes.forEach(detach_dev);
+    			t1 = claim_space(div_nodes);
+    			p1 = claim_element(div_nodes, "P", { class: true });
+    			var p1_nodes = children(p1);
+    			t2 = claim_text(p1_nodes, /*symbol*/ ctx[1]);
+    			p1_nodes.forEach(detach_dev);
+    			t3 = claim_space(div_nodes);
+    			p2 = claim_element(div_nodes, "P", { class: true });
+    			var p2_nodes = children(p2);
+    			t4 = claim_text(p2_nodes, /*name*/ ctx[2]);
+    			p2_nodes.forEach(detach_dev);
+    			t5 = claim_space(div_nodes);
+    			p3 = claim_element(div_nodes, "P", { class: true });
+    			var p3_nodes = children(p3);
+    			t6 = claim_text(p3_nodes, /*mass*/ ctx[3]);
+    			p3_nodes.forEach(detach_dev);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			attr_dev(p0, "class", "id svelte-1e0mg8r");
     			add_location(p0, file$1, 77, 4, 1341);
     			attr_dev(p1, "class", "symbol svelte-1e0mg8r");
@@ -1626,7 +1731,8 @@ var app = (function () {
     			if_block_anchor = empty();
     		},
     		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    			if_block.l(nodes);
+    			if_block_anchor = empty();
     		},
     		m: function mount(target, anchor) {
     			if_block.m(target, anchor);
@@ -2044,15 +2150,23 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			canvas_1 = element("canvas");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true });
+    			var div_nodes = children(div);
+    			canvas_1 = claim_element(div_nodes, "CANVAS", { id: true, height: true, width: true });
+    			children(canvas_1).forEach(detach_dev);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			attr_dev(canvas_1, "id", "atomCanvas");
     			attr_dev(canvas_1, "height", "150");
     			attr_dev(canvas_1, "width", "300");
     			add_location(canvas_1, file$2, 132, 2, 2795);
     			attr_dev(div, "class", div_class_value = "" + (null_to_empty(canvasStyle) + " svelte-18iom2i"));
     			add_location(div, file$2, 131, 0, 2767);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2279,6 +2393,7 @@ var app = (function () {
     	let svg_class_value;
     	let t0;
     	let button0;
+    	let t1;
     	let t2;
     	let h3;
     	let t3_value = /*atom*/ ctx[3].name + "";
@@ -2287,9 +2402,11 @@ var app = (function () {
     	let div0;
     	let t5;
     	let div1;
+    	let t6;
     	let t7;
     	let div2;
     	let button1;
+    	let t8;
     	let div3_intro;
     	let div3_outro;
     	let current;
@@ -2314,7 +2431,7 @@ var app = (function () {
     			if (if_block2) if_block2.c();
     			t0 = space();
     			button0 = element("button");
-    			button0.textContent = "x";
+    			t1 = text("x");
     			t2 = space();
     			h3 = element("h3");
     			t3 = text(t3_value);
@@ -2323,11 +2440,68 @@ var app = (function () {
     			create_component(atom_1.$$.fragment);
     			t5 = space();
     			div1 = element("div");
-    			div1.textContent = "Lorem ipsum";
+    			t6 = text("Lorem ipsum");
     			t7 = space();
     			div2 = element("div");
     			button1 = element("button");
-    			button1.textContent = "More";
+    			t8 = text("More");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div3 = claim_element(nodes, "DIV", { class: true, style: true });
+    			var div3_nodes = children(div3);
+
+    			svg = claim_element(
+    				div3_nodes,
+    				"svg",
+    				{
+    					class: true,
+    					width: true,
+    					height: true,
+    					xmlns: true
+    				},
+    				1
+    			);
+
+    			var svg_nodes = children(svg);
+    			if (if_block0) if_block0.l(svg_nodes);
+    			if_block0_anchor = empty();
+    			if (if_block1) if_block1.l(svg_nodes);
+    			if_block1_anchor = empty();
+    			if (if_block2) if_block2.l(svg_nodes);
+    			svg_nodes.forEach(detach_dev);
+    			t0 = claim_space(div3_nodes);
+    			button0 = claim_element(div3_nodes, "BUTTON", { class: true });
+    			var button0_nodes = children(button0);
+    			t1 = claim_text(button0_nodes, "x");
+    			button0_nodes.forEach(detach_dev);
+    			t2 = claim_space(div3_nodes);
+    			h3 = claim_element(div3_nodes, "H3", {});
+    			var h3_nodes = children(h3);
+    			t3 = claim_text(h3_nodes, t3_value);
+    			h3_nodes.forEach(detach_dev);
+    			t4 = claim_space(div3_nodes);
+    			div0 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			claim_component(atom_1.$$.fragment, div0_nodes);
+    			div0_nodes.forEach(detach_dev);
+    			t5 = claim_space(div3_nodes);
+    			div1 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			t6 = claim_text(div1_nodes, "Lorem ipsum");
+    			div1_nodes.forEach(detach_dev);
+    			t7 = claim_space(div3_nodes);
+    			div2 = claim_element(div3_nodes, "DIV", { class: true });
+    			var div2_nodes = children(div2);
+    			button1 = claim_element(div2_nodes, "BUTTON", {});
+    			var button1_nodes = children(button1);
+    			t8 = claim_text(button1_nodes, "More");
+    			button1_nodes.forEach(detach_dev);
+    			div2_nodes.forEach(detach_dev);
+    			div3_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			attr_dev(svg, "class", svg_class_value = "pointer-" + /*direction*/ ctx[5] + " svelte-1folhot");
     			attr_dev(svg, "width", "30");
     			attr_dev(svg, "height", "30");
@@ -2358,6 +2532,7 @@ var app = (function () {
     			if (if_block2) if_block2.m(svg, null);
     			append_dev(div3, t0);
     			append_dev(div3, button0);
+    			append_dev(button0, t1);
     			append_dev(div3, t2);
     			append_dev(div3, h3);
     			append_dev(h3, t3);
@@ -2366,9 +2541,11 @@ var app = (function () {
     			mount_component(atom_1, div0, null);
     			append_dev(div3, t5);
     			append_dev(div3, div1);
+    			append_dev(div1, t6);
     			append_dev(div3, t7);
     			append_dev(div3, div2);
     			append_dev(div2, button1);
+    			append_dev(button1, t8);
     			/*div3_binding*/ ctx[15](div3);
     			current = true;
 
@@ -2484,9 +2661,11 @@ var app = (function () {
     function create_if_block$1(ctx) {
     	let div1;
     	let button;
+    	let t0;
     	let t1;
     	let t2;
     	let div0;
+    	let t3;
     	let div1_transition;
     	let current;
     	let dispose;
@@ -2503,12 +2682,32 @@ var app = (function () {
     		c: function create() {
     			div1 = element("div");
     			button = element("button");
-    			button.textContent = "x";
+    			t0 = text("x");
     			t1 = space();
     			create_component(element_1.$$.fragment);
     			t2 = space();
     			div0 = element("div");
-    			div0.textContent = "Lorem ipsum";
+    			t3 = text("Lorem ipsum");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div1 = claim_element(nodes, "DIV", { class: true });
+    			var div1_nodes = children(div1);
+    			button = claim_element(div1_nodes, "BUTTON", { class: true });
+    			var button_nodes = children(button);
+    			t0 = claim_text(button_nodes, "x");
+    			button_nodes.forEach(detach_dev);
+    			t1 = claim_space(div1_nodes);
+    			claim_component(element_1.$$.fragment, div1_nodes);
+    			t2 = claim_space(div1_nodes);
+    			div0 = claim_element(div1_nodes, "DIV", { class: true });
+    			var div0_nodes = children(div0);
+    			t3 = claim_text(div0_nodes, "Lorem ipsum");
+    			div0_nodes.forEach(detach_dev);
+    			div1_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			attr_dev(button, "class", "close svelte-1folhot");
     			add_location(button, file$3, 74, 2, 1657);
     			attr_dev(div0, "class", "detail-body py-4");
@@ -2519,10 +2718,12 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
     			append_dev(div1, button);
+    			append_dev(button, t0);
     			append_dev(div1, t1);
     			mount_component(element_1, div1, null);
     			append_dev(div1, t2);
     			append_dev(div1, div0);
+    			append_dev(div0, t3);
     			/*div1_binding*/ ctx[14](div1);
     			current = true;
 
@@ -2592,6 +2793,30 @@ var app = (function () {
     		c: function create() {
     			g = svg_element("g");
     			rect = svg_element("rect");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			g = claim_element(nodes, "g", { transform: true }, 1);
+    			var g_nodes = children(g);
+
+    			rect = claim_element(
+    				g_nodes,
+    				"rect",
+    				{
+    					width: true,
+    					height: true,
+    					fill: true,
+    					stroke: true,
+    					"stroke-dasharray": true
+    				},
+    				1
+    			);
+
+    			children(rect).forEach(detach_dev);
+    			g_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			attr_dev(rect, "width", "15");
     			attr_dev(rect, "height", "15");
     			attr_dev(rect, "fill", "white");
@@ -2630,6 +2855,30 @@ var app = (function () {
     		c: function create() {
     			g = svg_element("g");
     			rect = svg_element("rect");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			g = claim_element(nodes, "g", { transform: true }, 1);
+    			var g_nodes = children(g);
+
+    			rect = claim_element(
+    				g_nodes,
+    				"rect",
+    				{
+    					width: true,
+    					height: true,
+    					fill: true,
+    					stroke: true,
+    					"stroke-dasharray": true
+    				},
+    				1
+    			);
+
+    			children(rect).forEach(detach_dev);
+    			g_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			attr_dev(rect, "width", "15");
     			attr_dev(rect, "height", "15");
     			attr_dev(rect, "fill", "white");
@@ -2668,6 +2917,30 @@ var app = (function () {
     		c: function create() {
     			g = svg_element("g");
     			rect = svg_element("rect");
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			g = claim_element(nodes, "g", { transform: true }, 1);
+    			var g_nodes = children(g);
+
+    			rect = claim_element(
+    				g_nodes,
+    				"rect",
+    				{
+    					width: true,
+    					height: true,
+    					fill: true,
+    					stroke: true,
+    					"stroke-dasharray": true
+    				},
+    				1
+    			);
+
+    			children(rect).forEach(detach_dev);
+    			g_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			attr_dev(rect, "width", "15");
     			attr_dev(rect, "height", "15");
     			attr_dev(rect, "fill", "white");
@@ -2719,7 +2992,8 @@ var app = (function () {
     			if_block_anchor = empty();
     		},
     		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    			if_block.l(nodes);
+    			if_block_anchor = empty();
     		},
     		m: function mount(target, anchor) {
     			if_blocks[current_block_type_index].m(target, anchor);
@@ -3076,6 +3350,9 @@ var app = (function () {
     		c: function create() {
     			create_component(elementdetail.$$.fragment);
     		},
+    		l: function claim(nodes) {
+    			claim_component(elementdetail.$$.fragment, nodes);
+    		},
     		m: function mount(target, anchor) {
     			mount_component(elementdetail, target, anchor);
     			current = true;
@@ -3134,6 +3411,13 @@ var app = (function () {
     		c: function create() {
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].l(nodes);
     			}
 
     			each_1_anchor = empty();
@@ -3216,6 +3500,14 @@ var app = (function () {
     		c: function create() {
     			first = empty();
     			create_component(element_1.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			first = empty();
+    			claim_component(element_1.$$.fragment, nodes);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			this.first = first;
     		},
     		m: function mount(target, anchor) {
@@ -3271,6 +3563,10 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			if (if_block) if_block.l(nodes);
     			if_block_anchor = empty();
     		},
     		m: function mount(target, anchor) {
@@ -3352,11 +3648,24 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div, "class", "svelte-z58mtu");
-    			add_location(div, file$4, 35, 0, 983);
+    			this.h();
     		},
     		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    			if (if_block) if_block.l(nodes);
+    			t = claim_space(nodes);
+    			div = claim_element(nodes, "DIV", { class: true });
+    			var div_nodes = children(div);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].l(div_nodes);
+    			}
+
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(div, "class", "svelte-z58mtu");
+    			add_location(div, file$4, 35, 0, 983);
     		},
     		m: function mount(target, anchor) {
     			if (if_block) if_block.m(target, anchor);
@@ -3633,7 +3942,7 @@ var app = (function () {
 
     var chemElements = createCommonjsModule(function (module, exports) {
     !function(o,s){module.exports=s();}("undefined"!=typeof self?self:commonjsGlobal,(function(){return function(o){var s={};function m(l){if(s[l])return s[l].exports;var a=s[l]={i:l,l:!1,exports:{}};return o[l].call(a.exports,a,a.exports,m),a.l=!0,a.exports}return m.m=o,m.c=s,m.d=function(o,s,l){m.o(o,s)||Object.defineProperty(o,s,{enumerable:!0,get:l});},m.r=function(o){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(o,"__esModule",{value:!0});},m.t=function(o,s){if(1&s&&(o=m(o)),8&s)return o;if(4&s&&"object"==typeof o&&o&&o.__esModule)return o;var l=Object.create(null);if(m.r(l),Object.defineProperty(l,"default",{enumerable:!0,value:o}),2&s&&"string"!=typeof o)for(var a in o)m.d(l,a,function(s){return o[s]}.bind(null,a));return l},m.n=function(o){var s=o&&o.__esModule?function(){return o.default}:function(){return o};return m.d(s,"a",s),s},m.o=function(o,s){return Object.prototype.hasOwnProperty.call(o,s)},m.p="",m(m.s=1)}([function(o,s,m){Object.defineProperty(s,"__esModule",{value:!0}),s.ChemElementData=[{id:0,symbol:"Q",RCow:.77,RVdW:0,maxBonds:0,mass:0,name:"Dummy",posX:1,posY:7,color:"#FFFFFF",color2:"#808080"},{id:1,symbol:"H",RCow:.37,RVdW:1.2,maxBonds:1,mass:1.00794,name:"Hydrogen",posX:1,posY:1,color:"#FFFFFF",color2:"#808080"},{id:1,symbol:"D",RCow:.37,RVdW:1.2,maxBonds:1,mass:2,name:"Diyterium",posX:1,posY:8,color:"#FFFFFF",color2:"#808080"},{id:2,symbol:"He",RCow:.32,RVdW:1.4,maxBonds:0,mass:4.002602,name:"Helium",posX:1,posY:18,color:"#D9FFFF",color2:"#849B9B"},{id:3,symbol:"Li",RCow:1.34,RVdW:2.2,maxBonds:1,mass:6.941,name:"Lithium",posX:2,posY:1,color:"#CC80FF",color2:"#C87EFA"},{id:4,symbol:"Be",RCow:.9,RVdW:1.9,maxBonds:2,mass:9.012182,name:"Beryllium",posX:2,posY:2,color:"#C2FF00",color2:"#82AB00"},{id:5,symbol:"B",RCow:.82,RVdW:1.8,maxBonds:3,mass:10.811,name:"Boron",posX:2,posY:13,color:"#FFB5B5",color2:"#F090A0"},{id:6,symbol:"C",RCow:.77,RVdW:1.7,maxBonds:4,mass:12.0107,name:"Carbon",posX:2,posY:14,color:"#909090",color2:"#000000"},{id:7,symbol:"N",RCow:.75,RVdW:1.6,maxBonds:4,mass:14.0067,name:"Nitrogen",posX:2,posY:15,color:"#3050F8",color2:"#304FF7"},{id:8,symbol:"O",RCow:.73,RVdW:1.55,maxBonds:2,mass:15.9994,name:"Oxygen",posX:2,posY:16,color:"#FF0D0D",color2:"#FF0D0D"},{id:9,symbol:"F",RCow:.71,RVdW:1.5,maxBonds:1,mass:18.9984032,name:"Fluorine",posX:2,posY:17,color:"#90E050",color2:"#228B22"},{id:10,symbol:"Ne",RCow:.69,RVdW:1.54,maxBonds:0,mass:20.1797,name:"Neon",posX:2,posY:18,color:"#B3E3F5",color2:"#7B9CA8"},{id:11,symbol:"Na",RCow:1.54,RVdW:2.4,maxBonds:1,mass:22.98977,name:"Sodium",posX:3,posY:1,color:"#AB5CF2",color2:"#AB5CF2"},{id:12,symbol:"Mg",RCow:1.3,RVdW:2.2,maxBonds:2,mass:24.305,name:"Magnesium",posX:3,posY:2,color:"#8AFF00",color2:"#61B400"},{id:13,symbol:"Al",RCow:1.18,RVdW:2.1,maxBonds:6,mass:26.981538,name:"Aluminium",posX:3,posY:13,color:"#BFA6A6",color2:"#A79191"},{id:14,symbol:"Si",RCow:1.11,RVdW:2.1,maxBonds:6,mass:28.0855,name:"Silicon",posX:3,posY:14,color:"#F0C8A0",color2:"#B09276"},{id:15,symbol:"P",RCow:1.06,RVdW:1.95,maxBonds:5,mass:30.973761,name:"Phosphorus",posX:3,posY:15,color:"#FF8000",color2:"#FF8000"},{id:16,symbol:"S",RCow:1.02,RVdW:1.8,maxBonds:6,mass:32.065,name:"Sulfur",posX:3,posY:16,color:"#FFFF30",color2:"#FFC832"},{id:17,symbol:"Cl",RCow:.99,RVdW:1.8,maxBonds:1,mass:35.453,name:"Chlorine",posX:3,posY:17,color:"#1FF01F",color2:"#1DC51D"},{id:18,symbol:"Ar",RCow:.97,RVdW:1.88,maxBonds:0,mass:39.948,name:"Argon",posX:3,posY:18,color:"#80D1E3",color2:"#63A2B0"},{id:19,symbol:"K",RCow:1.96,RVdW:2.8,maxBonds:1,mass:39.0983,name:"Potassium",posX:4,posY:1,color:"#8F40D4",color2:"#8F40D4"},{id:20,symbol:"Ca",RCow:1.74,RVdW:2.4,maxBonds:2,mass:40.078,name:"Calcium",posX:4,posY:2,color:"#3DFF00",color2:"#2FC300"},{id:21,symbol:"Sc",RCow:1.44,RVdW:2.3,maxBonds:6,mass:44.95591,name:"Scandium",posX:4,posY:3,color:"#E6E6E6",color2:"#969696"},{id:22,symbol:"Ti",RCow:1.36,RVdW:2.15,maxBonds:6,mass:47.867,name:"Titanium",posX:4,posY:4,color:"#BFC2C7",color2:"#94969A"},{id:23,symbol:"V",RCow:1.25,RVdW:2.05,maxBonds:6,mass:50.9415,name:"Vanadium",posX:4,posY:5,color:"#A6A6AB",color2:"#96969A"},{id:24,symbol:"Cr",RCow:1.27,RVdW:2.05,maxBonds:6,mass:51.9961,name:"Chromium",posX:4,posY:6,color:"#8A99C7",color2:"#8796C3"},{id:25,symbol:"Mn",RCow:1.39,RVdW:2.05,maxBonds:8,mass:54.938049,name:"Manganese",posX:4,posY:7,color:"#9C7AC7",color2:"#9C7AC7"},{id:26,symbol:"Fe",RCow:1.25,RVdW:2.05,maxBonds:6,mass:55.845,name:"Iron",posX:4,posY:8,color:"#E06633",color2:"#E06633"},{id:27,symbol:"Co",RCow:1.26,RVdW:2,maxBonds:6,mass:58.9332,name:"Cobalt",posX:4,posY:9,color:"#F090A0",color2:"#DB8293"},{id:28,symbol:"Ni",RCow:1.21,RVdW:2,maxBonds:6,mass:58.6934,name:"Nickel",posX:4,posY:10,color:"#50D050",color2:"#45B645"},{id:29,symbol:"Cu",RCow:1.38,RVdW:2,maxBonds:6,mass:63.546,name:"Copper",posX:4,posY:11,color:"#C88033",color2:"#C78033"},{id:30,symbol:"Zn",RCow:1.31,RVdW:2.1,maxBonds:6,mass:65.409,name:"Zinc",posX:4,posY:12,color:"#7D80B0",color2:"#7D80B0"},{id:31,symbol:"Ga",RCow:1.26,RVdW:2.1,maxBonds:3,mass:69.723,name:"Gallium",posX:4,posY:13,color:"#C28F8F",color2:"#BD8C8C"},{id:32,symbol:"Ge",RCow:1.22,RVdW:2.1,maxBonds:4,mass:72.64,name:"Germanium",posX:4,posY:14,color:"#668F8F",color2:"#668F8F"},{id:33,symbol:"As",RCow:1.19,RVdW:2.05,maxBonds:3,mass:74.9216,name:"Arsenic",posX:4,posY:15,color:"#BD80E3",color2:"#BD80E3"},{id:34,symbol:"Se",RCow:1.16,RVdW:1.9,maxBonds:2,mass:78.96,name:"Selenium",posX:4,posY:16,color:"#FFA100",color2:"#E28F00"},{id:35,symbol:"Br",RCow:1.14,RVdW:1.9,maxBonds:1,mass:79.904,name:"Bromine",posX:4,posY:17,color:"#A62929",color2:"#A62929"},{id:36,symbol:"Kr",RCow:1.1,RVdW:2.02,maxBonds:0,mass:83.798,name:"Krypton",posX:4,posY:18,color:"#5CB8D1",color2:"#53A6BC"},{id:37,symbol:"Rb",RCow:2.11,RVdW:2.9,maxBonds:1,mass:85.4678,name:"Rubidium",posX:5,posY:1,color:"#702EB0",color2:"#702EB0"},{id:38,symbol:"Sr",RCow:1.92,RVdW:2.55,maxBonds:2,mass:87.62,name:"Strontium",posX:5,posY:2,color:"#00FF00",color2:"#00D000"},{id:39,symbol:"Y",RCow:1.62,RVdW:2.4,maxBonds:6,mass:88.90585,name:"Yttrium",posX:5,posY:3,color:"#94FFFF",color2:"#5FA4A4"},{id:40,symbol:"Zr",RCow:1.48,RVdW:2.3,maxBonds:6,mass:91.224,name:"Zirconium",posX:5,posY:4,color:"#94E0E0",color2:"#6BA2A2"},{id:41,symbol:"Nb",RCow:1.37,RVdW:2.15,maxBonds:6,mass:92.90638,name:"Niobium",posX:5,posY:5,color:"#73C2C9",color2:"#61A4A9"},{id:42,symbol:"Mo",RCow:1.45,RVdW:2.1,maxBonds:6,mass:95.94,name:"Molybdenum",posX:5,posY:6,color:"#54B5B5",color2:"#4EA9A9"},{id:43,symbol:"Tc",RCow:1.56,RVdW:2.05,maxBonds:6,mass:98,name:"Technetium",posX:5,posY:7,color:"#3B9E9E",color2:"#4EA9A9"},{id:44,symbol:"Ru",RCow:1.26,RVdW:2.05,maxBonds:6,mass:101.07,name:"Ruthenium",posX:5,posY:8,color:"#248F8F",color2:"#248F8F"},{id:45,symbol:"Rh",RCow:1.35,RVdW:2,maxBonds:6,mass:102.9055,name:"Rhodium",posX:5,posY:9,color:"#0A7D8C",color2:"#0A7D8C"},{id:46,symbol:"Pd",RCow:1.31,RVdW:2.05,maxBonds:6,mass:106.42,name:"Palladium",posX:5,posY:10,color:"#006985",color2:"#006985"},{id:47,symbol:"Ag",RCow:1.53,RVdW:2.1,maxBonds:6,mass:107.8682,name:"Silver",posX:5,posY:11,color:"#C0C0C0",color2:"#969696"},{id:48,symbol:"Cd",RCow:1.48,RVdW:2.2,maxBonds:6,mass:112.411,name:"Cadmium",posX:5,posY:12,color:"#FFD98F",color2:"#AE9462"},{id:49,symbol:"In",RCow:1.44,RVdW:2.2,maxBonds:3,mass:114.818,name:"Indium",posX:5,posY:13,color:"#A67573",color2:"#A67573"},{id:50,symbol:"Sn",RCow:1.41,RVdW:2.25,maxBonds:4,mass:118.71,name:"Tin",posX:5,posY:14,color:"#668080",color2:"#668080"},{id:51,symbol:"Sb",RCow:1.38,RVdW:2.2,maxBonds:3,mass:121.76,name:"Antimony",posX:5,posY:15,color:"#9E63B5",color2:"#9E63B5"},{id:52,symbol:"Te",RCow:1.35,RVdW:2.1,maxBonds:2,mass:127.6,name:"Tellurium",posX:5,posY:16,color:"#D47A00",color2:"#D47A00"},{id:53,symbol:"I",RCow:1.33,RVdW:2.1,maxBonds:1,mass:126.90447,name:"Iodine",posX:5,posY:17,color:"#940094",color2:"#940094"},{id:54,symbol:"Xe",RCow:1.3,RVdW:2.16,maxBonds:0,mass:131.293,name:"Xenon",posX:5,posY:18,color:"#429EB0",color2:"#429EB0"},{id:55,symbol:"Cs",RCow:2.25,RVdW:3,maxBonds:1,mass:132.90545,name:"Cesium",posX:6,posY:1,color:"#57178F",color2:"#57178F"},{id:56,symbol:"Ba",RCow:1.98,RVdW:2.7,maxBonds:2,mass:137.327,name:"Barium",posX:6,posY:2,color:"#00C900",color2:"#00C900"},{id:57,symbol:"La",RCow:1.69,RVdW:2.5,maxBonds:12,mass:138.9055,name:"Lanthanum",posX:9,posY:3,color:"#70D4FF",color2:"#57A4C5"},{id:58,symbol:"Ce",RCow:1.6,RVdW:2.48,maxBonds:6,mass:140.116,name:"Cerium",posX:9,posY:4,color:"#FFFFC7",color2:"#989877"},{id:59,symbol:"Pr",RCow:1.6,RVdW:2.47,maxBonds:6,mass:140.90765,name:"Praseodymium",posX:9,posY:5,color:"#D9FFC7",color2:"#869D7B"},{id:60,symbol:"Nd",RCow:1.6,RVdW:2.45,maxBonds:6,mass:144.24,name:"Neodymium",posX:9,posY:6,color:"#C7FFC7",color2:"#7DA07D"},{id:61,symbol:"Pm",RCow:1.6,RVdW:2.43,maxBonds:6,mass:145,name:"Promethium",posX:9,posY:7,color:"#A3FFC7",color2:"#69A581"},{id:62,symbol:"Sm",RCow:1.6,RVdW:2.42,maxBonds:6,mass:150.36,name:"Samarium",posX:9,posY:8,color:"#8FFFC7",color2:"#5EA883"},{id:63,symbol:"Eu",RCow:1.6,RVdW:2.4,maxBonds:6,mass:151.964,name:"Europium",posX:9,posY:9,color:"#61FFC7",color2:"#43B089"},{id:64,symbol:"Gd",RCow:1.6,RVdW:2.38,maxBonds:6,mass:157.25,name:"Gadolinium",posX:9,posY:10,color:"#45FFC7",color2:"#31B48D"},{id:65,symbol:"Tb",RCow:1.6,RVdW:2.37,maxBonds:6,mass:158.92534,name:"Terbium",posX:9,posY:11,color:"#30FFC7",color2:"#23B890"},{id:66,symbol:"Dy",RCow:1.6,RVdW:2.35,maxBonds:6,mass:162.5,name:"Dysprosium",posX:9,posY:12,color:"#1FFFC7",color2:"#17BB92"},{id:67,symbol:"Ho",RCow:1.6,RVdW:2.33,maxBonds:6,mass:164.93032,name:"Holmium",posX:9,posY:13,color:"#00FF9C",color2:"#00C578"},{id:68,symbol:"Er",RCow:1.6,RVdW:2.32,maxBonds:6,mass:167.259,name:"Erbium",posX:9,posY:14,color:"#00E675",color2:"#00C765"},{id:69,symbol:"Tm",RCow:1.6,RVdW:2.3,maxBonds:6,mass:168.93421,name:"Thulium",posX:9,posY:15,color:"#00D452",color2:"#00C94E"},{id:70,symbol:"Yb",RCow:1.6,RVdW:2.28,maxBonds:6,mass:173.04,name:"Ytterbium",posX:9,posY:16,color:"#00BF38",color2:"#00BF38"},{id:71,symbol:"Lu",RCow:1.6,RVdW:2.27,maxBonds:6,mass:174.967,name:"Lutetium",posX:9,posY:17,color:"#00AB24",color2:"#00AB24"},{id:72,symbol:"Hf",RCow:1.5,RVdW:2.25,maxBonds:6,mass:178.49,name:"Hafnium",posX:6,posY:4,color:"#4DC2FF",color2:"#42A8DC"},{id:73,symbol:"Ta",RCow:1.38,RVdW:2.2,maxBonds:6,mass:180.9479,name:"Tantalum",posX:6,posY:5,color:"#4DA6FF",color2:"#4BA2F9"},{id:74,symbol:"W",RCow:1.46,RVdW:2.1,maxBonds:6,mass:183.84,name:"Tungsten",posX:6,posY:6,color:"#2194D6",color2:"#2194D6"},{id:75,symbol:"Re",RCow:1.59,RVdW:2.05,maxBonds:6,mass:186.207,name:"Rhenium",posX:6,posY:7,color:"#267DAB",color2:"#267DAB"},{id:76,symbol:"Os",RCow:1.28,RVdW:2,maxBonds:6,mass:190.23,name:"Osmium",posX:6,posY:8,color:"#266696",color2:"#266696"},{id:77,symbol:"Ir",RCow:1.37,RVdW:2,maxBonds:6,mass:192.217,name:"Iridium",posX:6,posY:9,color:"#175487",color2:"#175487"},{id:78,symbol:"Pt",RCow:1.28,RVdW:2.05,maxBonds:6,mass:195.078,name:"Platinum",posX:6,posY:10,color:"#D0D0E0",color2:"#9595A0"},{id:79,symbol:"Au",RCow:1.44,RVdW:2.1,maxBonds:6,mass:196.96655,name:"Gold",posX:6,posY:11,color:"#FFD123",color2:"#B9981A"},{id:80,symbol:"Hg",RCow:1.49,RVdW:2.05,maxBonds:6,mass:200.59,name:"Mercury",posX:6,posY:12,color:"#B8B8D0",color2:"#9595A9"},{id:81,symbol:"Tl",RCow:1.48,RVdW:2.2,maxBonds:3,mass:204.3833,name:"Thallium",posX:6,posY:13,color:"#A6544D",color2:"#A6544D"},{id:82,symbol:"Pb",RCow:1.47,RVdW:2.3,maxBonds:4,mass:207.2,name:"Lead",posX:6,posY:14,color:"#575961",color2:"#575961"},{id:83,symbol:"Bi",RCow:1.46,RVdW:2.3,maxBonds:3,mass:208.98038,name:"Bismuth",posX:6,posY:15,color:"#9E4FB5",color2:"#9E4FB5"},{id:84,symbol:"Po",RCow:1.6,RVdW:2,maxBonds:2,mass:209,name:"Polonium",posX:6,posY:16,color:"#AB5C00",color2:"#AB5C00"},{id:85,symbol:"At",RCow:1.6,RVdW:2,maxBonds:1,mass:210,name:"Astatine",posX:6,posY:17,color:"#754F45",color2:"#754F45"},{id:86,symbol:"Rn",RCow:1.45,RVdW:2,maxBonds:0,mass:222,name:"Radon",posX:6,posY:18,color:"#428296",color2:"#428296"},{id:87,symbol:"Fr",RCow:1.6,RVdW:2,maxBonds:1,mass:223,name:"Francium",posX:7,posY:1,color:"#420066",color2:"#420066"},{id:88,symbol:"Ra",RCow:1.6,RVdW:2,maxBonds:2,mass:226,name:"Radium",posX:7,posY:2,color:"#007D00",color2:"#007D00"},{id:89,symbol:"Ac",RCow:1.6,RVdW:2,maxBonds:6,mass:227,name:"Actinium",posX:10,posY:3,color:"#70ABFA",color2:"#669CE4"},{id:90,symbol:"Th",RCow:1.6,RVdW:2.4,maxBonds:6,mass:232.0381,name:"Thorium",posX:10,posY:4,color:"#00BAFF",color2:"#00B8FC"},{id:91,symbol:"Pa",RCow:1.6,RVdW:2,maxBonds:6,mass:231.03588,name:"Protactinium",posX:10,posY:5,color:"#00A1FF",color2:"#00A1FF"},{id:92,symbol:"U",RCow:1.6,RVdW:2.3,maxBonds:6,mass:238.02891,name:"Uranium",posX:10,posY:6,color:"#008FFF",color2:"#008FFF"},{id:93,symbol:"Np",RCow:1.6,RVdW:2,maxBonds:6,mass:237,name:"Neptunium",posX:10,posY:7,color:"#0080FF",color2:"#0080FF"},{id:94,symbol:"Pu",RCow:1.6,RVdW:2,maxBonds:6,mass:244,name:"Plutonium",posX:10,posY:8,color:"#006BFF",color2:"#006BFF"},{id:95,symbol:"Am",RCow:1.6,RVdW:2,maxBonds:6,mass:243,name:"Americium",posX:10,posY:9,color:"#545CF2",color2:"#545CF2"},{id:96,symbol:"Cm",RCow:1.6,RVdW:2,maxBonds:6,mass:247,name:"Curium",posX:10,posY:10,color:"#785CE3",color2:"#785CE3"},{id:97,symbol:"Bk",RCow:1.6,RVdW:2,maxBonds:6,mass:247,name:"Berkelium",posX:10,posY:11,color:"#8A4FE3",color2:"#8A4FE3"},{id:98,symbol:"Cf",RCow:1.6,RVdW:2,maxBonds:6,mass:251,name:"Californium",posX:10,posY:12,color:"#A136D4",color2:"#A136D4"},{id:99,symbol:"Es",RCow:1.6,RVdW:2,maxBonds:6,mass:252,name:"Einsteinium",posX:10,posY:13,color:"#B31FD4",color2:"#B31FD4"},{id:100,symbol:"Fm",RCow:1.6,RVdW:2,maxBonds:6,mass:257,name:"Fermium",posX:10,posY:14,color:"#B31FBA",color2:"#B31FBA"},{id:101,symbol:"Md",RCow:1.6,RVdW:2,maxBonds:6,mass:258,name:"Mendelevium",posX:10,posY:15,color:"#B30DA6",color2:"#B30DA6"},{id:102,symbol:"No",RCow:1.6,RVdW:2,maxBonds:6,mass:259,name:"Nobelium",posX:10,posY:16,color:"#BD0D87",color2:"#BD0D87"},{id:103,symbol:"Lr",RCow:1.6,RVdW:2,maxBonds:6,mass:262,name:"Lawrencium",posX:10,posY:17,color:"#C70066",color2:"#C70066"},{id:104,symbol:"Rf",RCow:1.6,RVdW:2,maxBonds:6,mass:261,name:"Rutherfordium",posX:7,posY:4,color:"#CC0059",color2:"#42A8DC"},{id:105,symbol:"Db",RCow:1.6,RVdW:2,maxBonds:6,mass:262,name:"Dubnium",posX:7,posY:5,color:"#D1004F",color2:"#4BA2F9"},{id:106,symbol:"Sg",RCow:1.6,RVdW:2,maxBonds:6,mass:266,name:"Seaborgium",posX:7,posY:6,color:"#D90045",color2:"#2194D6"},{id:107,symbol:"Bh",RCow:1.6,RVdW:2,maxBonds:6,mass:264,name:"Bohrium",posX:7,posY:7,color:"#E00038",color2:"#267DAB"},{id:108,symbol:"Hs",RCow:1.6,RVdW:2,maxBonds:6,mass:277,name:"Hassium",posX:7,posY:8,color:"#E6002E",color2:"#266696"},{id:109,symbol:"Mt",RCow:1.6,RVdW:2,maxBonds:6,mass:268,name:"Meitnerium",posX:7,posY:9,color:"#EB0026",color2:"#175487"},{id:110,symbol:"Ds",RCow:1.6,RVdW:2,maxBonds:6,mass:281,name:"Darmstadtium",posX:7,posY:10,color:"#FF1493",color2:"#9595A0"},{id:111,symbol:"Rg",RCow:1.6,RVdW:2,maxBonds:6,mass:272,name:"Roentgenium",posX:7,posY:11,color:"#FF1494",color2:"#B9981A"},{id:112,symbol:"Cn",RCow:1.6,RVdW:2,maxBonds:6,mass:277,name:"Copernicium",posX:7,posY:12,color:"#FF1495",color2:"#9595A9"}];},function(o,s,m){function l(o){for(var m in o)s.hasOwnProperty(m)||(s[m]=o[m]);}Object.defineProperty(s,"__esModule",{value:!0}),l(m(2)),l(m(0));},function(o,s,m){Object.defineProperty(s,"__esModule",{value:!0});var l=m(0),a=function(){function o(){}return o.getById=function(o){for(var s=0,m=l.ChemElementData;s<m.length;s++){var a=m[s];if(a.id===o)return a}return null},o.getBySymbol=function(o){for(var s=(o||"").replace(/[^a-z]/gim,"").toLowerCase(),m=s.charAt(0).toUpperCase()+s.slice(1),a=0,n=l.ChemElementData;a<n.length;a++){var d=n[a];if(d.symbol===m)return d}return null},o.getAll=function(){return l.ChemElementData.filter((function(o){return "Q"!==o.symbol&&"D"!==o.symbol}))},o.getAllSymbols=function(){return o.getAll().map((function(o){return o.symbol}))},o}();s.ChemElements=a;}])}));
-    //# sourceMappingURL=chem-elements.js.map
+
     });
 
     var Elements = unwrapExports(chemElements);
@@ -3726,6 +4035,9 @@ var app = (function () {
     		c: function create() {
     			t = text(t_value);
     		},
+    		l: function claim(nodes) {
+    			t = claim_text(nodes, t_value);
+    		},
     		m: function mount(target, anchor) {
     			insert_dev(target, t, anchor);
     		},
@@ -3757,6 +4069,17 @@ var app = (function () {
     			div = element("div");
     			if (if_block) if_block.c();
     			t = space();
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			div = claim_element(nodes, "DIV", { class: true });
+    			var div_nodes = children(div);
+    			if (if_block) if_block.l(div_nodes);
+    			t = claim_space(div_nodes);
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			attr_dev(div, "class", "grid-cell svelte-1n44z7j");
     			toggle_class(div, "title-row", /*cell*/ ctx[3].titleRow);
     			toggle_class(div, "title-column", /*cell*/ ctx[3].titleColumn);
@@ -3810,6 +4133,13 @@ var app = (function () {
     		c: function create() {
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].l(nodes);
     			}
 
     			each_1_anchor = empty();
@@ -3881,11 +4211,22 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div, "class", "grid-container svelte-1n44z7j");
-    			add_location(div, file$5, 7, 0, 104);
+    			this.h();
     		},
     		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    			div = claim_element(nodes, "DIV", { class: true });
+    			var div_nodes = children(div);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].l(div_nodes);
+    			}
+
+    			div_nodes.forEach(detach_dev);
+    			this.h();
+    		},
+    		h: function hydrate() {
+    			attr_dev(div, "class", "grid-container svelte-1n44z7j");
+    			add_location(div, file$5, 7, 0, 104);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -3964,6 +4305,7 @@ var app = (function () {
     	let main;
     	let header;
     	let h1;
+    	let t0;
     	let t1;
     	let t2;
     	let t3;
@@ -3996,7 +4338,7 @@ var app = (function () {
     			main = element("main");
     			header = element("header");
     			h1 = element("h1");
-    			h1.textContent = "Periodic Table";
+    			t0 = text("Periodic Table");
     			t1 = space();
     			create_component(filters_1.$$.fragment);
     			t2 = space();
@@ -4005,6 +4347,30 @@ var app = (function () {
     			create_component(grid.$$.fragment);
     			t4 = space();
     			create_component(tailwindcss.$$.fragment);
+    			this.h();
+    		},
+    		l: function claim(nodes) {
+    			main = claim_element(nodes, "MAIN", { class: true });
+    			var main_nodes = children(main);
+    			header = claim_element(main_nodes, "HEADER", { class: true });
+    			var header_nodes = children(header);
+    			h1 = claim_element(header_nodes, "H1", { class: true });
+    			var h1_nodes = children(h1);
+    			t0 = claim_text(h1_nodes, "Periodic Table");
+    			h1_nodes.forEach(detach_dev);
+    			t1 = claim_space(header_nodes);
+    			claim_component(filters_1.$$.fragment, header_nodes);
+    			header_nodes.forEach(detach_dev);
+    			t2 = claim_space(main_nodes);
+    			claim_component(table.$$.fragment, main_nodes);
+    			t3 = claim_space(main_nodes);
+    			claim_component(grid.$$.fragment, main_nodes);
+    			main_nodes.forEach(detach_dev);
+    			t4 = claim_space(nodes);
+    			claim_component(tailwindcss.$$.fragment, nodes);
+    			this.h();
+    		},
+    		h: function hydrate() {
     			attr_dev(h1, "class", "svelte-pdnuqd");
     			add_location(h1, file$6, 37, 4, 685);
     			attr_dev(header, "class", "svelte-pdnuqd");
@@ -4012,13 +4378,11 @@ var app = (function () {
     			attr_dev(main, "class", "table-container svelte-pdnuqd");
     			add_location(main, file$6, 35, 0, 639);
     		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
     			append_dev(main, header);
     			append_dev(header, h1);
+    			append_dev(h1, t0);
     			append_dev(header, t1);
     			mount_component(filters_1, header, null);
     			append_dev(main, t2);
@@ -4149,7 +4513,7 @@ var app = (function () {
 
     const app = new App({
       target: document.querySelector('.pt-container'),
-
+      hydrate: true
     });
 
     return app;
