@@ -1,24 +1,4158 @@
-var app=function(){"use strict";function e(){}const o=e=>e;function t(e,o){for(const t in o)e[t]=o[t];return e}function n(e){return e()}function s(){return Object.create(null)}function r(e){e.forEach(n)}function a(e){return"function"==typeof e}function l(e,o){return e!=e?o==o:e!==o||e&&"object"==typeof e||"function"==typeof e}function i(e){return null==e?"":e}const c="undefined"!=typeof window;let d=c?()=>window.performance.now():()=>Date.now(),m=c?e=>requestAnimationFrame(e):e;const u=new Set;function f(e){u.forEach(o=>{o.c(e)||(u.delete(o),o.f())}),0!==u.size&&m(f)}function p(e){let o;return 0===u.size&&m(f),{promise:new Promise(t=>{u.add(o={c:e,f:t})}),abort(){u.delete(o)}}}function h(e,o){e.appendChild(o)}function b(e,o,t){e.insertBefore(o,t||null)}function y(e){e.parentNode.removeChild(e)}function g(e,o){for(let t=0;t<e.length;t+=1)e[t]&&e[t].d(o)}function w(e){return document.createElement(e)}function C(e){return document.createElementNS("http://www.w3.org/2000/svg",e)}function R(e){return document.createTextNode(e)}function x(){return R(" ")}function v(){return R("")}function A(e,o,t,n){return e.addEventListener(o,t,n),()=>e.removeEventListener(o,t,n)}function B(e,o,t){null==t?e.removeAttribute(o):e.getAttribute(o)!==t&&e.setAttribute(o,t)}function F(e,o){o=""+o,e.data!==o&&(e.data=o)}function k(e,o,t,n){e.style.setProperty(o,t,n?"important":"")}function $(e,o,t){e.classList[t?"add":"remove"](o)}let W,V,X=0,Y={};function E(e,o,t,n,s,r,a,l=0){const i=16.666/n;let c="{\n";for(let e=0;e<=1;e+=i){const n=o+(t-o)*r(e);c+=100*e+`%{${a(n,1-n)}}\n`}const d=c+`100% {${a(t,1-t)}}\n}`,m=`__svelte_${function(e){let o=5381,t=e.length;for(;t--;)o=(o<<5)-o^e.charCodeAt(t);return o>>>0}(d)}_${l}`;if(!Y[m]){if(!W){const e=w("style");document.head.appendChild(e),W=e.sheet}Y[m]=!0,W.insertRule(`@keyframes ${m} ${d}`,W.cssRules.length)}const u=e.style.animation||"";return e.style.animation=`${u?`${u}, `:""}${m} ${n}ms linear ${s}ms 1 both`,X+=1,m}function S(e,o){e.style.animation=(e.style.animation||"").split(", ").filter(o?e=>e.indexOf(o)<0:e=>-1===e.indexOf("__svelte")).join(", "),o&&!--X&&m(()=>{if(X)return;let e=W.cssRules.length;for(;e--;)W.deleteRule(e);Y={}})}function D(e){V=e}function _(){if(!V)throw new Error("Function called outside component initialization");return V}function O(e){_().$$.on_mount.push(e)}function T(e){_().$$.after_update.push(e)}const M=[],N=[],P=[],L=[],I=Promise.resolve();let j=!1;function G(e){P.push(e)}let z=!1;const H=new Set;function q(){if(!z){z=!0;do{for(let e=0;e<M.length;e+=1){const o=M[e];D(o),K(o.$$)}for(M.length=0;N.length;)N.pop()();for(let e=0;e<P.length;e+=1){const o=P[e];H.has(o)||(H.add(o),o())}P.length=0}while(M.length);for(;L.length;)L.pop()();j=!1,z=!1,H.clear()}}function K(e){if(null!==e.fragment){e.update(),r(e.before_update);const o=e.dirty;e.dirty=[-1],e.fragment&&e.fragment.p(e.ctx,o),e.after_update.forEach(G)}}let Z;function U(){return Z||(Z=Promise.resolve(),Z.then(()=>{Z=null})),Z}function J(e,o,t){e.dispatchEvent(function(e,o){const t=document.createEvent("CustomEvent");return t.initCustomEvent(e,!1,!1,o),t}(`${o?"intro":"outro"}${t}`))}const Q=new Set;let ee;function oe(){ee={r:0,c:[],p:ee}}function te(){ee.r||r(ee.c),ee=ee.p}function ne(e,o){e&&e.i&&(Q.delete(e),e.i(o))}function se(e,o,t,n){if(e&&e.o){if(Q.has(e))return;Q.add(e),ee.c.push(()=>{Q.delete(e),n&&(t&&e.d(1),n())}),e.o(o)}}const re={duration:0};function ae(t,n,s){let r,l,i=n(t,s),c=!1,m=0;function u(){r&&S(t,r)}function f(){const{delay:n=0,duration:s=300,easing:a=o,tick:f=e,css:h}=i||re;h&&(r=E(t,0,1,s,n,a,h,m++)),f(0,1);const b=d()+n,y=b+s;l&&l.abort(),c=!0,G(()=>J(t,!0,"start")),l=p(e=>{if(c){if(e>=y)return f(1,0),J(t,!0,"end"),u(),c=!1;if(e>=b){const o=a((e-b)/s);f(o,1-o)}}return c})}let h=!1;return{start(){h||(S(t),a(i)?(i=i(),U().then(f)):f())},invalidate(){h=!1},end(){c&&(u(),c=!1)}}}function le(t,n,s,l){let i=n(t,s),c=l?0:1,m=null,u=null,f=null;function h(){f&&S(t,f)}function b(e,o){const t=e.b-c;return o*=Math.abs(t),{a:c,b:e.b,d:t,duration:o,start:e.start,end:e.start+o,group:e.group}}function y(n){const{delay:s=0,duration:a=300,easing:l=o,tick:y=e,css:g}=i||re,w={start:d()+s,b:n};n||(w.group=ee,ee.r+=1),m?u=w:(g&&(h(),f=E(t,c,n,a,s,l,g)),n&&y(0,1),m=b(w,a),G(()=>J(t,n,"start")),p(e=>{if(u&&e>u.start&&(m=b(u,a),u=null,J(t,m.b,"start"),g&&(h(),f=E(t,c,m.b,m.duration,0,l,i.css))),m)if(e>=m.end)y(c=m.b,1-c),J(t,m.b,"end"),u||(m.b?h():--m.group.r||r(m.group.c)),m=null;else if(e>=m.start){const o=e-m.start;c=m.a+m.d*l(o/m.duration),y(c,1-c)}return!(!m&&!u)}))}return{run(e){a(i)?U().then(()=>{i=i(),y(e)}):y(e)},end(){h(),m=u=null}}}function ie(e,o){se(e,1,1,()=>{o.delete(e.key)})}function ce(e,o){const t={},n={},s={$$scope:1};let r=e.length;for(;r--;){const a=e[r],l=o[r];if(l){for(const e in a)e in l||(n[e]=1);for(const e in l)s[e]||(t[e]=l[e],s[e]=1);e[r]=l}else for(const e in a)s[e]=1}for(const e in n)e in t||(t[e]=void 0);return t}function de(e){return"object"==typeof e&&null!==e?e:{}}function me(e){e&&e.c()}function ue(e,o,t){const{fragment:s,on_mount:l,on_destroy:i,after_update:c}=e.$$;s&&s.m(o,t),G(()=>{const o=l.map(n).filter(a);i?i.push(...o):r(o),e.$$.on_mount=[]}),c.forEach(G)}function fe(e,o){const t=e.$$;null!==t.fragment&&(r(t.on_destroy),t.fragment&&t.fragment.d(o),t.on_destroy=t.fragment=null,t.ctx=[])}function pe(e,o){-1===e.$$.dirty[0]&&(M.push(e),j||(j=!0,I.then(q)),e.$$.dirty.fill(0)),e.$$.dirty[o/31|0]|=1<<o%31}function he(o,t,n,a,l,i,c=[-1]){const d=V;D(o);const m=t.props||{},u=o.$$={fragment:null,ctx:null,props:i,update:e,not_equal:l,bound:s(),on_mount:[],on_destroy:[],before_update:[],after_update:[],context:new Map(d?d.$$.context:[]),callbacks:s(),dirty:c};let f=!1;u.ctx=n?n(o,m,(e,t,...n)=>{const s=n.length?n[0]:t;return u.ctx&&l(u.ctx[e],u.ctx[e]=s)&&(u.bound[e]&&u.bound[e](s),f&&pe(o,e)),t}):[],u.update(),f=!0,r(u.before_update),u.fragment=!!a&&a(u.ctx),t.target&&(t.hydrate?u.fragment&&u.fragment.l(function(e){return Array.from(e.childNodes)}(t.target)):u.fragment&&u.fragment.c(),t.intro&&ne(o.$$.fragment),ue(o,t.target,t.anchor),q()),D(d)}class be{$destroy(){fe(this,1),this.$destroy=e}$on(e,o){const t=this.$$.callbacks[e]||(this.$$.callbacks[e]=[]);return t.push(o),()=>{const e=t.indexOf(o);-1!==e&&t.splice(e,1)}}$set(){}}class ye extends be{constructor(e){super(),he(this,e,null,null,l,{})}}function ge(o){let t,n,s,a,l,i,c,d,m,u,f,p,g,C,v,F,k,$,W;return{c(){t=w("div"),n=w("label"),s=R("Alkali Metals\n    "),a=w("input"),l=x(),i=w("label"),c=R("Alkaline Earth Metals\n    "),d=w("input"),m=x(),u=w("label"),f=R("Transition Metals\n    "),p=w("input"),g=x(),C=w("label"),v=R("Noble Gases\n    "),F=w("input"),k=x(),$=w("button"),$.textContent="Clear Filters",B(a,"type","checkbox"),B(n,"class","svelte-5f1u4w"),B(d,"type","checkbox"),B(i,"class","svelte-5f1u4w"),B(p,"type","checkbox"),B(u,"class","svelte-5f1u4w"),B(F,"type","checkbox"),B(C,"class","svelte-5f1u4w"),B($,"class","svelte-5f1u4w"),B(t,"class","filters svelte-5f1u4w")},m(e,r){b(e,t,r),h(t,n),h(n,s),h(n,a),o[18](a),h(t,l),h(t,i),h(i,c),h(i,d),o[20](d),h(t,m),h(t,u),h(u,f),h(u,p),o[22](p),h(t,g),h(t,C),h(C,v),h(C,F),o[24](F),h(t,k),h(t,$),W=[A(a,"change",o[19]),A(d,"change",o[21]),A(p,"change",o[23]),A(F,"change",o[25]),A($,"click",o[26])]},p:e,i:e,o:e,d(e){e&&y(t),o[18](null),o[20](null),o[22](null),o[24](null),r(W)}}}function we(e,o,t){const n=[2,10,18,36,54,86],s=[3,11,19,37,55,87],r=[4,12,20,38,56,88],a=[21,22,23,24,25,26,27,28,29,30,39,40,41,42,43,44,45,46,47,48,72,73,74,75,76,77,78,79,80,104,105,106,107,108,109,110,111,112],l={ALKALI_METALS:s,EARTH_METALS:r,NOBLE_GASES:n,TRANSITION_METALS:a};let i=[];const c=e=>{if(!e)return u(),void m();i.includes(e)?i.splice(i.indexOf(e),1):i.push(e),m()},d=e=>{switch(e){case"ALKALI_METALS":c("ALKALI_METALS");break;case"EARTH_METALS":c("EARTH_METALS");break;case"NOBLE_GASES":c("NOBLE_GASES");break;case"TRANSITION_METALS":c("TRANSITION_METALS");break;default:c()}},m=()=>{const e=i.reduce((e,o)=>e.concat(l[o]),[]);if(e.length<1)return y(w);const o=JSON.parse(JSON.stringify(w)).map(o=>{if(o)return o.map(o=>(e.includes(o.id)?o.inactive=!1:o.inactive=!0,o)),o});y(o)},u=()=>{i=[],C.forEach(e=>e.checked=!1)};let f,p,h,b,{filterRows:y}=o,{filtered:g}=o,{allRows:w}=o,C=[];O(()=>{C=[f,p,h,b]});return e.$set=e=>{"filterRows"in e&&t(5,y=e.filterRows),"filtered"in e&&t(6,g=e.filtered),"allRows"in e&&t(7,w=e.allRows)},[f,p,h,b,d,y,g,w,i,C,n,s,r,a,l,c,m,u,function(e){N[e?"unshift":"push"](()=>{t(0,f=e)})},()=>d("ALKALI_METALS"),function(e){N[e?"unshift":"push"](()=>{t(1,p=e)})},()=>d("EARTH_METALS"),function(e){N[e?"unshift":"push"](()=>{t(2,h=e)})},()=>d("TRANSITION_METALS"),function(e){N[e?"unshift":"push"](()=>{t(3,b=e)})},()=>d("NOBLE_GASES"),()=>d()]}class Ce extends be{constructor(e){super(),he(this,e,we,ge,l,{filterRows:5,filtered:6,allRows:7})}}function Re(e){const o=e-1;return o*o*o+1}function xe(e,{delay:o=0,duration:t=400,easing:n=Re,x:s=0,y:r=0,opacity:a=0}){const l=getComputedStyle(e),i=+l.opacity,c="none"===l.transform?"":l.transform,d=i*(1-a);return{delay:o,duration:t,easing:n,css:(e,o)=>`\n\t\t\ttransform: ${c} translate(${(1-e)*s}px, ${(1-e)*r}px);\n\t\t\topacity: ${i-d*o}`}}"undefined"!=typeof globalThis?globalThis:"undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self&&self;function ve(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}function Ae(e,o){return e(o={exports:{}},o.exports),o.exports}var Be=ve(Ae((function(e,o){!function(e){var o=function(){function e(e){this.isSpeedy=void 0===e.speedy||e.speedy,this.tags=[],this.ctr=0,this.nonce=e.nonce,this.key=e.key,this.container=e.container,this.before=null}var o=e.prototype;return o.insert=function(e){if(this.ctr%(this.isSpeedy?65e3:1)==0){var o,t=function(e){var o=document.createElement("style");return o.setAttribute("data-emotion",e.key),void 0!==e.nonce&&o.setAttribute("nonce",e.nonce),o.appendChild(document.createTextNode("")),o}(this);o=0===this.tags.length?this.before:this.tags[this.tags.length-1].nextSibling,this.container.insertBefore(t,o),this.tags.push(t)}var n=this.tags[this.tags.length-1];if(this.isSpeedy){var s=function(e){if(e.sheet)return e.sheet;for(var o=0;o<document.styleSheets.length;o++)if(document.styleSheets[o].ownerNode===e)return document.styleSheets[o]}(n);try{var r=105===e.charCodeAt(1)&&64===e.charCodeAt(0);s.insertRule(e,r?0:s.cssRules.length)}catch(e){}}else n.appendChild(document.createTextNode(e));this.ctr++},o.flush=function(){this.tags.forEach((function(e){return e.parentNode.removeChild(e)})),this.tags=[],this.ctr=0},e}();function t(e){function o(e,o,n){var s=o.trim().split(p);o=s;var r=s.length,a=e.length;switch(a){case 0:case 1:var l=0;for(e=0===a?"":e[0]+" ";l<r;++l)o[l]=t(e,o[l],n).trim();break;default:var i=l=0;for(o=[];l<r;++l)for(var c=0;c<a;++c)o[i++]=t(e[c]+" ",s[l],n).trim()}return o}function t(e,o,t){var n=o.charCodeAt(0);switch(33>n&&(n=(o=o.trim()).charCodeAt(0)),n){case 38:return o.replace(h,"$1"+e.trim());case 58:return e.trim()+o.replace(h,"$1"+e.trim());default:if(0<1*t&&0<o.indexOf("\f"))return o.replace(h,(58===e.charCodeAt(0)?"":"$1")+e.trim())}return e+o}function n(e,o,t,r){var a=e+";",l=2*o+3*t+4*r;if(944===l){e=a.indexOf(":",9)+1;var i=a.substring(e,a.length-1).trim();return i=a.substring(0,e).trim()+i+";",1===W||2===W&&s(i,1)?"-webkit-"+i+i:i}if(0===W||2===W&&!s(a,1))return a;switch(l){case 1015:return 97===a.charCodeAt(10)?"-webkit-"+a+a:a;case 951:return 116===a.charCodeAt(3)?"-webkit-"+a+a:a;case 963:return 110===a.charCodeAt(5)?"-webkit-"+a+a:a;case 1009:if(100!==a.charCodeAt(4))break;case 969:case 942:return"-webkit-"+a+a;case 978:return"-webkit-"+a+"-moz-"+a+a;case 1019:case 983:return"-webkit-"+a+"-moz-"+a+"-ms-"+a+a;case 883:if(45===a.charCodeAt(8))return"-webkit-"+a+a;if(0<a.indexOf("image-set(",11))return a.replace(B,"$1-webkit-$2")+a;break;case 932:if(45===a.charCodeAt(4))switch(a.charCodeAt(5)){case 103:return"-webkit-box-"+a.replace("-grow","")+"-webkit-"+a+"-ms-"+a.replace("grow","positive")+a;case 115:return"-webkit-"+a+"-ms-"+a.replace("shrink","negative")+a;case 98:return"-webkit-"+a+"-ms-"+a.replace("basis","preferred-size")+a}return"-webkit-"+a+"-ms-"+a+a;case 964:return"-webkit-"+a+"-ms-flex-"+a+a;case 1023:if(99!==a.charCodeAt(8))break;return"-webkit-box-pack"+(i=a.substring(a.indexOf(":",15)).replace("flex-","").replace("space-between","justify"))+"-webkit-"+a+"-ms-flex-pack"+i+a;case 1005:return u.test(a)?a.replace(m,":-webkit-")+a.replace(m,":-moz-")+a:a;case 1e3:switch(o=(i=a.substring(13).trim()).indexOf("-")+1,i.charCodeAt(0)+i.charCodeAt(o)){case 226:i=a.replace(w,"tb");break;case 232:i=a.replace(w,"tb-rl");break;case 220:i=a.replace(w,"lr");break;default:return a}return"-webkit-"+a+"-ms-"+i+a;case 1017:if(-1===a.indexOf("sticky",9))break;case 975:switch(o=(a=e).length-10,l=(i=(33===a.charCodeAt(o)?a.substring(0,o):a).substring(e.indexOf(":",7)+1).trim()).charCodeAt(0)+(0|i.charCodeAt(7))){case 203:if(111>i.charCodeAt(8))break;case 115:a=a.replace(i,"-webkit-"+i)+";"+a;break;case 207:case 102:a=a.replace(i,"-webkit-"+(102<l?"inline-":"")+"box")+";"+a.replace(i,"-webkit-"+i)+";"+a.replace(i,"-ms-"+i+"box")+";"+a}return a+";";case 938:if(45===a.charCodeAt(5))switch(a.charCodeAt(6)){case 105:return i=a.replace("-items",""),"-webkit-"+a+"-webkit-box-"+i+"-ms-flex-"+i+a;case 115:return"-webkit-"+a+"-ms-flex-item-"+a.replace(x,"")+a;default:return"-webkit-"+a+"-ms-flex-line-pack"+a.replace("align-content","").replace(x,"")+a}break;case 973:case 989:if(45!==a.charCodeAt(3)||122===a.charCodeAt(4))break;case 931:case 953:if(!0===A.test(e))return 115===(i=e.substring(e.indexOf(":")+1)).charCodeAt(0)?n(e.replace("stretch","fill-available"),o,t,r).replace(":fill-available",":stretch"):a.replace(i,"-webkit-"+i)+a.replace(i,"-moz-"+i.replace("fill-",""))+a;break;case 962:if(a="-webkit-"+a+(102===a.charCodeAt(5)?"-ms-"+a:"")+a,211===t+r&&105===a.charCodeAt(13)&&0<a.indexOf("transform",10))return a.substring(0,a.indexOf(";",27)+1).replace(f,"$1-webkit-$2")+a}return a}function s(e,o){var t=e.indexOf(1===o?":":"{"),n=e.substring(0,3!==o?t:10);return t=e.substring(t+1,e.length-1),E(2!==o?n:n.replace(v,"$1"),t,o)}function r(e,o){var t=n(o,o.charCodeAt(0),o.charCodeAt(1),o.charCodeAt(2));return t!==o+";"?t.replace(R," or ($1)").substring(4):"("+o+")"}function a(e,o,t,n,s,r,a,l,c,d){for(var m,u=0,f=o;u<Y;++u)switch(m=X[u].call(i,e,f,t,n,s,r,a,l,c,d)){case void 0:case!1:case!0:case null:break;default:f=m}if(f!==o)return f}function l(e){return void 0!==(e=e.prefix)&&(E=null,e?"function"!=typeof e?W=1:(W=2,E=e):W=0),l}function i(e,t){var l=e;if(33>l.charCodeAt(0)&&(l=l.trim()),l=[l],0<Y){var i=a(-1,t,l,l,k,F,0,0,0,0);void 0!==i&&"string"==typeof i&&(t=i)}var m=function e(t,l,i,m,u){for(var f,p,h,w,R,x=0,v=0,A=0,B=0,X=0,E=0,D=h=f=0,_=0,O=0,T=0,M=0,N=i.length,P=N-1,L="",I="",j="",G="";_<N;){if(p=i.charCodeAt(_),_===P&&0!==v+B+A+x&&(0!==v&&(p=47===v?10:47),B=A=x=0,N++,P++),0===v+B+A+x){if(_===P&&(0<O&&(L=L.replace(d,"")),0<L.trim().length)){switch(p){case 32:case 9:case 59:case 13:case 10:break;default:L+=i.charAt(_)}p=59}switch(p){case 123:for(f=(L=L.trim()).charCodeAt(0),h=1,M=++_;_<N;){switch(p=i.charCodeAt(_)){case 123:h++;break;case 125:h--;break;case 47:switch(p=i.charCodeAt(_+1)){case 42:case 47:e:{for(D=_+1;D<P;++D)switch(i.charCodeAt(D)){case 47:if(42===p&&42===i.charCodeAt(D-1)&&_+2!==D){_=D+1;break e}break;case 10:if(47===p){_=D+1;break e}}_=D}}break;case 91:p++;case 40:p++;case 34:case 39:for(;_++<P&&i.charCodeAt(_)!==p;);}if(0===h)break;_++}switch(h=i.substring(M,_),0===f&&(f=(L=L.replace(c,"").trim()).charCodeAt(0)),f){case 64:switch(0<O&&(L=L.replace(d,"")),p=L.charCodeAt(1)){case 100:case 109:case 115:case 45:O=l;break;default:O=V}if(M=(h=e(l,O,h,p,u+1)).length,0<Y&&(R=a(3,h,O=o(V,L,T),l,k,F,M,p,u,m),L=O.join(""),void 0!==R&&0===(M=(h=R.trim()).length)&&(p=0,h="")),0<M)switch(p){case 115:L=L.replace(C,r);case 100:case 109:case 45:h=L+"{"+h+"}";break;case 107:h=(L=L.replace(b,"$1 $2"))+"{"+h+"}",h=1===W||2===W&&s("@"+h,3)?"@-webkit-"+h+"@"+h:"@"+h;break;default:h=L+h,112===m&&(I+=h,h="")}else h="";break;default:h=e(l,o(l,L,T),h,m,u+1)}j+=h,h=T=O=D=f=0,L="",p=i.charCodeAt(++_);break;case 125:case 59:if(1<(M=(L=(0<O?L.replace(d,""):L).trim()).length))switch(0===D&&(f=L.charCodeAt(0),45===f||96<f&&123>f)&&(M=(L=L.replace(" ",":")).length),0<Y&&void 0!==(R=a(1,L,l,t,k,F,I.length,m,u,m))&&0===(M=(L=R.trim()).length)&&(L="\0\0"),f=L.charCodeAt(0),p=L.charCodeAt(1),f){case 0:break;case 64:if(105===p||99===p){G+=L+i.charAt(_);break}default:58!==L.charCodeAt(M-1)&&(I+=n(L,f,p,L.charCodeAt(2)))}T=O=D=f=0,L="",p=i.charCodeAt(++_)}}switch(p){case 13:case 10:47===v?v=0:0===1+f&&107!==m&&0<L.length&&(O=1,L+="\0"),0<Y*S&&a(0,L,l,t,k,F,I.length,m,u,m),F=1,k++;break;case 59:case 125:if(0===v+B+A+x){F++;break}default:switch(F++,w=i.charAt(_),p){case 9:case 32:if(0===B+x+v)switch(X){case 44:case 58:case 9:case 32:w="";break;default:32!==p&&(w=" ")}break;case 0:w="\\0";break;case 12:w="\\f";break;case 11:w="\\v";break;case 38:0===B+v+x&&(O=T=1,w="\f"+w);break;case 108:if(0===B+v+x+$&&0<D)switch(_-D){case 2:112===X&&58===i.charCodeAt(_-3)&&($=X);case 8:111===E&&($=E)}break;case 58:0===B+v+x&&(D=_);break;case 44:0===v+A+B+x&&(O=1,w+="\r");break;case 34:case 39:0===v&&(B=B===p?0:0===B?p:B);break;case 91:0===B+v+A&&x++;break;case 93:0===B+v+A&&x--;break;case 41:0===B+v+x&&A--;break;case 40:if(0===B+v+x){if(0===f)switch(2*X+3*E){case 533:break;default:f=1}A++}break;case 64:0===v+A+B+x+D+h&&(h=1);break;case 42:case 47:if(!(0<B+x+A))switch(v){case 0:switch(2*p+3*i.charCodeAt(_+1)){case 235:v=47;break;case 220:M=_,v=42}break;case 42:47===p&&42===X&&M+2!==_&&(33===i.charCodeAt(M+2)&&(I+=i.substring(M,_+1)),w="",v=0)}}0===v&&(L+=w)}E=X,X=p,_++}if(0<(M=I.length)){if(O=l,0<Y&&void 0!==(R=a(2,I,O,t,k,F,M,m,u,m))&&0===(I=R).length)return G+I+j;if(I=O.join(",")+"{"+I+"}",0!=W*$){switch(2!==W||s(I,2)||($=0),$){case 111:I=I.replace(g,":-moz-$1")+I;break;case 112:I=I.replace(y,"::-webkit-input-$1")+I.replace(y,"::-moz-$1")+I.replace(y,":-ms-input-$1")+I}$=0}}return G+I+j}(V,l,t,0,0);return 0<Y&&void 0!==(i=a(-2,m,l,l,k,F,m.length,0,0,0))&&(m=i),$=0,F=k=1,m}var c=/^\0+/g,d=/[\0\r\f]/g,m=/: */g,u=/zoo|gra/,f=/([,: ])(transform)/g,p=/,\r+?/g,h=/([\t\r\n ])*\f?&/g,b=/@(k\w+)\s*(\S*)\s*/,y=/::(place)/g,g=/:(read-only)/g,w=/[svh]\w+-[tblr]{2}/,C=/\(\s*(.*)\s*\)/g,R=/([\s\S]*?);/g,x=/-self|flex-/g,v=/[^]*?(:[rp][el]a[\w-]+)[^]*/,A=/stretch|:\s*\w+\-(?:conte|avail)/,B=/([^-])(image-set\()/,F=1,k=1,$=0,W=1,V=[],X=[],Y=0,E=null,S=0;return i.use=function e(o){switch(o){case void 0:case null:Y=X.length=0;break;default:if("function"==typeof o)X[Y++]=o;else if("object"==typeof o)for(var t=0,n=o.length;t<n;++t)e(o[t]);else S=0|!!o}return e},i.set=l,void 0!==e&&l(e),i}function n(e){e&&s.current.insert(e+"}")}var s={current:null},r=function(e,o,t,r,a,l,i,c,d,m){switch(e){case 1:switch(o.charCodeAt(0)){case 64:return s.current.insert(o+";"),"";case 108:if(98===o.charCodeAt(2))return""}break;case 2:if(0===c)return o+"/*|*/";break;case 3:switch(c){case 102:case 112:return s.current.insert(t[0]+o),"";default:return o+(0===m?"/*|*/":"")}case-2:o.split("/*|*/}").forEach(n)}},a={animationIterationCount:1,borderImageOutset:1,borderImageSlice:1,borderImageWidth:1,boxFlex:1,boxFlexGroup:1,boxOrdinalGroup:1,columnCount:1,columns:1,flex:1,flexGrow:1,flexPositive:1,flexShrink:1,flexNegative:1,flexOrder:1,gridRow:1,gridRowEnd:1,gridRowSpan:1,gridRowStart:1,gridColumn:1,gridColumnEnd:1,gridColumnSpan:1,gridColumnStart:1,msGridRow:1,msGridRowSpan:1,msGridColumn:1,msGridColumnSpan:1,fontWeight:1,lineHeight:1,opacity:1,order:1,orphans:1,tabSize:1,widows:1,zIndex:1,zoom:1,WebkitLineClamp:1,fillOpacity:1,floodOpacity:1,stopOpacity:1,strokeDasharray:1,strokeDashoffset:1,strokeMiterlimit:1,strokeOpacity:1,strokeWidth:1},l=/[A-Z]|^ms/g,i=/_EMO_([^_]+?)_([^]*?)_EMO_/g,c=function(e){return 45===e.charCodeAt(1)},d=function(e){return null!=e&&"boolean"!=typeof e},m=function(e){var o={};return function(e){return void 0===o[e]&&(o[e]=function(e){return c(e)?e:e.replace(l,"-$&").toLowerCase()}(e)),o[e]}}(),u=function(e,o){switch(e){case"animation":case"animationName":if("string"==typeof o)return o.replace(i,(function(e,o,t){return p={name:o,styles:t,next:p},o}))}return 1===a[e]||c(e)||"number"!=typeof o||0===o?o:o+"px"};function f(e,o,t,n){if(null==t)return"";if(void 0!==t.__emotion_styles)return t;switch(typeof t){case"boolean":return"";case"object":if(1===t.anim)return p={name:t.name,styles:t.styles,next:p},t.name;if(void 0!==t.styles){var s=t.next;if(void 0!==s)for(;void 0!==s;)p={name:s.name,styles:s.styles,next:p},s=s.next;return t.styles+";"}return function(e,o,t){var n="";if(Array.isArray(t))for(var s=0;s<t.length;s++)n+=f(e,o,t[s],!1);else for(var r in t){var a=t[r];if("object"!=typeof a)null!=o&&void 0!==o[a]?n+=r+"{"+o[a]+"}":d(a)&&(n+=m(r)+":"+u(r,a)+";");else if(!Array.isArray(a)||"string"!=typeof a[0]||null!=o&&void 0!==o[a[0]]){var l=f(e,o,a,!1);switch(r){case"animation":case"animationName":n+=m(r)+":"+l+";";break;default:n+=r+"{"+l+"}"}}else for(var i=0;i<a.length;i++)d(a[i])&&(n+=m(r)+":"+u(r,a[i])+";")}return n}(e,o,t);case"function":if(void 0!==e){var r=p,a=t(e);return p=r,f(e,o,a,n)}}if(null==o)return t;var l=o[t];return void 0===l||n?t:l}var p,h=/label:\s*([^\s;\n{]+)\s*;/g,b=function(e,o,t){if(1===e.length&&"object"==typeof e[0]&&null!==e[0]&&void 0!==e[0].styles)return e[0];var n=!0,s="";p=void 0;var r=e[0];null==r||void 0===r.raw?(n=!1,s+=f(t,o,r,!1)):s+=r[0];for(var a=1;a<e.length;a++)s+=f(t,o,e[a],46===s.charCodeAt(s.length-1)),n&&(s+=r[a]);h.lastIndex=0;for(var l,i="";null!==(l=h.exec(s));)i+="-"+l[1];return{name:function(e){for(var o,t=e.length,n=t^t,s=0;t>=4;)o=1540483477*(65535&(o=255&e.charCodeAt(s)|(255&e.charCodeAt(++s))<<8|(255&e.charCodeAt(++s))<<16|(255&e.charCodeAt(++s))<<24))+((1540483477*(o>>>16)&65535)<<16),n=1540483477*(65535&n)+((1540483477*(n>>>16)&65535)<<16)^(o=1540483477*(65535&(o^=o>>>24))+((1540483477*(o>>>16)&65535)<<16)),t-=4,++s;switch(t){case 3:n^=(255&e.charCodeAt(s+2))<<16;case 2:n^=(255&e.charCodeAt(s+1))<<8;case 1:n=1540483477*(65535&(n^=255&e.charCodeAt(s)))+((1540483477*(n>>>16)&65535)<<16)}return n=1540483477*(65535&(n^=n>>>13))+((1540483477*(n>>>16)&65535)<<16),((n^=n>>>15)>>>0).toString(36)}(s)+i,styles:s,next:p}};function y(e,o,t){var n="";return t.split(" ").forEach((function(t){void 0!==e[t]?o.push(e[t]):n+=t+" "})),n}function g(e,o){if(void 0===e.inserted[o.name])return e.insert("",o,e.sheet,!0)}function w(e,o,t){var n=[],s=y(e,n,t);return n.length<2?t:s+o(n)}var C=function e(o){for(var t="",n=0;n<o.length;n++){var s=o[n];if(null!=s){var r=void 0;switch(typeof s){case"boolean":break;case"object":if(Array.isArray(s))r=e(s);else for(var a in r="",s)s[a]&&a&&(r&&(r+=" "),r+=a);break;default:r=s}r&&(t&&(t+=" "),t+=r)}}return t},R=function(e){var n=function(e){void 0===e&&(e={});var n,a=e.key||"css";void 0!==e.prefix&&(n={prefix:e.prefix});var l,i=new t(n),c={};l=e.container||document.head;var d,m=document.querySelectorAll("style[data-emotion-"+a+"]");Array.prototype.forEach.call(m,(function(e){e.getAttribute("data-emotion-"+a).split(" ").forEach((function(e){c[e]=!0})),e.parentNode!==l&&l.appendChild(e)})),i.use(e.stylisPlugins)(r),d=function(e,o,t,n){var r=o.name;s.current=t,i(e,o.styles),n&&(u.inserted[r]=!0)};var u={key:a,sheet:new o({key:a,container:l,nonce:e.nonce,speedy:e.speedy}),nonce:e.nonce,inserted:c,registered:{},insert:d};return u}(void 0);n.sheet.speedy=function(e){this.isSpeedy=e},n.compat=!0;var a=function(){for(var e=arguments.length,o=new Array(e),t=0;t<e;t++)o[t]=arguments[t];var s=b(o,n.registered,void 0);return function(e,o,t){var n=e.key+"-"+o.name;if(void 0===e.registered[n]&&(e.registered[n]=o.styles),void 0===e.inserted[o.name]){var s=o;do{e.insert("."+n,s,e.sheet,!0),s=s.next}while(void 0!==s)}}(n,s),n.key+"-"+s.name};return{css:a,cx:function(){for(var e=arguments.length,o=new Array(e),t=0;t<e;t++)o[t]=arguments[t];return w(n.registered,a,C(o))},injectGlobal:function(){for(var e=arguments.length,o=new Array(e),t=0;t<e;t++)o[t]=arguments[t];var s=b(o,n.registered);g(n,s)},keyframes:function(){for(var e=arguments.length,o=new Array(e),t=0;t<e;t++)o[t]=arguments[t];var s=b(o,n.registered),r="animation-"+s.name;return g(n,{name:s.name,styles:"@keyframes "+r+"{"+s.styles+"}"}),r},hydrate:function(e){e.forEach((function(e){n.inserted[e]=!0}))},flush:function(){n.registered={},n.inserted={},n.sheet.flush()},sheet:n.sheet,cache:n,getRegisteredStyles:y.bind(null,n.registered),merge:w.bind(null,n.registered,a)}}(),x=R.flush,v=R.hydrate,A=R.cx,B=R.merge,F=R.getRegisteredStyles,k=R.injectGlobal,$=R.keyframes,W=R.css,V=R.sheet,X=R.cache;e.cache=X,e.css=W,e.cx=A,e.flush=x,e.getRegisteredStyles=F,e.hydrate=v,e.injectGlobal=k,e.keyframes=$,e.merge=B,e.sheet=V,Object.defineProperty(e,"__esModule",{value:!0})}(o)})));const{css:Fe}=Be;let ke=window.innerWidth;window.addEventListener("resize",()=>ke=window.innerWidth);const $e=Fe`
 
-`,We=(e="#fff",o,t=18)=>Fe`
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.head.appendChild(r) })(window.document);
+var app = (function () {
+    'use strict';
+
+    function noop() { }
+    const identity = x => x;
+    function assign(tar, src) {
+        // @ts-ignore
+        for (const k in src)
+            tar[k] = src[k];
+        return tar;
+    }
+    function add_location(element, file, line, column, char) {
+        element.__svelte_meta = {
+            loc: { file, line, column, char }
+        };
+    }
+    function run(fn) {
+        return fn();
+    }
+    function blank_object() {
+        return Object.create(null);
+    }
+    function run_all(fns) {
+        fns.forEach(run);
+    }
+    function is_function(thing) {
+        return typeof thing === 'function';
+    }
+    function safe_not_equal(a, b) {
+        return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
+    }
+    function null_to_empty(value) {
+        return value == null ? '' : value;
+    }
+
+    const is_client = typeof window !== 'undefined';
+    let now = is_client
+        ? () => window.performance.now()
+        : () => Date.now();
+    let raf = is_client ? cb => requestAnimationFrame(cb) : noop;
+
+    const tasks = new Set();
+    function run_tasks(now) {
+        tasks.forEach(task => {
+            if (!task.c(now)) {
+                tasks.delete(task);
+                task.f();
+            }
+        });
+        if (tasks.size !== 0)
+            raf(run_tasks);
+    }
+    /**
+     * Creates a new task that runs on each raf frame
+     * until it returns a falsy value or is aborted
+     */
+    function loop(callback) {
+        let task;
+        if (tasks.size === 0)
+            raf(run_tasks);
+        return {
+            promise: new Promise(fulfill => {
+                tasks.add(task = { c: callback, f: fulfill });
+            }),
+            abort() {
+                tasks.delete(task);
+            }
+        };
+    }
+
+    function append(target, node) {
+        target.appendChild(node);
+    }
+    function insert(target, node, anchor) {
+        target.insertBefore(node, anchor || null);
+    }
+    function detach(node) {
+        node.parentNode.removeChild(node);
+    }
+    function destroy_each(iterations, detaching) {
+        for (let i = 0; i < iterations.length; i += 1) {
+            if (iterations[i])
+                iterations[i].d(detaching);
+        }
+    }
+    function element(name) {
+        return document.createElement(name);
+    }
+    function svg_element(name) {
+        return document.createElementNS('http://www.w3.org/2000/svg', name);
+    }
+    function text(data) {
+        return document.createTextNode(data);
+    }
+    function space() {
+        return text(' ');
+    }
+    function empty() {
+        return text('');
+    }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
+    function attr(node, attribute, value) {
+        if (value == null)
+            node.removeAttribute(attribute);
+        else if (node.getAttribute(attribute) !== value)
+            node.setAttribute(attribute, value);
+    }
+    function children(element) {
+        return Array.from(element.childNodes);
+    }
+    function set_style(node, key, value, important) {
+        node.style.setProperty(key, value, important ? 'important' : '');
+    }
+    function toggle_class(element, name, toggle) {
+        element.classList[toggle ? 'add' : 'remove'](name);
+    }
+    function custom_event(type, detail) {
+        const e = document.createEvent('CustomEvent');
+        e.initCustomEvent(type, false, false, detail);
+        return e;
+    }
+
+    let stylesheet;
+    let active = 0;
+    let current_rules = {};
+    // https://github.com/darkskyapp/string-hash/blob/master/index.js
+    function hash(str) {
+        let hash = 5381;
+        let i = str.length;
+        while (i--)
+            hash = ((hash << 5) - hash) ^ str.charCodeAt(i);
+        return hash >>> 0;
+    }
+    function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
+        const step = 16.666 / duration;
+        let keyframes = '{\n';
+        for (let p = 0; p <= 1; p += step) {
+            const t = a + (b - a) * ease(p);
+            keyframes += p * 100 + `%{${fn(t, 1 - t)}}\n`;
+        }
+        const rule = keyframes + `100% {${fn(b, 1 - b)}}\n}`;
+        const name = `__svelte_${hash(rule)}_${uid}`;
+        if (!current_rules[name]) {
+            if (!stylesheet) {
+                const style = element('style');
+                document.head.appendChild(style);
+                stylesheet = style.sheet;
+            }
+            current_rules[name] = true;
+            stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
+        }
+        const animation = node.style.animation || '';
+        node.style.animation = `${animation ? `${animation}, ` : ``}${name} ${duration}ms linear ${delay}ms 1 both`;
+        active += 1;
+        return name;
+    }
+    function delete_rule(node, name) {
+        node.style.animation = (node.style.animation || '')
+            .split(', ')
+            .filter(name
+            ? anim => anim.indexOf(name) < 0 // remove specific animation
+            : anim => anim.indexOf('__svelte') === -1 // remove all Svelte animations
+        )
+            .join(', ');
+        if (name && !--active)
+            clear_rules();
+    }
+    function clear_rules() {
+        raf(() => {
+            if (active)
+                return;
+            let i = stylesheet.cssRules.length;
+            while (i--)
+                stylesheet.deleteRule(i);
+            current_rules = {};
+        });
+    }
+
+    let current_component;
+    function set_current_component(component) {
+        current_component = component;
+    }
+    function get_current_component() {
+        if (!current_component)
+            throw new Error(`Function called outside component initialization`);
+        return current_component;
+    }
+    function onMount(fn) {
+        get_current_component().$$.on_mount.push(fn);
+    }
+    function afterUpdate(fn) {
+        get_current_component().$$.after_update.push(fn);
+    }
+    function createEventDispatcher() {
+        const component = get_current_component();
+        return (type, detail) => {
+            const callbacks = component.$$.callbacks[type];
+            if (callbacks) {
+                // TODO are there situations where events could be dispatched
+                // in a server (non-DOM) environment?
+                const event = custom_event(type, detail);
+                callbacks.slice().forEach(fn => {
+                    fn.call(component, event);
+                });
+            }
+        };
+    }
+
+    const dirty_components = [];
+    const binding_callbacks = [];
+    const render_callbacks = [];
+    const flush_callbacks = [];
+    const resolved_promise = Promise.resolve();
+    let update_scheduled = false;
+    function schedule_update() {
+        if (!update_scheduled) {
+            update_scheduled = true;
+            resolved_promise.then(flush);
+        }
+    }
+    function add_render_callback(fn) {
+        render_callbacks.push(fn);
+    }
+    let flushing = false;
+    const seen_callbacks = new Set();
+    function flush() {
+        if (flushing)
+            return;
+        flushing = true;
+        do {
+            // first, call beforeUpdate functions
+            // and update components
+            for (let i = 0; i < dirty_components.length; i += 1) {
+                const component = dirty_components[i];
+                set_current_component(component);
+                update(component.$$);
+            }
+            dirty_components.length = 0;
+            while (binding_callbacks.length)
+                binding_callbacks.pop()();
+            // then, once components are updated, call
+            // afterUpdate functions. This may cause
+            // subsequent updates...
+            for (let i = 0; i < render_callbacks.length; i += 1) {
+                const callback = render_callbacks[i];
+                if (!seen_callbacks.has(callback)) {
+                    // ...so guard against infinite loops
+                    seen_callbacks.add(callback);
+                    callback();
+                }
+            }
+            render_callbacks.length = 0;
+        } while (dirty_components.length);
+        while (flush_callbacks.length) {
+            flush_callbacks.pop()();
+        }
+        update_scheduled = false;
+        flushing = false;
+        seen_callbacks.clear();
+    }
+    function update($$) {
+        if ($$.fragment !== null) {
+            $$.update();
+            run_all($$.before_update);
+            const dirty = $$.dirty;
+            $$.dirty = [-1];
+            $$.fragment && $$.fragment.p($$.ctx, dirty);
+            $$.after_update.forEach(add_render_callback);
+        }
+    }
+
+    let promise;
+    function wait() {
+        if (!promise) {
+            promise = Promise.resolve();
+            promise.then(() => {
+                promise = null;
+            });
+        }
+        return promise;
+    }
+    function dispatch(node, direction, kind) {
+        node.dispatchEvent(custom_event(`${direction ? 'intro' : 'outro'}${kind}`));
+    }
+    const outroing = new Set();
+    let outros;
+    function group_outros() {
+        outros = {
+            r: 0,
+            c: [],
+            p: outros // parent group
+        };
+    }
+    function check_outros() {
+        if (!outros.r) {
+            run_all(outros.c);
+        }
+        outros = outros.p;
+    }
+    function transition_in(block, local) {
+        if (block && block.i) {
+            outroing.delete(block);
+            block.i(local);
+        }
+    }
+    function transition_out(block, local, detach, callback) {
+        if (block && block.o) {
+            if (outroing.has(block))
+                return;
+            outroing.add(block);
+            outros.c.push(() => {
+                outroing.delete(block);
+                if (callback) {
+                    if (detach)
+                        block.d(1);
+                    callback();
+                }
+            });
+            block.o(local);
+        }
+    }
+    const null_transition = { duration: 0 };
+    function create_in_transition(node, fn, params) {
+        let config = fn(node, params);
+        let running = false;
+        let animation_name;
+        let task;
+        let uid = 0;
+        function cleanup() {
+            if (animation_name)
+                delete_rule(node, animation_name);
+        }
+        function go() {
+            const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config || null_transition;
+            if (css)
+                animation_name = create_rule(node, 0, 1, duration, delay, easing, css, uid++);
+            tick(0, 1);
+            const start_time = now() + delay;
+            const end_time = start_time + duration;
+            if (task)
+                task.abort();
+            running = true;
+            add_render_callback(() => dispatch(node, true, 'start'));
+            task = loop(now => {
+                if (running) {
+                    if (now >= end_time) {
+                        tick(1, 0);
+                        dispatch(node, true, 'end');
+                        cleanup();
+                        return running = false;
+                    }
+                    if (now >= start_time) {
+                        const t = easing((now - start_time) / duration);
+                        tick(t, 1 - t);
+                    }
+                }
+                return running;
+            });
+        }
+        let started = false;
+        return {
+            start() {
+                if (started)
+                    return;
+                delete_rule(node);
+                if (is_function(config)) {
+                    config = config();
+                    wait().then(go);
+                }
+                else {
+                    go();
+                }
+            },
+            invalidate() {
+                started = false;
+            },
+            end() {
+                if (running) {
+                    cleanup();
+                    running = false;
+                }
+            }
+        };
+    }
+    function create_out_transition(node, fn, params) {
+        let config = fn(node, params);
+        let running = true;
+        let animation_name;
+        const group = outros;
+        group.r += 1;
+        function go() {
+            const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config || null_transition;
+            if (css)
+                animation_name = create_rule(node, 1, 0, duration, delay, easing, css);
+            const start_time = now() + delay;
+            const end_time = start_time + duration;
+            add_render_callback(() => dispatch(node, false, 'start'));
+            loop(now => {
+                if (running) {
+                    if (now >= end_time) {
+                        tick(0, 1);
+                        dispatch(node, false, 'end');
+                        if (!--group.r) {
+                            // this will result in `end()` being called,
+                            // so we don't need to clean up here
+                            run_all(group.c);
+                        }
+                        return false;
+                    }
+                    if (now >= start_time) {
+                        const t = easing((now - start_time) / duration);
+                        tick(1 - t, t);
+                    }
+                }
+                return running;
+            });
+        }
+        if (is_function(config)) {
+            wait().then(() => {
+                // @ts-ignore
+                config = config();
+                go();
+            });
+        }
+        else {
+            go();
+        }
+        return {
+            end(reset) {
+                if (reset && config.tick) {
+                    config.tick(1, 0);
+                }
+                if (running) {
+                    if (animation_name)
+                        delete_rule(node, animation_name);
+                    running = false;
+                }
+            }
+        };
+    }
+    function create_bidirectional_transition(node, fn, params, intro) {
+        let config = fn(node, params);
+        let t = intro ? 0 : 1;
+        let running_program = null;
+        let pending_program = null;
+        let animation_name = null;
+        function clear_animation() {
+            if (animation_name)
+                delete_rule(node, animation_name);
+        }
+        function init(program, duration) {
+            const d = program.b - t;
+            duration *= Math.abs(d);
+            return {
+                a: t,
+                b: program.b,
+                d,
+                duration,
+                start: program.start,
+                end: program.start + duration,
+                group: program.group
+            };
+        }
+        function go(b) {
+            const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config || null_transition;
+            const program = {
+                start: now() + delay,
+                b
+            };
+            if (!b) {
+                // @ts-ignore todo: improve typings
+                program.group = outros;
+                outros.r += 1;
+            }
+            if (running_program) {
+                pending_program = program;
+            }
+            else {
+                // if this is an intro, and there's a delay, we need to do
+                // an initial tick and/or apply CSS animation immediately
+                if (css) {
+                    clear_animation();
+                    animation_name = create_rule(node, t, b, duration, delay, easing, css);
+                }
+                if (b)
+                    tick(0, 1);
+                running_program = init(program, duration);
+                add_render_callback(() => dispatch(node, b, 'start'));
+                loop(now => {
+                    if (pending_program && now > pending_program.start) {
+                        running_program = init(pending_program, duration);
+                        pending_program = null;
+                        dispatch(node, running_program.b, 'start');
+                        if (css) {
+                            clear_animation();
+                            animation_name = create_rule(node, t, running_program.b, running_program.duration, 0, easing, config.css);
+                        }
+                    }
+                    if (running_program) {
+                        if (now >= running_program.end) {
+                            tick(t = running_program.b, 1 - t);
+                            dispatch(node, running_program.b, 'end');
+                            if (!pending_program) {
+                                // we're done
+                                if (running_program.b) {
+                                    // intro — we can tidy up immediately
+                                    clear_animation();
+                                }
+                                else {
+                                    // outro — needs to be coordinated
+                                    if (!--running_program.group.r)
+                                        run_all(running_program.group.c);
+                                }
+                            }
+                            running_program = null;
+                        }
+                        else if (now >= running_program.start) {
+                            const p = now - running_program.start;
+                            t = running_program.a + running_program.d * easing(p / running_program.duration);
+                            tick(t, 1 - t);
+                        }
+                    }
+                    return !!(running_program || pending_program);
+                });
+            }
+        }
+        return {
+            run(b) {
+                if (is_function(config)) {
+                    wait().then(() => {
+                        // @ts-ignore
+                        config = config();
+                        go(b);
+                    });
+                }
+                else {
+                    go(b);
+                }
+            },
+            end() {
+                clear_animation();
+                running_program = pending_program = null;
+            }
+        };
+    }
+    function outro_and_destroy_block(block, lookup) {
+        transition_out(block, 1, 1, () => {
+            lookup.delete(block.key);
+        });
+    }
+    function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block, next, get_context) {
+        let o = old_blocks.length;
+        let n = list.length;
+        let i = o;
+        const old_indexes = {};
+        while (i--)
+            old_indexes[old_blocks[i].key] = i;
+        const new_blocks = [];
+        const new_lookup = new Map();
+        const deltas = new Map();
+        i = n;
+        while (i--) {
+            const child_ctx = get_context(ctx, list, i);
+            const key = get_key(child_ctx);
+            let block = lookup.get(key);
+            if (!block) {
+                block = create_each_block(key, child_ctx);
+                block.c();
+            }
+            else if (dynamic) {
+                block.p(child_ctx, dirty);
+            }
+            new_lookup.set(key, new_blocks[i] = block);
+            if (key in old_indexes)
+                deltas.set(key, Math.abs(i - old_indexes[key]));
+        }
+        const will_move = new Set();
+        const did_move = new Set();
+        function insert(block) {
+            transition_in(block, 1);
+            block.m(node, next);
+            lookup.set(block.key, block);
+            next = block.first;
+            n--;
+        }
+        while (o && n) {
+            const new_block = new_blocks[n - 1];
+            const old_block = old_blocks[o - 1];
+            const new_key = new_block.key;
+            const old_key = old_block.key;
+            if (new_block === old_block) {
+                // do nothing
+                next = new_block.first;
+                o--;
+                n--;
+            }
+            else if (!new_lookup.has(old_key)) {
+                // remove old block
+                destroy(old_block, lookup);
+                o--;
+            }
+            else if (!lookup.has(new_key) || will_move.has(new_key)) {
+                insert(new_block);
+            }
+            else if (did_move.has(old_key)) {
+                o--;
+            }
+            else if (deltas.get(new_key) > deltas.get(old_key)) {
+                did_move.add(new_key);
+                insert(new_block);
+            }
+            else {
+                will_move.add(old_key);
+                o--;
+            }
+        }
+        while (o--) {
+            const old_block = old_blocks[o];
+            if (!new_lookup.has(old_block.key))
+                destroy(old_block, lookup);
+        }
+        while (n)
+            insert(new_blocks[n - 1]);
+        return new_blocks;
+    }
+    function validate_each_keys(ctx, list, get_context, get_key) {
+        const keys = new Set();
+        for (let i = 0; i < list.length; i++) {
+            const key = get_key(get_context(ctx, list, i));
+            if (keys.has(key)) {
+                throw new Error(`Cannot have duplicate keys in a keyed each`);
+            }
+            keys.add(key);
+        }
+    }
+
+    function get_spread_update(levels, updates) {
+        const update = {};
+        const to_null_out = {};
+        const accounted_for = { $$scope: 1 };
+        let i = levels.length;
+        while (i--) {
+            const o = levels[i];
+            const n = updates[i];
+            if (n) {
+                for (const key in o) {
+                    if (!(key in n))
+                        to_null_out[key] = 1;
+                }
+                for (const key in n) {
+                    if (!accounted_for[key]) {
+                        update[key] = n[key];
+                        accounted_for[key] = 1;
+                    }
+                }
+                levels[i] = n;
+            }
+            else {
+                for (const key in o) {
+                    accounted_for[key] = 1;
+                }
+            }
+        }
+        for (const key in to_null_out) {
+            if (!(key in update))
+                update[key] = undefined;
+        }
+        return update;
+    }
+    function get_spread_object(spread_props) {
+        return typeof spread_props === 'object' && spread_props !== null ? spread_props : {};
+    }
+    function create_component(block) {
+        block && block.c();
+    }
+    function mount_component(component, target, anchor) {
+        const { fragment, on_mount, on_destroy, after_update } = component.$$;
+        fragment && fragment.m(target, anchor);
+        // onMount happens before the initial afterUpdate
+        add_render_callback(() => {
+            const new_on_destroy = on_mount.map(run).filter(is_function);
+            if (on_destroy) {
+                on_destroy.push(...new_on_destroy);
+            }
+            else {
+                // Edge case - component was destroyed immediately,
+                // most likely as a result of a binding initialising
+                run_all(new_on_destroy);
+            }
+            component.$$.on_mount = [];
+        });
+        after_update.forEach(add_render_callback);
+    }
+    function destroy_component(component, detaching) {
+        const $$ = component.$$;
+        if ($$.fragment !== null) {
+            run_all($$.on_destroy);
+            $$.fragment && $$.fragment.d(detaching);
+            // TODO null out other refs, including component.$$ (but need to
+            // preserve final state?)
+            $$.on_destroy = $$.fragment = null;
+            $$.ctx = [];
+        }
+    }
+    function make_dirty(component, i) {
+        if (component.$$.dirty[0] === -1) {
+            dirty_components.push(component);
+            schedule_update();
+            component.$$.dirty.fill(0);
+        }
+        component.$$.dirty[(i / 31) | 0] |= (1 << (i % 31));
+    }
+    function init(component, options, instance, create_fragment, not_equal, props, dirty = [-1]) {
+        const parent_component = current_component;
+        set_current_component(component);
+        const prop_values = options.props || {};
+        const $$ = component.$$ = {
+            fragment: null,
+            ctx: null,
+            // state
+            props,
+            update: noop,
+            not_equal,
+            bound: blank_object(),
+            // lifecycle
+            on_mount: [],
+            on_destroy: [],
+            before_update: [],
+            after_update: [],
+            context: new Map(parent_component ? parent_component.$$.context : []),
+            // everything else
+            callbacks: blank_object(),
+            dirty
+        };
+        let ready = false;
+        $$.ctx = instance
+            ? instance(component, prop_values, (i, ret, ...rest) => {
+                const value = rest.length ? rest[0] : ret;
+                if ($$.ctx && not_equal($$.ctx[i], $$.ctx[i] = value)) {
+                    if ($$.bound[i])
+                        $$.bound[i](value);
+                    if (ready)
+                        make_dirty(component, i);
+                }
+                return ret;
+            })
+            : [];
+        $$.update();
+        ready = true;
+        run_all($$.before_update);
+        // `false` as a special case of no DOM component
+        $$.fragment = create_fragment ? create_fragment($$.ctx) : false;
+        if (options.target) {
+            if (options.hydrate) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment && $$.fragment.l(children(options.target));
+            }
+            else {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment && $$.fragment.c();
+            }
+            if (options.intro)
+                transition_in(component.$$.fragment);
+            mount_component(component, options.target, options.anchor);
+            flush();
+        }
+        set_current_component(parent_component);
+    }
+    class SvelteComponent {
+        $destroy() {
+            destroy_component(this, 1);
+            this.$destroy = noop;
+        }
+        $on(type, callback) {
+            const callbacks = (this.$$.callbacks[type] || (this.$$.callbacks[type] = []));
+            callbacks.push(callback);
+            return () => {
+                const index = callbacks.indexOf(callback);
+                if (index !== -1)
+                    callbacks.splice(index, 1);
+            };
+        }
+        $set() {
+            // overridden by instance, if it has props
+        }
+    }
+
+    function dispatch_dev(type, detail) {
+        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.19.1' }, detail)));
+    }
+    function append_dev(target, node) {
+        dispatch_dev("SvelteDOMInsert", { target, node });
+        append(target, node);
+    }
+    function insert_dev(target, node, anchor) {
+        dispatch_dev("SvelteDOMInsert", { target, node, anchor });
+        insert(target, node, anchor);
+    }
+    function detach_dev(node) {
+        dispatch_dev("SvelteDOMRemove", { node });
+        detach(node);
+    }
+    function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation) {
+        const modifiers = options === true ? ["capture"] : options ? Array.from(Object.keys(options)) : [];
+        if (has_prevent_default)
+            modifiers.push('preventDefault');
+        if (has_stop_propagation)
+            modifiers.push('stopPropagation');
+        dispatch_dev("SvelteDOMAddEventListener", { node, event, handler, modifiers });
+        const dispose = listen(node, event, handler, options);
+        return () => {
+            dispatch_dev("SvelteDOMRemoveEventListener", { node, event, handler, modifiers });
+            dispose();
+        };
+    }
+    function attr_dev(node, attribute, value) {
+        attr(node, attribute, value);
+        if (value == null)
+            dispatch_dev("SvelteDOMRemoveAttribute", { node, attribute });
+        else
+            dispatch_dev("SvelteDOMSetAttribute", { node, attribute, value });
+    }
+    function set_data_dev(text, data) {
+        data = '' + data;
+        if (text.data === data)
+            return;
+        dispatch_dev("SvelteDOMSetData", { node: text, data });
+        text.data = data;
+    }
+    function validate_each_argument(arg) {
+        if (typeof arg !== 'string' && !(arg && typeof arg === 'object' && 'length' in arg)) {
+            let msg = '{#each} only iterates over array-like objects.';
+            if (typeof Symbol === 'function' && arg && Symbol.iterator in arg) {
+                msg += ' You can use a spread to convert this iterable into an array.';
+            }
+            throw new Error(msg);
+        }
+    }
+    class SvelteComponentDev extends SvelteComponent {
+        constructor(options) {
+            if (!options || (!options.target && !options.$$inline)) {
+                throw new Error(`'target' is a required option`);
+            }
+            super();
+        }
+        $destroy() {
+            super.$destroy();
+            this.$destroy = () => {
+                console.warn(`Component was already destroyed`); // eslint-disable-line no-console
+            };
+        }
+        $capture_state() { }
+        $inject_state() { }
+    }
+
+    /* src/Tailwindcss.svelte generated by Svelte v3.19.1 */
+
+    function create_fragment(ctx) {
+    	const block = {
+    		c: noop,
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: noop,
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: noop
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    class Tailwindcss extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, null, create_fragment, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Tailwindcss",
+    			options,
+    			id: create_fragment.name
+    		});
+    	}
+    }
+
+    /* src/Filters.svelte generated by Svelte v3.19.1 */
+    const file = "src/Filters.svelte";
+
+    function create_fragment$1(ctx) {
+    	let div;
+    	let label0;
+    	let t0;
+    	let input0;
+    	let t1;
+    	let label1;
+    	let t2;
+    	let input1;
+    	let t3;
+    	let label2;
+    	let t4;
+    	let input2;
+    	let t5;
+    	let label3;
+    	let t6;
+    	let input3;
+    	let t7;
+    	let button;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			label0 = element("label");
+    			t0 = text("Alkali Metals\n    ");
+    			input0 = element("input");
+    			t1 = space();
+    			label1 = element("label");
+    			t2 = text("Alkaline Earth Metals\n    ");
+    			input1 = element("input");
+    			t3 = space();
+    			label2 = element("label");
+    			t4 = text("Transition Metals\n    ");
+    			input2 = element("input");
+    			t5 = space();
+    			label3 = element("label");
+    			t6 = text("Noble Gases\n    ");
+    			input3 = element("input");
+    			t7 = space();
+    			button = element("button");
+    			button.textContent = "Clear Filters";
+    			attr_dev(input0, "type", "checkbox");
+    			add_location(input0, file, 110, 4, 2422);
+    			attr_dev(label0, "class", "svelte-5f1u4w");
+    			add_location(label0, file, 108, 2, 2392);
+    			attr_dev(input1, "type", "checkbox");
+    			add_location(input1, file, 114, 4, 2566);
+    			attr_dev(label1, "class", "svelte-5f1u4w");
+    			add_location(label1, file, 112, 2, 2528);
+    			attr_dev(input2, "type", "checkbox");
+    			add_location(input2, file, 118, 4, 2706);
+    			attr_dev(label2, "class", "svelte-5f1u4w");
+    			add_location(label2, file, 116, 2, 2672);
+    			attr_dev(input3, "type", "checkbox");
+    			add_location(input3, file, 122, 4, 2844);
+    			attr_dev(label3, "class", "svelte-5f1u4w");
+    			add_location(label3, file, 120, 2, 2816);
+    			attr_dev(button, "class", "svelte-5f1u4w");
+    			add_location(button, file, 124, 2, 2948);
+    			attr_dev(div, "class", "filters svelte-5f1u4w");
+    			add_location(div, file, 106, 0, 2367);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, label0);
+    			append_dev(label0, t0);
+    			append_dev(label0, input0);
+    			/*input0_binding*/ ctx[18](input0);
+    			append_dev(div, t1);
+    			append_dev(div, label1);
+    			append_dev(label1, t2);
+    			append_dev(label1, input1);
+    			/*input1_binding*/ ctx[20](input1);
+    			append_dev(div, t3);
+    			append_dev(div, label2);
+    			append_dev(label2, t4);
+    			append_dev(label2, input2);
+    			/*input2_binding*/ ctx[22](input2);
+    			append_dev(div, t5);
+    			append_dev(div, label3);
+    			append_dev(label3, t6);
+    			append_dev(label3, input3);
+    			/*input3_binding*/ ctx[24](input3);
+    			append_dev(div, t7);
+    			append_dev(div, button);
+
+    			dispose = [
+    				listen_dev(input0, "change", /*change_handler*/ ctx[19], false, false, false),
+    				listen_dev(input1, "change", /*change_handler_1*/ ctx[21], false, false, false),
+    				listen_dev(input2, "change", /*change_handler_2*/ ctx[23], false, false, false),
+    				listen_dev(input3, "change", /*change_handler_3*/ ctx[25], false, false, false),
+    				listen_dev(button, "click", /*click_handler*/ ctx[26], false, false, false)
+    			];
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			/*input0_binding*/ ctx[18](null);
+    			/*input1_binding*/ ctx[20](null);
+    			/*input2_binding*/ ctx[22](null);
+    			/*input3_binding*/ ctx[24](null);
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$1.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance($$self, $$props, $$invalidate) {
+    	const NOBLE_GASES = [2, 10, 18, 36, 54, 86];
+    	const ALKALI_METALS = [3, 11, 19, 37, 55, 87];
+    	const EARTH_METALS = [4, 12, 20, 38, 56, 88];
+
+    	const TRANSITION_METALS = [
+    		21,
+    		22,
+    		23,
+    		24,
+    		25,
+    		26,
+    		27,
+    		28,
+    		29,
+    		30,
+    		39,
+    		40,
+    		41,
+    		42,
+    		43,
+    		44,
+    		45,
+    		46,
+    		47,
+    		48,
+    		72,
+    		73,
+    		74,
+    		75,
+    		76,
+    		77,
+    		78,
+    		79,
+    		80,
+    		104,
+    		105,
+    		106,
+    		107,
+    		108,
+    		109,
+    		110,
+    		111,
+    		112
+    	];
+
+    	const availableFilters = {
+    		ALKALI_METALS,
+    		EARTH_METALS,
+    		NOBLE_GASES,
+    		TRANSITION_METALS
+    	};
+
+    	let activeFilters = [];
+
+    	const toggleActiveFilter = filter => {
+    		if (!filter) {
+    			resetFilters();
+    			handleFilter();
+    			return;
+    		}
+
+    		if (activeFilters.includes(filter)) {
+    			activeFilters.splice(activeFilters.indexOf(filter), 1);
+    		} else {
+    			activeFilters.push(filter);
+    		}
+
+    		handleFilter();
+    	};
+
+    	const dispatchFilter = filter => {
+    		switch (filter) {
+    			case "ALKALI_METALS":
+    				toggleActiveFilter("ALKALI_METALS");
+    				break;
+    			case "EARTH_METALS":
+    				toggleActiveFilter("EARTH_METALS");
+    				break;
+    			case "NOBLE_GASES":
+    				toggleActiveFilter("NOBLE_GASES");
+    				break;
+    			case "TRANSITION_METALS":
+    				toggleActiveFilter("TRANSITION_METALS");
+    				break;
+    			default:
+    				toggleActiveFilter();
+    		}
+    	};
+
+    	const handleFilter = () => {
+    		const filteredList = activeFilters.reduce(
+    			(list, filter) => {
+    				return list.concat(availableFilters[filter]);
+    			},
+    			[]
+    		);
+
+    		if (filteredList.length < 1) return filterRows(allRows);
+    		const deepClone = JSON.parse(JSON.stringify(allRows));
+
+    		const newRows = deepClone.map(row => {
+    			if (!row) return;
+
+    			row.map(el => {
+    				if (!filteredList.includes(el.id)) {
+    					el.inactive = true;
+    				} else {
+    					el.inactive = false;
+    				}
+
+    				return el;
+    			});
+
+    			return row;
+    		});
+
+    		filterRows(newRows);
+    	}; // rows = [ChemElementData.filter((el) => {
+    	//   if (el.name === "Dummy" || el.symbol === "D") return false
+    	//   return gases.includes(el.id)
+    	// })]
+
+    	const resetFilters = () => {
+    		activeFilters = [];
+    		filterStates.forEach(state => state.checked = false);
+    	};
+
+    	let { filterRows } = $$props;
+    	let { filtered } = $$props;
+    	let { allRows } = $$props;
+    	let AM;
+    	let AEM;
+    	let TM;
+    	let NB;
+    	let filterStates = [];
+
+    	onMount(() => {
+    		filterStates = [AM, AEM, TM, NB];
+    	});
+
+    	const writable_props = ["filterRows", "filtered", "allRows"];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Filters> was created with unknown prop '${key}'`);
+    	});
+
+    	function input0_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			$$invalidate(0, AM = $$value);
+    		});
+    	}
+
+    	const change_handler = () => dispatchFilter("ALKALI_METALS");
+
+    	function input1_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			$$invalidate(1, AEM = $$value);
+    		});
+    	}
+
+    	const change_handler_1 = () => dispatchFilter("EARTH_METALS");
+
+    	function input2_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			$$invalidate(2, TM = $$value);
+    		});
+    	}
+
+    	const change_handler_2 = () => dispatchFilter("TRANSITION_METALS");
+
+    	function input3_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			$$invalidate(3, NB = $$value);
+    		});
+    	}
+
+    	const change_handler_3 = () => dispatchFilter("NOBLE_GASES");
+    	const click_handler = () => dispatchFilter();
+
+    	$$self.$set = $$props => {
+    		if ("filterRows" in $$props) $$invalidate(5, filterRows = $$props.filterRows);
+    		if ("filtered" in $$props) $$invalidate(6, filtered = $$props.filtered);
+    		if ("allRows" in $$props) $$invalidate(7, allRows = $$props.allRows);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		onMount,
+    		createEventDispatcher,
+    		NOBLE_GASES,
+    		ALKALI_METALS,
+    		EARTH_METALS,
+    		TRANSITION_METALS,
+    		availableFilters,
+    		activeFilters,
+    		toggleActiveFilter,
+    		dispatchFilter,
+    		handleFilter,
+    		resetFilters,
+    		filterRows,
+    		filtered,
+    		allRows,
+    		AM,
+    		AEM,
+    		TM,
+    		NB,
+    		filterStates,
+    		JSON
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("activeFilters" in $$props) activeFilters = $$props.activeFilters;
+    		if ("filterRows" in $$props) $$invalidate(5, filterRows = $$props.filterRows);
+    		if ("filtered" in $$props) $$invalidate(6, filtered = $$props.filtered);
+    		if ("allRows" in $$props) $$invalidate(7, allRows = $$props.allRows);
+    		if ("AM" in $$props) $$invalidate(0, AM = $$props.AM);
+    		if ("AEM" in $$props) $$invalidate(1, AEM = $$props.AEM);
+    		if ("TM" in $$props) $$invalidate(2, TM = $$props.TM);
+    		if ("NB" in $$props) $$invalidate(3, NB = $$props.NB);
+    		if ("filterStates" in $$props) filterStates = $$props.filterStates;
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		AM,
+    		AEM,
+    		TM,
+    		NB,
+    		dispatchFilter,
+    		filterRows,
+    		filtered,
+    		allRows,
+    		activeFilters,
+    		filterStates,
+    		NOBLE_GASES,
+    		ALKALI_METALS,
+    		EARTH_METALS,
+    		TRANSITION_METALS,
+    		availableFilters,
+    		toggleActiveFilter,
+    		handleFilter,
+    		resetFilters,
+    		input0_binding,
+    		change_handler,
+    		input1_binding,
+    		change_handler_1,
+    		input2_binding,
+    		change_handler_2,
+    		input3_binding,
+    		change_handler_3,
+    		click_handler
+    	];
+    }
+
+    class Filters extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance, create_fragment$1, safe_not_equal, { filterRows: 5, filtered: 6, allRows: 7 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Filters",
+    			options,
+    			id: create_fragment$1.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*filterRows*/ ctx[5] === undefined && !("filterRows" in props)) {
+    			console.warn("<Filters> was created without expected prop 'filterRows'");
+    		}
+
+    		if (/*filtered*/ ctx[6] === undefined && !("filtered" in props)) {
+    			console.warn("<Filters> was created without expected prop 'filtered'");
+    		}
+
+    		if (/*allRows*/ ctx[7] === undefined && !("allRows" in props)) {
+    			console.warn("<Filters> was created without expected prop 'allRows'");
+    		}
+    	}
+
+    	get filterRows() {
+    		throw new Error("<Filters>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set filterRows(value) {
+    		throw new Error("<Filters>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get filtered() {
+    		throw new Error("<Filters>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set filtered(value) {
+    		throw new Error("<Filters>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get allRows() {
+    		throw new Error("<Filters>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set allRows(value) {
+    		throw new Error("<Filters>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    function cubicOut(t) {
+        const f = t - 1.0;
+        return f * f * f + 1.0;
+    }
+
+    function fade(node, { delay = 0, duration = 400, easing = identity }) {
+        const o = +getComputedStyle(node).opacity;
+        return {
+            delay,
+            duration,
+            easing,
+            css: t => `opacity: ${t * o}`
+        };
+    }
+    function fly(node, { delay = 0, duration = 400, easing = cubicOut, x = 0, y = 0, opacity = 0 }) {
+        const style = getComputedStyle(node);
+        const target_opacity = +style.opacity;
+        const transform = style.transform === 'none' ? '' : style.transform;
+        const od = target_opacity * (1 - opacity);
+        return {
+            delay,
+            duration,
+            easing,
+            css: (t, u) => `
+			transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) * y}px);
+			opacity: ${target_opacity - (od * u)}`
+        };
+    }
+    function slide(node, { delay = 0, duration = 400, easing = cubicOut }) {
+        const style = getComputedStyle(node);
+        const opacity = +style.opacity;
+        const height = parseFloat(style.height);
+        const padding_top = parseFloat(style.paddingTop);
+        const padding_bottom = parseFloat(style.paddingBottom);
+        const margin_top = parseFloat(style.marginTop);
+        const margin_bottom = parseFloat(style.marginBottom);
+        const border_top_width = parseFloat(style.borderTopWidth);
+        const border_bottom_width = parseFloat(style.borderBottomWidth);
+        return {
+            delay,
+            duration,
+            easing,
+            css: t => `overflow: hidden;` +
+                `opacity: ${Math.min(t * 20, 1) * opacity};` +
+                `height: ${t * height}px;` +
+                `padding-top: ${t * padding_top}px;` +
+                `padding-bottom: ${t * padding_bottom}px;` +
+                `margin-top: ${t * margin_top}px;` +
+                `margin-bottom: ${t * margin_bottom}px;` +
+                `border-top-width: ${t * border_top_width}px;` +
+                `border-bottom-width: ${t * border_bottom_width}px;`
+        };
+    }
+
+    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+    function unwrapExports (x) {
+    	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+    }
+
+    function createCommonjsModule(fn, module) {
+    	return module = { exports: {} }, fn(module, module.exports), module.exports;
+    }
+
+    var emotion_umd_min = createCommonjsModule(function (module, exports) {
+    !function(e,r){r(exports);}(commonjsGlobal,function(e){var r=function(){function e(e){this.isSpeedy=void 0===e.speedy||e.speedy,this.tags=[],this.ctr=0,this.nonce=e.nonce,this.key=e.key,this.container=e.container,this.before=null;}var r=e.prototype;return r.insert=function(e){if(this.ctr%(this.isSpeedy?65e3:1)==0){var r,t=function(e){var r=document.createElement("style");return r.setAttribute("data-emotion",e.key),void 0!==e.nonce&&r.setAttribute("nonce",e.nonce),r.appendChild(document.createTextNode("")),r}(this);r=0===this.tags.length?this.before:this.tags[this.tags.length-1].nextSibling,this.container.insertBefore(t,r),this.tags.push(t);}var a=this.tags[this.tags.length-1];if(this.isSpeedy){var n=function(e){if(e.sheet)return e.sheet;for(var r=0;r<document.styleSheets.length;r++)if(document.styleSheets[r].ownerNode===e)return document.styleSheets[r]}(a);try{var i=105===e.charCodeAt(1)&&64===e.charCodeAt(0);n.insertRule(e,i?0:n.cssRules.length);}catch(e){}}else a.appendChild(document.createTextNode(e));this.ctr++;},r.flush=function(){this.tags.forEach(function(e){return e.parentNode.removeChild(e)}),this.tags=[],this.ctr=0;},e}();function t(e){function r(e,r,a){var n=r.trim().split(b);r=n;var i=n.length,s=e.length;switch(s){case 0:case 1:var c=0;for(e=0===s?"":e[0]+" ";c<i;++c)r[c]=t(e,r[c],a).trim();break;default:var o=c=0;for(r=[];c<i;++c)for(var l=0;l<s;++l)r[o++]=t(e[l]+" ",n[c],a).trim();}return r}function t(e,r,t){var a=r.charCodeAt(0);switch(33>a&&(a=(r=r.trim()).charCodeAt(0)),a){case 38:return r.replace(g,"$1"+e.trim());case 58:return e.trim()+r.replace(g,"$1"+e.trim());default:if(0<1*t&&0<r.indexOf("\f"))return r.replace(g,(58===e.charCodeAt(0)?"":"$1")+e.trim())}return e+r}function a(e,r,t,i){var s=e+";",c=2*r+3*t+4*i;if(944===c){e=s.indexOf(":",9)+1;var o=s.substring(e,s.length-1).trim();return o=s.substring(0,e).trim()+o+";",1===z||2===z&&n(o,1)?"-webkit-"+o+o:o}if(0===z||2===z&&!n(s,1))return s;switch(c){case 1015:return 97===s.charCodeAt(10)?"-webkit-"+s+s:s;case 951:return 116===s.charCodeAt(3)?"-webkit-"+s+s:s;case 963:return 110===s.charCodeAt(5)?"-webkit-"+s+s:s;case 1009:if(100!==s.charCodeAt(4))break;case 969:case 942:return "-webkit-"+s+s;case 978:return "-webkit-"+s+"-moz-"+s+s;case 1019:case 983:return "-webkit-"+s+"-moz-"+s+"-ms-"+s+s;case 883:if(45===s.charCodeAt(8))return "-webkit-"+s+s;if(0<s.indexOf("image-set(",11))return s.replace(S,"$1-webkit-$2")+s;break;case 932:if(45===s.charCodeAt(4))switch(s.charCodeAt(5)){case 103:return "-webkit-box-"+s.replace("-grow","")+"-webkit-"+s+"-ms-"+s.replace("grow","positive")+s;case 115:return "-webkit-"+s+"-ms-"+s.replace("shrink","negative")+s;case 98:return "-webkit-"+s+"-ms-"+s.replace("basis","preferred-size")+s}return "-webkit-"+s+"-ms-"+s+s;case 964:return "-webkit-"+s+"-ms-flex-"+s+s;case 1023:if(99!==s.charCodeAt(8))break;return "-webkit-box-pack"+(o=s.substring(s.indexOf(":",15)).replace("flex-","").replace("space-between","justify"))+"-webkit-"+s+"-ms-flex-pack"+o+s;case 1005:return d.test(s)?s.replace(u,":-webkit-")+s.replace(u,":-moz-")+s:s;case 1e3:switch(r=(o=s.substring(13).trim()).indexOf("-")+1,o.charCodeAt(0)+o.charCodeAt(r)){case 226:o=s.replace(v,"tb");break;case 232:o=s.replace(v,"tb-rl");break;case 220:o=s.replace(v,"lr");break;default:return s}return "-webkit-"+s+"-ms-"+o+s;case 1017:if(-1===s.indexOf("sticky",9))break;case 975:switch(r=(s=e).length-10,c=(o=(33===s.charCodeAt(r)?s.substring(0,r):s).substring(e.indexOf(":",7)+1).trim()).charCodeAt(0)+(0|o.charCodeAt(7))){case 203:if(111>o.charCodeAt(8))break;case 115:s=s.replace(o,"-webkit-"+o)+";"+s;break;case 207:case 102:s=s.replace(o,"-webkit-"+(102<c?"inline-":"")+"box")+";"+s.replace(o,"-webkit-"+o)+";"+s.replace(o,"-ms-"+o+"box")+";"+s;}return s+";";case 938:if(45===s.charCodeAt(5))switch(s.charCodeAt(6)){case 105:return o=s.replace("-items",""),"-webkit-"+s+"-webkit-box-"+o+"-ms-flex-"+o+s;case 115:return "-webkit-"+s+"-ms-flex-item-"+s.replace(A,"")+s;default:return "-webkit-"+s+"-ms-flex-line-pack"+s.replace("align-content","").replace(A,"")+s}break;case 973:case 989:if(45!==s.charCodeAt(3)||122===s.charCodeAt(4))break;case 931:case 953:if(!0===x.test(e))return 115===(o=e.substring(e.indexOf(":")+1)).charCodeAt(0)?a(e.replace("stretch","fill-available"),r,t,i).replace(":fill-available",":stretch"):s.replace(o,"-webkit-"+o)+s.replace(o,"-moz-"+o.replace("fill-",""))+s;break;case 962:if(s="-webkit-"+s+(102===s.charCodeAt(5)?"-ms-"+s:"")+s,211===t+i&&105===s.charCodeAt(13)&&0<s.indexOf("transform",10))return s.substring(0,s.indexOf(";",27)+1).replace(h,"$1-webkit-$2")+s}return s}function n(e,r){var t=e.indexOf(1===r?":":"{"),a=e.substring(0,3!==r?t:10);return t=e.substring(t+1,e.length-1),G(2!==r?a:a.replace(C,"$1"),t,r)}function i(e,r){var t=a(r,r.charCodeAt(0),r.charCodeAt(1),r.charCodeAt(2));return t!==r+";"?t.replace(y," or ($1)").substring(4):"("+r+")"}function s(e,r,t,a,n,i,s,c,l,f){for(var u,d=0,h=r;d<_;++d)switch(u=R[d].call(o,e,h,t,a,n,i,s,c,l,f)){case void 0:case!1:case!0:case null:break;default:h=u;}if(h!==r)return h}function c(e){return void 0!==(e=e.prefix)&&(G=null,e?"function"!=typeof e?z=1:(z=2,G=e):z=0),c}function o(e,t){var c=e;if(33>c.charCodeAt(0)&&(c=c.trim()),c=[c],0<_){var o=s(-1,t,c,c,$,O,0,0,0,0);void 0!==o&&"string"==typeof o&&(t=o);}var u=function e(t,c,o,u,d){for(var h,b,g,v,y,A=0,C=0,x=0,S=0,R=0,G=0,I=g=h=0,M=0,W=0,P=0,D=0,F=o.length,L=F-1,T="",q="",B="",H="";M<F;){if(b=o.charCodeAt(M),M===L&&0!==C+S+x+A&&(0!==C&&(b=47===C?10:47),S=x=A=0,F++,L++),0===C+S+x+A){if(M===L&&(0<W&&(T=T.replace(f,"")),0<T.trim().length)){switch(b){case 32:case 9:case 59:case 13:case 10:break;default:T+=o.charAt(M);}b=59;}switch(b){case 123:for(h=(T=T.trim()).charCodeAt(0),g=1,D=++M;M<F;){switch(b=o.charCodeAt(M)){case 123:g++;break;case 125:g--;break;case 47:switch(b=o.charCodeAt(M+1)){case 42:case 47:e:{for(I=M+1;I<L;++I)switch(o.charCodeAt(I)){case 47:if(42===b&&42===o.charCodeAt(I-1)&&M+2!==I){M=I+1;break e}break;case 10:if(47===b){M=I+1;break e}}M=I;}}break;case 91:b++;case 40:b++;case 34:case 39:for(;M++<L&&o.charCodeAt(M)!==b;);}if(0===g)break;M++;}switch(g=o.substring(D,M),0===h&&(h=(T=T.replace(l,"").trim()).charCodeAt(0)),h){case 64:switch(0<W&&(T=T.replace(f,"")),b=T.charCodeAt(1)){case 100:case 109:case 115:case 45:W=c;break;default:W=E;}if(D=(g=e(c,W,g,b,d+1)).length,0<_&&(y=s(3,g,W=r(E,T,P),c,$,O,D,b,d,u),T=W.join(""),void 0!==y&&0===(D=(g=y.trim()).length)&&(b=0,g="")),0<D)switch(b){case 115:T=T.replace(w,i);case 100:case 109:case 45:g=T+"{"+g+"}";break;case 107:g=(T=T.replace(p,"$1 $2"))+"{"+g+"}",g=1===z||2===z&&n("@"+g,3)?"@-webkit-"+g+"@"+g:"@"+g;break;default:g=T+g,112===u&&(q+=g,g="");}else g="";break;default:g=e(c,r(c,T,P),g,u,d+1);}B+=g,g=P=W=I=h=0,T="",b=o.charCodeAt(++M);break;case 125:case 59:if(1<(D=(T=(0<W?T.replace(f,""):T).trim()).length))switch(0===I&&(h=T.charCodeAt(0),45===h||96<h&&123>h)&&(D=(T=T.replace(" ",":")).length),0<_&&void 0!==(y=s(1,T,c,t,$,O,q.length,u,d,u))&&0===(D=(T=y.trim()).length)&&(T="\0\0"),h=T.charCodeAt(0),b=T.charCodeAt(1),h){case 0:break;case 64:if(105===b||99===b){H+=T+o.charAt(M);break}default:58!==T.charCodeAt(D-1)&&(q+=a(T,h,b,T.charCodeAt(2)));}P=W=I=h=0,T="",b=o.charCodeAt(++M);}}switch(b){case 13:case 10:47===C?C=0:0===1+h&&107!==u&&0<T.length&&(W=1,T+="\0"),0<_*N&&s(0,T,c,t,$,O,q.length,u,d,u),O=1,$++;break;case 59:case 125:if(0===C+S+x+A){O++;break}default:switch(O++,v=o.charAt(M),b){case 9:case 32:if(0===S+A+C)switch(R){case 44:case 58:case 9:case 32:v="";break;default:32!==b&&(v=" ");}break;case 0:v="\\0";break;case 12:v="\\f";break;case 11:v="\\v";break;case 38:0===S+C+A&&(W=P=1,v="\f"+v);break;case 108:if(0===S+C+A+j&&0<I)switch(M-I){case 2:112===R&&58===o.charCodeAt(M-3)&&(j=R);case 8:111===G&&(j=G);}break;case 58:0===S+C+A&&(I=M);break;case 44:0===C+x+S+A&&(W=1,v+="\r");break;case 34:case 39:0===C&&(S=S===b?0:0===S?b:S);break;case 91:0===S+C+x&&A++;break;case 93:0===S+C+x&&A--;break;case 41:0===S+C+A&&x--;break;case 40:if(0===S+C+A){if(0===h)switch(2*R+3*G){case 533:break;default:h=1;}x++;}break;case 64:0===C+x+S+A+I+g&&(g=1);break;case 42:case 47:if(!(0<S+A+x))switch(C){case 0:switch(2*b+3*o.charCodeAt(M+1)){case 235:C=47;break;case 220:D=M,C=42;}break;case 42:47===b&&42===R&&D+2!==M&&(33===o.charCodeAt(D+2)&&(q+=o.substring(D,M+1)),v="",C=0);}}0===C&&(T+=v);}G=R,R=b,M++;}if(0<(D=q.length)){if(W=c,0<_&&void 0!==(y=s(2,q,W,t,$,O,D,u,d,u))&&0===(q=y).length)return H+q+B;if(q=W.join(",")+"{"+q+"}",0!=z*j){switch(2!==z||n(q,2)||(j=0),j){case 111:q=q.replace(k,":-moz-$1")+q;break;case 112:q=q.replace(m,"::-webkit-input-$1")+q.replace(m,"::-moz-$1")+q.replace(m,":-ms-input-$1")+q;}j=0;}}return H+q+B}(E,c,t,0,0);return 0<_&&(void 0!==(o=s(-2,u,c,c,$,O,u.length,0,0,0))&&(u=o)),j=0,O=$=1,u}var l=/^\0+/g,f=/[\0\r\f]/g,u=/: */g,d=/zoo|gra/,h=/([,: ])(transform)/g,b=/,\r+?/g,g=/([\t\r\n ])*\f?&/g,p=/@(k\w+)\s*(\S*)\s*/,m=/::(place)/g,k=/:(read-only)/g,v=/[svh]\w+-[tblr]{2}/,w=/\(\s*(.*)\s*\)/g,y=/([\s\S]*?);/g,A=/-self|flex-/g,C=/[^]*?(:[rp][el]a[\w-]+)[^]*/,x=/stretch|:\s*\w+\-(?:conte|avail)/,S=/([^-])(image-set\()/,O=1,$=1,j=0,z=1,E=[],R=[],_=0,G=null,N=0;return o.use=function e(r){switch(r){case void 0:case null:_=R.length=0;break;default:if("function"==typeof r)R[_++]=r;else if("object"==typeof r)for(var t=0,a=r.length;t<a;++t)e(r[t]);else N=0|!!r;}return e},o.set=c,void 0!==e&&c(e),o}function a(e){e&&n.current.insert(e+"}");}var n={current:null},i=function(e,r,t,i,s,c,o,l,f,u){switch(e){case 1:switch(r.charCodeAt(0)){case 64:return n.current.insert(r+";"),"";case 108:if(98===r.charCodeAt(2))return ""}break;case 2:if(0===l)return r+"/*|*/";break;case 3:switch(l){case 102:case 112:return n.current.insert(t[0]+r),"";default:return r+(0===u?"/*|*/":"")}case-2:r.split("/*|*/}").forEach(a);}};var s={animationIterationCount:1,borderImageOutset:1,borderImageSlice:1,borderImageWidth:1,boxFlex:1,boxFlexGroup:1,boxOrdinalGroup:1,columnCount:1,columns:1,flex:1,flexGrow:1,flexPositive:1,flexShrink:1,flexNegative:1,flexOrder:1,gridRow:1,gridRowEnd:1,gridRowSpan:1,gridRowStart:1,gridColumn:1,gridColumnEnd:1,gridColumnSpan:1,gridColumnStart:1,msGridRow:1,msGridRowSpan:1,msGridColumn:1,msGridColumnSpan:1,fontWeight:1,lineHeight:1,opacity:1,order:1,orphans:1,tabSize:1,widows:1,zIndex:1,zoom:1,WebkitLineClamp:1,fillOpacity:1,floodOpacity:1,stopOpacity:1,strokeDasharray:1,strokeDashoffset:1,strokeMiterlimit:1,strokeOpacity:1,strokeWidth:1};var c=/[A-Z]|^ms/g,o=/_EMO_([^_]+?)_([^]*?)_EMO_/g,l=function(e){return 45===e.charCodeAt(1)},f=function(e){return null!=e&&"boolean"!=typeof e},u=function(e){var r={};return function(t){return void 0===r[t]&&(r[t]=e(t)),r[t]}}(function(e){return l(e)?e:e.replace(c,"-$&").toLowerCase()}),d=function(e,r){switch(e){case"animation":case"animationName":if("string"==typeof r)return r.replace(o,function(e,r,t){return b={name:r,styles:t,next:b},r})}return 1===s[e]||l(e)||"number"!=typeof r||0===r?r:r+"px"};function h(e,r,t,a){if(null==t)return "";if(void 0!==t.__emotion_styles)return t;switch(typeof t){case"boolean":return "";case"object":if(1===t.anim)return b={name:t.name,styles:t.styles,next:b},t.name;if(void 0!==t.styles){var n=t.next;if(void 0!==n)for(;void 0!==n;)b={name:n.name,styles:n.styles,next:b},n=n.next;return t.styles+";"}return function(e,r,t){var a="";if(Array.isArray(t))for(var n=0;n<t.length;n++)a+=h(e,r,t[n],!1);else for(var i in t){var s=t[i];if("object"!=typeof s)null!=r&&void 0!==r[s]?a+=i+"{"+r[s]+"}":f(s)&&(a+=u(i)+":"+d(i,s)+";");else if(!Array.isArray(s)||"string"!=typeof s[0]||null!=r&&void 0!==r[s[0]]){var c=h(e,r,s,!1);switch(i){case"animation":case"animationName":a+=u(i)+":"+c+";";break;default:a+=i+"{"+c+"}";}}else for(var o=0;o<s.length;o++)f(s[o])&&(a+=u(i)+":"+d(i,s[o])+";");}return a}(e,r,t);case"function":if(void 0!==e){var i=b,s=t(e);return b=i,h(e,r,s,a)}}if(null==r)return t;var c=r[t];return void 0===c||a?t:c}var b,g=/label:\s*([^\s;\n{]+)\s*;/g,p=function(e,r,t){if(1===e.length&&"object"==typeof e[0]&&null!==e[0]&&void 0!==e[0].styles)return e[0];var a=!0,n="";b=void 0;var i=e[0];null==i||void 0===i.raw?(a=!1,n+=h(t,r,i,!1)):n+=i[0];for(var s=1;s<e.length;s++)n+=h(t,r,e[s],46===n.charCodeAt(n.length-1)),a&&(n+=i[s]);g.lastIndex=0;for(var c,o="";null!==(c=g.exec(n));)o+="-"+c[1];return {name:function(e){for(var r,t=e.length,a=t^t,n=0;t>=4;)r=1540483477*(65535&(r=255&e.charCodeAt(n)|(255&e.charCodeAt(++n))<<8|(255&e.charCodeAt(++n))<<16|(255&e.charCodeAt(++n))<<24))+((1540483477*(r>>>16)&65535)<<16),a=1540483477*(65535&a)+((1540483477*(a>>>16)&65535)<<16)^(r=1540483477*(65535&(r^=r>>>24))+((1540483477*(r>>>16)&65535)<<16)),t-=4,++n;switch(t){case 3:a^=(255&e.charCodeAt(n+2))<<16;case 2:a^=(255&e.charCodeAt(n+1))<<8;case 1:a=1540483477*(65535&(a^=255&e.charCodeAt(n)))+((1540483477*(a>>>16)&65535)<<16);}return a=1540483477*(65535&(a^=a>>>13))+((1540483477*(a>>>16)&65535)<<16),((a^=a>>>15)>>>0).toString(36)}(n)+o,styles:n,next:b}};function m(e,r,t){var a="";return t.split(" ").forEach(function(t){void 0!==e[t]?r.push(e[t]):a+=t+" ";}),a}function k(e,r){if(void 0===e.inserted[r.name])return e.insert("",r,e.sheet,!0)}function v(e,r,t){var a=[],n=m(e,a,t);return a.length<2?t:n+r(a)}var w=function e(r){for(var t="",a=0;a<r.length;a++){var n=r[a];if(null!=n){var i=void 0;switch(typeof n){case"boolean":break;case"object":if(Array.isArray(n))i=e(n);else for(var s in i="",n)n[s]&&s&&(i&&(i+=" "),i+=s);break;default:i=n;}i&&(t&&(t+=" "),t+=i);}}return t},y=function(e){var a=function(e){void 0===e&&(e={});var a,s=e.key||"css";void 0!==e.prefix&&(a={prefix:e.prefix});var c,o=new t(a),l={};c=e.container||document.head;var f,u=document.querySelectorAll("style[data-emotion-"+s+"]");Array.prototype.forEach.call(u,function(e){e.getAttribute("data-emotion-"+s).split(" ").forEach(function(e){l[e]=!0;}),e.parentNode!==c&&c.appendChild(e);}),o.use(e.stylisPlugins)(i),f=function(e,r,t,a){var i=r.name;n.current=t,o(e,r.styles),a&&(d.inserted[i]=!0);};var d={key:s,sheet:new r({key:s,container:c,nonce:e.nonce,speedy:e.speedy}),nonce:e.nonce,inserted:l,registered:{},insert:f};return d}(e);a.sheet.speedy=function(e){this.isSpeedy=e;},a.compat=!0;var s=function(){for(var e=arguments.length,r=new Array(e),t=0;t<e;t++)r[t]=arguments[t];var n=p(r,a.registered,void 0);return function(e,r,t){var a=e.key+"-"+r.name;if(!1===t&&void 0===e.registered[a]&&(e.registered[a]=r.styles),void 0===e.inserted[r.name]){var n=r;do{e.insert("."+a,n,e.sheet,!0),n=n.next;}while(void 0!==n)}}(a,n,!1),a.key+"-"+n.name};return {css:s,cx:function(){for(var e=arguments.length,r=new Array(e),t=0;t<e;t++)r[t]=arguments[t];return v(a.registered,s,w(r))},injectGlobal:function(){for(var e=arguments.length,r=new Array(e),t=0;t<e;t++)r[t]=arguments[t];var n=p(r,a.registered);k(a,n);},keyframes:function(){for(var e=arguments.length,r=new Array(e),t=0;t<e;t++)r[t]=arguments[t];var n=p(r,a.registered),i="animation-"+n.name;return k(a,{name:n.name,styles:"@keyframes "+i+"{"+n.styles+"}"}),i},hydrate:function(e){e.forEach(function(e){a.inserted[e]=!0;});},flush:function(){a.registered={},a.inserted={},a.sheet.flush();},sheet:a.sheet,cache:a,getRegisteredStyles:m.bind(null,a.registered),merge:v.bind(null,a.registered,s)}}(),A=y.flush,C=y.hydrate,x=y.cx,S=y.merge,O=y.getRegisteredStyles,$=y.injectGlobal,j=y.keyframes,z=y.css,E=y.sheet,R=y.cache;e.cache=R,e.css=z,e.cx=x,e.flush=A,e.getRegisteredStyles=O,e.hydrate=C,e.injectGlobal=$,e.keyframes=j,e.merge=S,e.sheet=E,Object.defineProperty(e,"__esModule",{value:!0});});
+    //# sourceMappingURL=emotion.umd.min.js.map
+    });
+
+    var emotion = unwrapExports(emotion_umd_min);
+
+    const { css } = emotion;
+
+    let windowWidth = window.innerWidth;
+    const elPadding = 8;
+    const elMargin = 4;
+    const borderWidth = 1;
+
+    window.addEventListener('resize', () => windowWidth = window.innerWidth);
+
+    const canvasStyle = css`
+
+`;
+    const elementStyle = (color="#fff", visible, count=18) => css`
   position: relative;
   box-sizing: border-box;
-  width: calc((100%/18) - (${8}px));
+  width: calc((100%/18) - (${elMargin*2}px));
   minWidth: 50px;
-  background: ${e};
-  border: ${1}px solid ${function(e,o){var t=!1;"#"==e[0]&&(e=e.slice(1),t=!0);var n=parseInt(e,16),s=(n>>16)+o;s>255?s=255:s<0&&(s=0);var r=(n>>8&255)+o;r>255?r=255:r<0&&(r=0);var a=(255&n)+o;a>255?a=255:a<0&&(a=0);return(t?"#":"")+(a|r<<8|s<<16).toString(16)}(e,-20)};
-  padding: ${8}px;
-  margin: ${4}px;
+  background: ${color};
+  border: ${borderWidth}px solid ${LightenDarkenColor(color, -20)};
+  padding: ${elPadding}px;
+  margin: ${elMargin}px;
   display: inline-block;
-  visibility: ${o?"visible":"hidden"};
-`;Fe`
+  visibility: ${visible ? 'visible' : 'hidden' };
+`;
+    const gridCellStyle = css`
   position: relative;
   box-sizing: border-box;
-  width: calc((100%/19) - (${8}px));
+  width: calc((100%/19) - (${elMargin*2}px));
   minWidth: 50px;
-  padding: ${8}px;
-  margin: ${4}px;
+  padding: ${elPadding}px;
+  margin: ${elMargin}px;
   display: inline-block;
   text-align: center;
-`;function Ve(o){let t,n;return{c(){t=w("div"),B(t,"class",n=i(We(o[4],o[5],o[6]))+" svelte-1e0mg8r")},m(e,o){b(e,t,o)},p(e,o){112&o&&n!==(n=i(We(e[4],e[5],e[6]))+" svelte-1e0mg8r")&&B(t,"class",n)},i:e,o:e,d(e){e&&y(t)}}}function Xe(o){let t,n,s,r,a,l,c,d,m,u,f,p,g,C,v;return{c(){t=w("div"),n=w("p"),s=R(o[0]),r=x(),a=w("p"),l=R(o[1]),c=x(),d=w("p"),m=R(o[2]),u=x(),f=w("p"),p=R(o[3]),B(n,"class","id svelte-1e0mg8r"),B(a,"class","symbol svelte-1e0mg8r"),B(d,"class","name svelte-1e0mg8r"),B(f,"class","mass svelte-1e0mg8r"),B(t,"class",g=i(We(o[4],o[5]))+" svelte-1e0mg8r"),$(t,"inactive",o[8])},m(e,i){b(e,t,i),h(t,n),h(n,s),h(t,r),h(t,a),h(a,l),h(t,c),h(t,d),h(d,m),h(t,u),h(t,f),h(f,p),o[17](t),v=A(t,"click",o[18])},p(e,o){1&o&&F(s,e[0]),2&o&&F(l,e[1]),4&o&&F(m,e[2]),8&o&&F(p,e[3]),48&o&&g!==(g=i(We(e[4],e[5]))+" svelte-1e0mg8r")&&B(t,"class",g),304&o&&$(t,"inactive",e[8])},i(e){C||G(()=>{C=ae(t,xe,{delay:5*o[0],y:-20}),C.start()})},o:e,d(e){e&&y(t),o[17](null),v()}}}function Ye(o){let t;function n(e,o){return e[5]?Xe:Ve}let s=n(o),r=s(o);return{c(){r.c(),t=v()},m(e,o){r.m(e,o),b(e,t,o)},p(e,[o]){s===(s=n(e))&&r?r.p(e,o):(r.d(1),r=s(e),r&&(r.c(),ne(r,1),r.m(t.parentNode,t)))},i(e){ne(r)},o:e,d(e){r.d(e),e&&y(t)}}}function Ee(e,o,t){let n,s,{id:r}=o,{symbol:a}=o,{name:l}=o,{mass:i}=o,{RCow:c}=o,{RVdW:d}=o,{maxBonds:m}=o,{color:u}=o,{color2:f}=o,{posX:p}=o,{posY:h}=o,{visible:b}=o,{count:y}=o,{updateAtom:g}=o,{inactive:w}=o;O(()=>{t(9,n="left"),h>3&&t(9,n="top"),h>12&&t(9,n="right")});return e.$set=e=>{"id"in e&&t(0,r=e.id),"symbol"in e&&t(1,a=e.symbol),"name"in e&&t(2,l=e.name),"mass"in e&&t(3,i=e.mass),"RCow"in e&&t(11,c=e.RCow),"RVdW"in e&&t(12,d=e.RVdW),"maxBonds"in e&&t(13,m=e.maxBonds),"color"in e&&t(4,u=e.color),"color2"in e&&t(14,f=e.color2),"posX"in e&&t(15,p=e.posX),"posY"in e&&t(16,h=e.posY),"visible"in e&&t(5,b=e.visible),"count"in e&&t(6,y=e.count),"updateAtom"in e&&t(7,g=e.updateAtom),"inactive"in e&&t(8,w=e.inactive)},[r,a,l,i,u,b,y,g,w,n,s,c,d,m,f,p,h,function(e){N[e?"unshift":"push"](()=>{t(10,s=e)})},()=>g(s,n)]}class Se extends be{constructor(e){super(),he(this,e,Ee,Ye,l,{id:0,symbol:1,name:2,mass:3,RCow:11,RVdW:12,maxBonds:13,color:4,color2:14,posX:15,posY:16,visible:5,count:6,updateAtom:7,inactive:8})}}function De(o){let t,n,s;return{c(){t=w("div"),n=w("canvas"),B(n,"id","atomCanvas"),B(n,"height","150"),B(n,"width","300"),B(t,"class",s=i($e)+" svelte-18iom2i")},m(e,o){b(e,t,o),h(t,n)},p:e,i:e,o:e,d(e){e&&y(t)}}}function _e(e,o,t){let n,s,r,a,{atom:l}=o,i=l.id;function c(){const e=n.height,o=n.width;var t,r;s.save(),s.fillStyle="white",s.fillRect(0,0,o,e),s.translate(o/2,e/2),t="#999999",r=5,s.fillStyle=t,s.beginPath(),s.arc(0,0,r,0,2*Math.PI,!0),s.closePath(),s.fill(),s.restore(),a=window.requestAnimationFrame(c)}function d(e){const o=e&&e<i?e:i;return function(){s.save();const e=n.height,t=n.width,a=20*o;var l;s.translate(t/2,e/2),l=a,s.beginPath(),s.arc(0,0,l,0,2*Math.PI,!0),s.closePath(),s.strokeStyle="#ccc",s.stroke(),s.translate(a,0),function(e,o){s.fillStyle=e,s.beginPath(),s.arc(0,0,o,0,2*Math.PI,!0),s.closePath(),s.fill()}("red",2),r=window.requestAnimationFrame(d(o)),s.restore()}}const m=()=>{s&&s.clearRect(0,0,n.width,n.height),i=0,i=l.id,s.restore(),r&&cancelAnimationFrame(r),a&&cancelAnimationFrame(a),c();for(let e=0;e<=i;e++)r=window.requestAnimationFrame(d(e))};return O(()=>{n=document.getElementById("atomCanvas"),s=n.getContext("2d"),m()}),T(()=>{s.save(),m()}),e.$set=e=>{"atom"in e&&t(0,l=e.atom)},[l]}class Oe extends be{constructor(e){super(),he(this,e,_e,De,l,{atom:0})}}function Te(t){let n,s,l,i,c,m,u,f,g,$,W,V,X,Y,D,_,O,T,M,N,P,L=t[3].name+"",I="left"===t[5]&&Ne(),j="top"===t[5]&&Pe(),z="right"===t[5]&&Le();const H=new Oe({props:{atom:t[3]}});return{c(){n=w("div"),s=C("svg"),I&&I.c(),l=v(),j&&j.c(),i=v(),z&&z.c(),m=x(),u=w("button"),u.textContent="x",f=x(),g=w("h3"),$=R(L),W=x(),V=w("div"),me(H.$$.fragment),X=x(),Y=w("div"),Y.textContent="Lorem ipsum",D=x(),_=w("div"),O=w("button"),O.textContent="More",B(s,"class",c="pointer-"+t[5]+" svelte-1folhot"),B(s,"width","30"),B(s,"height","30"),B(s,"xmlns","http://www.w3.org/2000/svg"),B(u,"class","close svelte-1folhot"),B(V,"class","atom-card svelte-1folhot"),B(Y,"class","detail-body py-4"),B(_,"class","detail-footer"),B(n,"class","detail-card svelte-1folhot"),k(n,"left",t[0]+"px"),k(n,"top",t[1]+"px")},m(e,o){b(e,n,o),h(n,s),I&&I.m(s,null),h(s,l),j&&j.m(s,null),h(s,i),z&&z.m(s,null),h(n,m),h(n,u),h(n,f),h(n,g),h(g,$),h(n,W),h(n,V),ue(H,V,null),h(n,X),h(n,Y),h(n,D),h(n,_),h(_,O),t[15](n),N=!0,P=[A(u,"click",(function(){a(t[4])&&t[4].apply(this,arguments)})),A(O,"click",t[8])]},p(e,o){"left"===(t=e)[5]?I||(I=Ne(),I.c(),I.m(s,l)):I&&(I.d(1),I=null),"top"===t[5]?j||(j=Pe(),j.c(),j.m(s,i)):j&&(j.d(1),j=null),"right"===t[5]?z||(z=Le(),z.c(),z.m(s,null)):z&&(z.d(1),z=null),(!N||32&o&&c!==(c="pointer-"+t[5]+" svelte-1folhot"))&&B(s,"class",c),(!N||8&o)&&L!==(L=t[3].name+"")&&F($,L);const r={};8&o&&(r.atom=t[3]),H.$set(r),(!N||1&o)&&k(n,"left",t[0]+"px"),(!N||2&o)&&k(n,"top",t[1]+"px")},i(e){N||(ne(H.$$.fragment,e),G(()=>{M&&M.end(1),T||(T=ae(n,xe,t[7])),T.start()}),N=!0)},o(s){se(H.$$.fragment,s),T&&T.invalidate(),M=function(t,n,s){let l,i=n(t,s),c=!0;const m=ee;function u(){const{delay:n=0,duration:s=300,easing:a=o,tick:u=e,css:f}=i||re;f&&(l=E(t,1,0,s,n,a,f));const h=d()+n,b=h+s;G(()=>J(t,!1,"start")),p(e=>{if(c){if(e>=b)return u(0,1),J(t,!1,"end"),--m.r||r(m.c),!1;if(e>=h){const o=a((e-h)/s);u(1-o,o)}}return c})}return m.r+=1,a(i)?U().then(()=>{i=i(),u()}):u(),{end(e){e&&i.tick&&i.tick(1,0),c&&(l&&S(t,l),c=!1)}}}(n,xe,t[7]),N=!1},d(e){e&&y(n),I&&I.d(),j&&j.d(),z&&z.d(),fe(H),t[15](null),e&&M&&M.end(),r(P)}}}function Me(e){let o,n,s,r,l,i,c,d;const m=[e[3]];let u={};for(let e=0;e<m.length;e+=1)u=t(u,m[e]);const f=new Se({props:u});return{c(){o=w("div"),n=w("button"),n.textContent="x",s=x(),me(f.$$.fragment),r=x(),l=w("div"),l.textContent="Lorem ipsum",B(n,"class","close svelte-1folhot"),B(l,"class","detail-body py-4"),B(o,"class","detail-card full svelte-1folhot")},m(t,i){b(t,o,i),h(o,n),h(o,s),ue(f,o,null),h(o,r),h(o,l),e[14](o),c=!0,d=A(n,"click",(function(){a((e[13],e[4]()))&&(e[13],e[4]()).apply(this,arguments)}))},p(o,t){e=o;const n=8&t?ce(m,[de(e[3])]):{};f.$set(n)},i(e){c||(ne(f.$$.fragment,e),G(()=>{i||(i=le(o,xe,{},!0)),i.run(1)}),c=!0)},o(e){se(f.$$.fragment,e),i||(i=le(o,xe,{},!1)),i.run(0),c=!1},d(t){t&&y(o),fe(f),e[14](null),t&&i&&i.end(),d()}}}function Ne(e){let o,t;return{c(){o=C("g"),t=C("rect"),B(t,"width","15"),B(t,"height","15"),B(t,"fill","white"),B(t,"stroke","#ccc"),B(t,"stroke-dasharray","15 15 0"),B(o,"transform","translate(4, 10) rotate(-45)")},m(e,n){b(e,o,n),h(o,t)},d(e){e&&y(o)}}}function Pe(e){let o,t;return{c(){o=C("g"),t=C("rect"),B(t,"width","15"),B(t,"height","15"),B(t,"fill","white"),B(t,"stroke","#ccc"),B(t,"stroke-dasharray","15 15 0"),B(o,"transform","translate(4, 10) rotate(-135 7 7)")},m(e,n){b(e,o,n),h(o,t)},d(e){e&&y(o)}}}function Le(e){let o,t;return{c(){o=C("g"),t=C("rect"),B(t,"width","15"),B(t,"height","15"),B(t,"fill","white"),B(t,"stroke","#ccc"),B(t,"stroke-dasharray","15 15 0"),B(o,"transform","translate(4, 10) rotate(135 7 7)")},m(e,n){b(e,o,n),h(o,t)},d(e){e&&y(o)}}}function Ie(e){let o,t,n,s;const r=[Me,Te],a=[];function l(e,o){return e[2]?0:1}return o=l(e),t=a[o]=r[o](e),{c(){t.c(),n=v()},m(e,t){a[o].m(e,t),b(e,n,t),s=!0},p(e,[s]){let i=o;o=l(e),o===i?a[o].p(e,s):(oe(),se(a[i],1,1,()=>{a[i]=null}),te(),t=a[o],t||(t=a[o]=r[o](e),t.c()),ne(t,1),t.m(n.parentNode,n))},i(e){s||(ne(t),s=!0)},o(e){se(t),s=!1},d(e){a[o].d(e),e&&y(n)}}}function je(e,o,t){let n,s,{atom:r}=o,{close:a}=o,{selectedEl:l}=o,{x:i}=o,{y:c}=o,{direction:d}=o,{fullDetail:m=!1}=o,u={height:0};const f=e=>{let o;switch(e){case"top":o={y:-5,speed:50};break;case"left":o={x:-5,speed:50};break;case"right":o={x:10,speed:50};break;default:o={y:-5,speed:50}}return o};O(()=>{u=n.getBoundingClientRect()}),T(()=>{s=window.scrollY,scrollX=window.scrollX,"left"===d&&(t(0,i=l.x+l.width+15),t(1,c=l.y-(u.height/2-l.height/2)+s)),"top"===d&&(t(0,i=l.x-(u.width/2-l.width/2)+scrollX),t(1,c=l.y-u.height-15+s)),"right"===d&&(t(0,i=l.x-(u.width+15)),t(1,c=l.y-(u.height/2-l.height/2)+s))});let p;return e.$set=e=>{"atom"in e&&t(3,r=e.atom),"close"in e&&t(4,a=e.close),"selectedEl"in e&&t(9,l=e.selectedEl),"x"in e&&t(0,i=e.x),"y"in e&&t(1,c=e.y),"direction"in e&&t(5,d=e.direction),"fullDetail"in e&&t(2,m=e.fullDetail)},e.$$.update=()=>{32&e.$$.dirty&&t(7,p=f(d))},[i,c,m,r,a,d,n,p,()=>{t(2,m=!0)},l,u,s,f,()=>t(2,m=!1),function(e){N[e?"unshift":"push"](()=>{t(6,n=e)})},function(e){N[e?"unshift":"push"](()=>{t(6,n=e)})}]}class Ge extends be{constructor(e){super(),he(this,e,je,Ie,l,{atom:3,close:4,selectedEl:9,x:0,y:1,direction:5,fullDetail:2})}}function ze(e,o,t){const n=e.slice();return n[11]=o[t],n}function He(e,o,t){const n=e.slice();return n[8]=o[t],n}function qe(e){let o;const t=new Ge({props:{selectedEl:e[2],direction:e[3],atom:e[0],close:e[6]}});return{c(){me(t.$$.fragment)},m(e,n){ue(t,e,n),o=!0},p(e,o){const n={};4&o&&(n.selectedEl=e[2]),8&o&&(n.direction=e[3]),1&o&&(n.atom=e[0]),1&o&&(n.close=e[6]),t.$set(n)},i(e){o||(ne(t.$$.fragment,e),o=!0)},o(e){se(t.$$.fragment,e),o=!1},d(e){fe(t,e)}}}function Ke(e){let o,t,n=[],s=new Map,r=e[8];const a=e=>e[11].uuid;for(let o=0;o<r.length;o+=1){let t=ze(e,r,o),l=a(t);s.set(l,n[o]=Ze(l,t))}return{c(){for(let e=0;e<n.length;e+=1)n[e].c();o=v()},m(e,s){for(let o=0;o<n.length;o+=1)n[o].m(e,s);b(e,o,s),t=!0},p(e,t){if(18&t){const r=e[8];oe(),n=function(e,o,t,n,s,r,a,l,i,c,d,m){let u=e.length,f=r.length,p=u;const h={};for(;p--;)h[e[p].key]=p;const b=[],y=new Map,g=new Map;for(p=f;p--;){const e=m(s,r,p),l=t(e);let i=a.get(l);i?n&&i.p(e,o):(i=c(l,e),i.c()),y.set(l,b[p]=i),l in h&&g.set(l,Math.abs(p-h[l]))}const w=new Set,C=new Set;function R(e){ne(e,1),e.m(l,d),a.set(e.key,e),d=e.first,f--}for(;u&&f;){const o=b[f-1],t=e[u-1],n=o.key,s=t.key;o===t?(d=o.first,u--,f--):y.has(s)?!a.has(n)||w.has(n)?R(o):C.has(s)?u--:g.get(n)>g.get(s)?(C.add(n),R(o)):(w.add(s),u--):(i(t,a),u--)}for(;u--;){const o=e[u];y.has(o.key)||i(o,a)}for(;f;)R(b[f-1]);return b}(n,t,a,1,e,r,s,o.parentNode,ie,Ze,o,ze),te()}},i(e){if(!t){for(let e=0;e<r.length;e+=1)ne(n[e]);t=!0}},o(e){for(let e=0;e<n.length;e+=1)se(n[e]);t=!1},d(e){for(let o=0;o<n.length;o+=1)n[o].d(e);e&&y(o)}}}function Ze(e,o){let n,s;const r=[{updateAtom:function(...e){return o[7](o[11],...e)}},{count:o[8].length},o[11]];let a={};for(let e=0;e<r.length;e+=1)a=t(a,r[e]);const l=new Se({props:a});return{key:e,first:null,c(){n=v(),me(l.$$.fragment),this.first=n},m(e,o){b(e,n,o),ue(l,e,o),s=!0},p(e,t){o=e;const n=18&t?ce(r,[r[0],2&t&&{count:o[8].length},2&t&&de(o[11])]):{};l.$set(n)},i(e){s||(ne(l.$$.fragment,e),s=!0)},o(e){se(l.$$.fragment,e),s=!1},d(e){e&&y(n),fe(l,e)}}}function Ue(e){let o,t,n=e[8]&&Ke(e);return{c(){n&&n.c(),o=v()},m(e,s){n&&n.m(e,s),b(e,o,s),t=!0},p(e,t){e[8]?n?(n.p(e,t),ne(n,1)):(n=Ke(e),n.c(),ne(n,1),n.m(o.parentNode,o)):n&&(oe(),se(n,1,1,()=>{n=null}),te())},i(e){t||(ne(n),t=!0)},o(e){se(n),t=!1},d(e){n&&n.d(e),e&&y(o)}}}function Je(e){let o,t,n,s=e[0]&&qe(e),r=e[1],a=[];for(let o=0;o<r.length;o+=1)a[o]=Ue(He(e,r,o));const l=e=>se(a[e],1,1,()=>{a[e]=null});return{c(){s&&s.c(),o=x(),t=w("div");for(let e=0;e<a.length;e+=1)a[e].c();B(t,"class","svelte-z58mtu")},m(e,r){s&&s.m(e,r),b(e,o,r),b(e,t,r);for(let e=0;e<a.length;e+=1)a[e].m(t,null);n=!0},p(e,[n]){if(e[0]?s?(s.p(e,n),ne(s,1)):(s=qe(e),s.c(),ne(s,1),s.m(o.parentNode,o)):s&&(oe(),se(s,1,1,()=>{s=null}),te()),18&n){let o;for(r=e[1],o=0;o<r.length;o+=1){const s=He(e,r,o);a[o]?(a[o].p(s,n),ne(a[o],1)):(a[o]=Ue(s),a[o].c(),ne(a[o],1),a[o].m(t,null))}for(oe(),o=r.length;o<a.length;o+=1)l(o);te()}},i(e){if(!n){ne(s);for(let e=0;e<r.length;e+=1)ne(a[e]);n=!0}},o(e){se(s),a=a.filter(Boolean);for(let e=0;e<a.length;e+=1)se(a[e]);n=!1},d(e){s&&s.d(e),e&&y(o),e&&y(t),g(a,e)}}}function Qe(e,o,t){let n,{rows:s}=o,{atom:r}=o,{updateAtom:a}=o,l="left";const i=(e,o,s)=>{o&&(t(0,r=e),t(2,n=o.getBoundingClientRect()),t(3,l=s))};return e.$set=e=>{"rows"in e&&t(1,s=e.rows),"atom"in e&&t(0,r=e.atom),"updateAtom"in e&&t(5,a=e.updateAtom)},[r,s,n,l,i,a,()=>t(0,r=null),(e,o,t)=>i(e,o,t)]}class eo extends be{constructor(e){super(),he(this,e,Qe,Je,l,{rows:1,atom:0,updateAtom:5})}}var oo="undefined"!=typeof crypto&&crypto.getRandomValues&&crypto.getRandomValues.bind(crypto)||"undefined"!=typeof msCrypto&&"function"==typeof window.msCrypto.getRandomValues&&msCrypto.getRandomValues.bind(msCrypto),to=new Uint8Array(16);function no(){if(!oo)throw new Error("uuid: This browser does not seem to support crypto.getRandomValues(). If you need to support this browser, please provide a custom random number generator through options.rng.");return oo(to)}for(var so=[],ro=0;ro<256;++ro)so[ro]=(ro+256).toString(16).substr(1);function ao(e,o,t){var n=o&&t||0;"string"==typeof e&&(o="binary"===e?new Array(16):null,e=null);var s=(e=e||{}).random||(e.rng||no)();if(s[6]=15&s[6]|64,s[8]=63&s[8]|128,o)for(var r=0;r<16;++r)o[n+r]=s[r];return o||function(e,o){var t=o||0,n=so;return[n[e[t++]],n[e[t++]],n[e[t++]],n[e[t++]],"-",n[e[t++]],n[e[t++]],"-",n[e[t++]],n[e[t++]],"-",n[e[t++]],n[e[t++]],"-",n[e[t++]],n[e[t++]],n[e[t++]],n[e[t++]],n[e[t++]],n[e[t++]]].join("")}(s)}var lo=ve(Ae((function(e,o){"undefined"!=typeof self&&self,e.exports=function(e){var o={};function t(n){if(o[n])return o[n].exports;var s=o[n]={i:n,l:!1,exports:{}};return e[n].call(s.exports,s,s.exports,t),s.l=!0,s.exports}return t.m=e,t.c=o,t.d=function(e,o,n){t.o(e,o)||Object.defineProperty(e,o,{enumerable:!0,get:n})},t.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t.t=function(e,o){if(1&o&&(e=t(e)),8&o)return e;if(4&o&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(t.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&o&&"string"!=typeof e)for(var s in e)t.d(n,s,function(o){return e[o]}.bind(null,s));return n},t.n=function(e){var o=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(o,"a",o),o},t.o=function(e,o){return Object.prototype.hasOwnProperty.call(e,o)},t.p="",t(t.s=1)}([function(e,o,t){Object.defineProperty(o,"__esModule",{value:!0}),o.ChemElementData=[{id:0,symbol:"Q",RCow:.77,RVdW:0,maxBonds:0,mass:0,name:"Dummy",posX:1,posY:7,color:"#FFFFFF",color2:"#808080"},{id:1,symbol:"H",RCow:.37,RVdW:1.2,maxBonds:1,mass:1.00794,name:"Hydrogen",posX:1,posY:1,color:"#FFFFFF",color2:"#808080"},{id:1,symbol:"D",RCow:.37,RVdW:1.2,maxBonds:1,mass:2,name:"Diyterium",posX:1,posY:8,color:"#FFFFFF",color2:"#808080"},{id:2,symbol:"He",RCow:.32,RVdW:1.4,maxBonds:0,mass:4.002602,name:"Helium",posX:1,posY:18,color:"#D9FFFF",color2:"#849B9B"},{id:3,symbol:"Li",RCow:1.34,RVdW:2.2,maxBonds:1,mass:6.941,name:"Lithium",posX:2,posY:1,color:"#CC80FF",color2:"#C87EFA"},{id:4,symbol:"Be",RCow:.9,RVdW:1.9,maxBonds:2,mass:9.012182,name:"Beryllium",posX:2,posY:2,color:"#C2FF00",color2:"#82AB00"},{id:5,symbol:"B",RCow:.82,RVdW:1.8,maxBonds:3,mass:10.811,name:"Boron",posX:2,posY:13,color:"#FFB5B5",color2:"#F090A0"},{id:6,symbol:"C",RCow:.77,RVdW:1.7,maxBonds:4,mass:12.0107,name:"Carbon",posX:2,posY:14,color:"#909090",color2:"#000000"},{id:7,symbol:"N",RCow:.75,RVdW:1.6,maxBonds:4,mass:14.0067,name:"Nitrogen",posX:2,posY:15,color:"#3050F8",color2:"#304FF7"},{id:8,symbol:"O",RCow:.73,RVdW:1.55,maxBonds:2,mass:15.9994,name:"Oxygen",posX:2,posY:16,color:"#FF0D0D",color2:"#FF0D0D"},{id:9,symbol:"F",RCow:.71,RVdW:1.5,maxBonds:1,mass:18.9984032,name:"Fluorine",posX:2,posY:17,color:"#90E050",color2:"#228B22"},{id:10,symbol:"Ne",RCow:.69,RVdW:1.54,maxBonds:0,mass:20.1797,name:"Neon",posX:2,posY:18,color:"#B3E3F5",color2:"#7B9CA8"},{id:11,symbol:"Na",RCow:1.54,RVdW:2.4,maxBonds:1,mass:22.98977,name:"Sodium",posX:3,posY:1,color:"#AB5CF2",color2:"#AB5CF2"},{id:12,symbol:"Mg",RCow:1.3,RVdW:2.2,maxBonds:2,mass:24.305,name:"Magnesium",posX:3,posY:2,color:"#8AFF00",color2:"#61B400"},{id:13,symbol:"Al",RCow:1.18,RVdW:2.1,maxBonds:6,mass:26.981538,name:"Aluminium",posX:3,posY:13,color:"#BFA6A6",color2:"#A79191"},{id:14,symbol:"Si",RCow:1.11,RVdW:2.1,maxBonds:6,mass:28.0855,name:"Silicon",posX:3,posY:14,color:"#F0C8A0",color2:"#B09276"},{id:15,symbol:"P",RCow:1.06,RVdW:1.95,maxBonds:5,mass:30.973761,name:"Phosphorus",posX:3,posY:15,color:"#FF8000",color2:"#FF8000"},{id:16,symbol:"S",RCow:1.02,RVdW:1.8,maxBonds:6,mass:32.065,name:"Sulfur",posX:3,posY:16,color:"#FFFF30",color2:"#FFC832"},{id:17,symbol:"Cl",RCow:.99,RVdW:1.8,maxBonds:1,mass:35.453,name:"Chlorine",posX:3,posY:17,color:"#1FF01F",color2:"#1DC51D"},{id:18,symbol:"Ar",RCow:.97,RVdW:1.88,maxBonds:0,mass:39.948,name:"Argon",posX:3,posY:18,color:"#80D1E3",color2:"#63A2B0"},{id:19,symbol:"K",RCow:1.96,RVdW:2.8,maxBonds:1,mass:39.0983,name:"Potassium",posX:4,posY:1,color:"#8F40D4",color2:"#8F40D4"},{id:20,symbol:"Ca",RCow:1.74,RVdW:2.4,maxBonds:2,mass:40.078,name:"Calcium",posX:4,posY:2,color:"#3DFF00",color2:"#2FC300"},{id:21,symbol:"Sc",RCow:1.44,RVdW:2.3,maxBonds:6,mass:44.95591,name:"Scandium",posX:4,posY:3,color:"#E6E6E6",color2:"#969696"},{id:22,symbol:"Ti",RCow:1.36,RVdW:2.15,maxBonds:6,mass:47.867,name:"Titanium",posX:4,posY:4,color:"#BFC2C7",color2:"#94969A"},{id:23,symbol:"V",RCow:1.25,RVdW:2.05,maxBonds:6,mass:50.9415,name:"Vanadium",posX:4,posY:5,color:"#A6A6AB",color2:"#96969A"},{id:24,symbol:"Cr",RCow:1.27,RVdW:2.05,maxBonds:6,mass:51.9961,name:"Chromium",posX:4,posY:6,color:"#8A99C7",color2:"#8796C3"},{id:25,symbol:"Mn",RCow:1.39,RVdW:2.05,maxBonds:8,mass:54.938049,name:"Manganese",posX:4,posY:7,color:"#9C7AC7",color2:"#9C7AC7"},{id:26,symbol:"Fe",RCow:1.25,RVdW:2.05,maxBonds:6,mass:55.845,name:"Iron",posX:4,posY:8,color:"#E06633",color2:"#E06633"},{id:27,symbol:"Co",RCow:1.26,RVdW:2,maxBonds:6,mass:58.9332,name:"Cobalt",posX:4,posY:9,color:"#F090A0",color2:"#DB8293"},{id:28,symbol:"Ni",RCow:1.21,RVdW:2,maxBonds:6,mass:58.6934,name:"Nickel",posX:4,posY:10,color:"#50D050",color2:"#45B645"},{id:29,symbol:"Cu",RCow:1.38,RVdW:2,maxBonds:6,mass:63.546,name:"Copper",posX:4,posY:11,color:"#C88033",color2:"#C78033"},{id:30,symbol:"Zn",RCow:1.31,RVdW:2.1,maxBonds:6,mass:65.409,name:"Zinc",posX:4,posY:12,color:"#7D80B0",color2:"#7D80B0"},{id:31,symbol:"Ga",RCow:1.26,RVdW:2.1,maxBonds:3,mass:69.723,name:"Gallium",posX:4,posY:13,color:"#C28F8F",color2:"#BD8C8C"},{id:32,symbol:"Ge",RCow:1.22,RVdW:2.1,maxBonds:4,mass:72.64,name:"Germanium",posX:4,posY:14,color:"#668F8F",color2:"#668F8F"},{id:33,symbol:"As",RCow:1.19,RVdW:2.05,maxBonds:3,mass:74.9216,name:"Arsenic",posX:4,posY:15,color:"#BD80E3",color2:"#BD80E3"},{id:34,symbol:"Se",RCow:1.16,RVdW:1.9,maxBonds:2,mass:78.96,name:"Selenium",posX:4,posY:16,color:"#FFA100",color2:"#E28F00"},{id:35,symbol:"Br",RCow:1.14,RVdW:1.9,maxBonds:1,mass:79.904,name:"Bromine",posX:4,posY:17,color:"#A62929",color2:"#A62929"},{id:36,symbol:"Kr",RCow:1.1,RVdW:2.02,maxBonds:0,mass:83.798,name:"Krypton",posX:4,posY:18,color:"#5CB8D1",color2:"#53A6BC"},{id:37,symbol:"Rb",RCow:2.11,RVdW:2.9,maxBonds:1,mass:85.4678,name:"Rubidium",posX:5,posY:1,color:"#702EB0",color2:"#702EB0"},{id:38,symbol:"Sr",RCow:1.92,RVdW:2.55,maxBonds:2,mass:87.62,name:"Strontium",posX:5,posY:2,color:"#00FF00",color2:"#00D000"},{id:39,symbol:"Y",RCow:1.62,RVdW:2.4,maxBonds:6,mass:88.90585,name:"Yttrium",posX:5,posY:3,color:"#94FFFF",color2:"#5FA4A4"},{id:40,symbol:"Zr",RCow:1.48,RVdW:2.3,maxBonds:6,mass:91.224,name:"Zirconium",posX:5,posY:4,color:"#94E0E0",color2:"#6BA2A2"},{id:41,symbol:"Nb",RCow:1.37,RVdW:2.15,maxBonds:6,mass:92.90638,name:"Niobium",posX:5,posY:5,color:"#73C2C9",color2:"#61A4A9"},{id:42,symbol:"Mo",RCow:1.45,RVdW:2.1,maxBonds:6,mass:95.94,name:"Molybdenum",posX:5,posY:6,color:"#54B5B5",color2:"#4EA9A9"},{id:43,symbol:"Tc",RCow:1.56,RVdW:2.05,maxBonds:6,mass:98,name:"Technetium",posX:5,posY:7,color:"#3B9E9E",color2:"#4EA9A9"},{id:44,symbol:"Ru",RCow:1.26,RVdW:2.05,maxBonds:6,mass:101.07,name:"Ruthenium",posX:5,posY:8,color:"#248F8F",color2:"#248F8F"},{id:45,symbol:"Rh",RCow:1.35,RVdW:2,maxBonds:6,mass:102.9055,name:"Rhodium",posX:5,posY:9,color:"#0A7D8C",color2:"#0A7D8C"},{id:46,symbol:"Pd",RCow:1.31,RVdW:2.05,maxBonds:6,mass:106.42,name:"Palladium",posX:5,posY:10,color:"#006985",color2:"#006985"},{id:47,symbol:"Ag",RCow:1.53,RVdW:2.1,maxBonds:6,mass:107.8682,name:"Silver",posX:5,posY:11,color:"#C0C0C0",color2:"#969696"},{id:48,symbol:"Cd",RCow:1.48,RVdW:2.2,maxBonds:6,mass:112.411,name:"Cadmium",posX:5,posY:12,color:"#FFD98F",color2:"#AE9462"},{id:49,symbol:"In",RCow:1.44,RVdW:2.2,maxBonds:3,mass:114.818,name:"Indium",posX:5,posY:13,color:"#A67573",color2:"#A67573"},{id:50,symbol:"Sn",RCow:1.41,RVdW:2.25,maxBonds:4,mass:118.71,name:"Tin",posX:5,posY:14,color:"#668080",color2:"#668080"},{id:51,symbol:"Sb",RCow:1.38,RVdW:2.2,maxBonds:3,mass:121.76,name:"Antimony",posX:5,posY:15,color:"#9E63B5",color2:"#9E63B5"},{id:52,symbol:"Te",RCow:1.35,RVdW:2.1,maxBonds:2,mass:127.6,name:"Tellurium",posX:5,posY:16,color:"#D47A00",color2:"#D47A00"},{id:53,symbol:"I",RCow:1.33,RVdW:2.1,maxBonds:1,mass:126.90447,name:"Iodine",posX:5,posY:17,color:"#940094",color2:"#940094"},{id:54,symbol:"Xe",RCow:1.3,RVdW:2.16,maxBonds:0,mass:131.293,name:"Xenon",posX:5,posY:18,color:"#429EB0",color2:"#429EB0"},{id:55,symbol:"Cs",RCow:2.25,RVdW:3,maxBonds:1,mass:132.90545,name:"Cesium",posX:6,posY:1,color:"#57178F",color2:"#57178F"},{id:56,symbol:"Ba",RCow:1.98,RVdW:2.7,maxBonds:2,mass:137.327,name:"Barium",posX:6,posY:2,color:"#00C900",color2:"#00C900"},{id:57,symbol:"La",RCow:1.69,RVdW:2.5,maxBonds:12,mass:138.9055,name:"Lanthanum",posX:9,posY:3,color:"#70D4FF",color2:"#57A4C5"},{id:58,symbol:"Ce",RCow:1.6,RVdW:2.48,maxBonds:6,mass:140.116,name:"Cerium",posX:9,posY:4,color:"#FFFFC7",color2:"#989877"},{id:59,symbol:"Pr",RCow:1.6,RVdW:2.47,maxBonds:6,mass:140.90765,name:"Praseodymium",posX:9,posY:5,color:"#D9FFC7",color2:"#869D7B"},{id:60,symbol:"Nd",RCow:1.6,RVdW:2.45,maxBonds:6,mass:144.24,name:"Neodymium",posX:9,posY:6,color:"#C7FFC7",color2:"#7DA07D"},{id:61,symbol:"Pm",RCow:1.6,RVdW:2.43,maxBonds:6,mass:145,name:"Promethium",posX:9,posY:7,color:"#A3FFC7",color2:"#69A581"},{id:62,symbol:"Sm",RCow:1.6,RVdW:2.42,maxBonds:6,mass:150.36,name:"Samarium",posX:9,posY:8,color:"#8FFFC7",color2:"#5EA883"},{id:63,symbol:"Eu",RCow:1.6,RVdW:2.4,maxBonds:6,mass:151.964,name:"Europium",posX:9,posY:9,color:"#61FFC7",color2:"#43B089"},{id:64,symbol:"Gd",RCow:1.6,RVdW:2.38,maxBonds:6,mass:157.25,name:"Gadolinium",posX:9,posY:10,color:"#45FFC7",color2:"#31B48D"},{id:65,symbol:"Tb",RCow:1.6,RVdW:2.37,maxBonds:6,mass:158.92534,name:"Terbium",posX:9,posY:11,color:"#30FFC7",color2:"#23B890"},{id:66,symbol:"Dy",RCow:1.6,RVdW:2.35,maxBonds:6,mass:162.5,name:"Dysprosium",posX:9,posY:12,color:"#1FFFC7",color2:"#17BB92"},{id:67,symbol:"Ho",RCow:1.6,RVdW:2.33,maxBonds:6,mass:164.93032,name:"Holmium",posX:9,posY:13,color:"#00FF9C",color2:"#00C578"},{id:68,symbol:"Er",RCow:1.6,RVdW:2.32,maxBonds:6,mass:167.259,name:"Erbium",posX:9,posY:14,color:"#00E675",color2:"#00C765"},{id:69,symbol:"Tm",RCow:1.6,RVdW:2.3,maxBonds:6,mass:168.93421,name:"Thulium",posX:9,posY:15,color:"#00D452",color2:"#00C94E"},{id:70,symbol:"Yb",RCow:1.6,RVdW:2.28,maxBonds:6,mass:173.04,name:"Ytterbium",posX:9,posY:16,color:"#00BF38",color2:"#00BF38"},{id:71,symbol:"Lu",RCow:1.6,RVdW:2.27,maxBonds:6,mass:174.967,name:"Lutetium",posX:9,posY:17,color:"#00AB24",color2:"#00AB24"},{id:72,symbol:"Hf",RCow:1.5,RVdW:2.25,maxBonds:6,mass:178.49,name:"Hafnium",posX:6,posY:4,color:"#4DC2FF",color2:"#42A8DC"},{id:73,symbol:"Ta",RCow:1.38,RVdW:2.2,maxBonds:6,mass:180.9479,name:"Tantalum",posX:6,posY:5,color:"#4DA6FF",color2:"#4BA2F9"},{id:74,symbol:"W",RCow:1.46,RVdW:2.1,maxBonds:6,mass:183.84,name:"Tungsten",posX:6,posY:6,color:"#2194D6",color2:"#2194D6"},{id:75,symbol:"Re",RCow:1.59,RVdW:2.05,maxBonds:6,mass:186.207,name:"Rhenium",posX:6,posY:7,color:"#267DAB",color2:"#267DAB"},{id:76,symbol:"Os",RCow:1.28,RVdW:2,maxBonds:6,mass:190.23,name:"Osmium",posX:6,posY:8,color:"#266696",color2:"#266696"},{id:77,symbol:"Ir",RCow:1.37,RVdW:2,maxBonds:6,mass:192.217,name:"Iridium",posX:6,posY:9,color:"#175487",color2:"#175487"},{id:78,symbol:"Pt",RCow:1.28,RVdW:2.05,maxBonds:6,mass:195.078,name:"Platinum",posX:6,posY:10,color:"#D0D0E0",color2:"#9595A0"},{id:79,symbol:"Au",RCow:1.44,RVdW:2.1,maxBonds:6,mass:196.96655,name:"Gold",posX:6,posY:11,color:"#FFD123",color2:"#B9981A"},{id:80,symbol:"Hg",RCow:1.49,RVdW:2.05,maxBonds:6,mass:200.59,name:"Mercury",posX:6,posY:12,color:"#B8B8D0",color2:"#9595A9"},{id:81,symbol:"Tl",RCow:1.48,RVdW:2.2,maxBonds:3,mass:204.3833,name:"Thallium",posX:6,posY:13,color:"#A6544D",color2:"#A6544D"},{id:82,symbol:"Pb",RCow:1.47,RVdW:2.3,maxBonds:4,mass:207.2,name:"Lead",posX:6,posY:14,color:"#575961",color2:"#575961"},{id:83,symbol:"Bi",RCow:1.46,RVdW:2.3,maxBonds:3,mass:208.98038,name:"Bismuth",posX:6,posY:15,color:"#9E4FB5",color2:"#9E4FB5"},{id:84,symbol:"Po",RCow:1.6,RVdW:2,maxBonds:2,mass:209,name:"Polonium",posX:6,posY:16,color:"#AB5C00",color2:"#AB5C00"},{id:85,symbol:"At",RCow:1.6,RVdW:2,maxBonds:1,mass:210,name:"Astatine",posX:6,posY:17,color:"#754F45",color2:"#754F45"},{id:86,symbol:"Rn",RCow:1.45,RVdW:2,maxBonds:0,mass:222,name:"Radon",posX:6,posY:18,color:"#428296",color2:"#428296"},{id:87,symbol:"Fr",RCow:1.6,RVdW:2,maxBonds:1,mass:223,name:"Francium",posX:7,posY:1,color:"#420066",color2:"#420066"},{id:88,symbol:"Ra",RCow:1.6,RVdW:2,maxBonds:2,mass:226,name:"Radium",posX:7,posY:2,color:"#007D00",color2:"#007D00"},{id:89,symbol:"Ac",RCow:1.6,RVdW:2,maxBonds:6,mass:227,name:"Actinium",posX:10,posY:3,color:"#70ABFA",color2:"#669CE4"},{id:90,symbol:"Th",RCow:1.6,RVdW:2.4,maxBonds:6,mass:232.0381,name:"Thorium",posX:10,posY:4,color:"#00BAFF",color2:"#00B8FC"},{id:91,symbol:"Pa",RCow:1.6,RVdW:2,maxBonds:6,mass:231.03588,name:"Protactinium",posX:10,posY:5,color:"#00A1FF",color2:"#00A1FF"},{id:92,symbol:"U",RCow:1.6,RVdW:2.3,maxBonds:6,mass:238.02891,name:"Uranium",posX:10,posY:6,color:"#008FFF",color2:"#008FFF"},{id:93,symbol:"Np",RCow:1.6,RVdW:2,maxBonds:6,mass:237,name:"Neptunium",posX:10,posY:7,color:"#0080FF",color2:"#0080FF"},{id:94,symbol:"Pu",RCow:1.6,RVdW:2,maxBonds:6,mass:244,name:"Plutonium",posX:10,posY:8,color:"#006BFF",color2:"#006BFF"},{id:95,symbol:"Am",RCow:1.6,RVdW:2,maxBonds:6,mass:243,name:"Americium",posX:10,posY:9,color:"#545CF2",color2:"#545CF2"},{id:96,symbol:"Cm",RCow:1.6,RVdW:2,maxBonds:6,mass:247,name:"Curium",posX:10,posY:10,color:"#785CE3",color2:"#785CE3"},{id:97,symbol:"Bk",RCow:1.6,RVdW:2,maxBonds:6,mass:247,name:"Berkelium",posX:10,posY:11,color:"#8A4FE3",color2:"#8A4FE3"},{id:98,symbol:"Cf",RCow:1.6,RVdW:2,maxBonds:6,mass:251,name:"Californium",posX:10,posY:12,color:"#A136D4",color2:"#A136D4"},{id:99,symbol:"Es",RCow:1.6,RVdW:2,maxBonds:6,mass:252,name:"Einsteinium",posX:10,posY:13,color:"#B31FD4",color2:"#B31FD4"},{id:100,symbol:"Fm",RCow:1.6,RVdW:2,maxBonds:6,mass:257,name:"Fermium",posX:10,posY:14,color:"#B31FBA",color2:"#B31FBA"},{id:101,symbol:"Md",RCow:1.6,RVdW:2,maxBonds:6,mass:258,name:"Mendelevium",posX:10,posY:15,color:"#B30DA6",color2:"#B30DA6"},{id:102,symbol:"No",RCow:1.6,RVdW:2,maxBonds:6,mass:259,name:"Nobelium",posX:10,posY:16,color:"#BD0D87",color2:"#BD0D87"},{id:103,symbol:"Lr",RCow:1.6,RVdW:2,maxBonds:6,mass:262,name:"Lawrencium",posX:10,posY:17,color:"#C70066",color2:"#C70066"},{id:104,symbol:"Rf",RCow:1.6,RVdW:2,maxBonds:6,mass:261,name:"Rutherfordium",posX:7,posY:4,color:"#CC0059",color2:"#42A8DC"},{id:105,symbol:"Db",RCow:1.6,RVdW:2,maxBonds:6,mass:262,name:"Dubnium",posX:7,posY:5,color:"#D1004F",color2:"#4BA2F9"},{id:106,symbol:"Sg",RCow:1.6,RVdW:2,maxBonds:6,mass:266,name:"Seaborgium",posX:7,posY:6,color:"#D90045",color2:"#2194D6"},{id:107,symbol:"Bh",RCow:1.6,RVdW:2,maxBonds:6,mass:264,name:"Bohrium",posX:7,posY:7,color:"#E00038",color2:"#267DAB"},{id:108,symbol:"Hs",RCow:1.6,RVdW:2,maxBonds:6,mass:277,name:"Hassium",posX:7,posY:8,color:"#E6002E",color2:"#266696"},{id:109,symbol:"Mt",RCow:1.6,RVdW:2,maxBonds:6,mass:268,name:"Meitnerium",posX:7,posY:9,color:"#EB0026",color2:"#175487"},{id:110,symbol:"Ds",RCow:1.6,RVdW:2,maxBonds:6,mass:281,name:"Darmstadtium",posX:7,posY:10,color:"#FF1493",color2:"#9595A0"},{id:111,symbol:"Rg",RCow:1.6,RVdW:2,maxBonds:6,mass:272,name:"Roentgenium",posX:7,posY:11,color:"#FF1494",color2:"#B9981A"},{id:112,symbol:"Cn",RCow:1.6,RVdW:2,maxBonds:6,mass:277,name:"Copernicium",posX:7,posY:12,color:"#FF1495",color2:"#9595A9"}]},function(e,o,t){function n(e){for(var t in e)o.hasOwnProperty(t)||(o[t]=e[t])}Object.defineProperty(o,"__esModule",{value:!0}),n(t(2)),n(t(0))},function(e,o,t){Object.defineProperty(o,"__esModule",{value:!0});var n=t(0),s=function(){function e(){}return e.getById=function(e){for(var o=0,t=n.ChemElementData;o<t.length;o++){var s=t[o];if(s.id===e)return s}return null},e.getBySymbol=function(e){for(var o=(e||"").replace(/[^a-z]/gim,"").toLowerCase(),t=o.charAt(0).toUpperCase()+o.slice(1),s=0,r=n.ChemElementData;s<r.length;s++){var a=r[s];if(a.symbol===t)return a}return null},e.getAll=function(){return n.ChemElementData.filter((function(e){return"Q"!==e.symbol&&"D"!==e.symbol}))},e.getAllSymbols=function(){return e.getAll().map((function(e){return e.symbol}))},e}();o.ChemElements=s}])})));const{ChemElements:io,ChemElementData:co}=lo,mo=()=>({uuid:ao(),visible:!1}),uo=[...Array(8)].map((e,o)=>[...Array(19)].map((e,t)=>{const n={titleColumn:!1,titleRow:!1,value:null,id:`${o}-${t}-${Math.random()}`};var s,r;return r=t,0===(s=o)&&1===r||1===s&&2===r||0===s&&18===r||3===s&&r>2&&r<13||1===s&&r>=13&&r<18?(n.titleColumn=!0,n.value=t):0===t&&0===o&&(n.titleRow=!0),((e,o)=>0===o&&e>0)(o,t)&&(n.titleRow=!0,n.value=o),n}));console.log(uo);const fo=co.reduce((e,o)=>{if("Dummy"===o.name||"D"===o.symbol)return e;const t=(o=Object.assign(o,mo())).posX-1,n=o.posY-1;if(void 0===e[t]){const o=new Array(18);for(let e=0;e<18;e++)o[e]=mo();e[t]=o}return o.visible=!0,e[t][n]=o,e},new Array(9));function po(e,o,t){const n=e.slice();return n[3]=o[t],n}function ho(e,o,t){const n=e.slice();return n[0]=o[t],n}function bo(o){let t,n,s=o[3].value&&function(o){let t,n=o[3].value+"";return{c(){t=R(n)},m(e,o){b(e,t,o)},p:e,d(e){e&&y(t)}}}(o);return{c(){t=w("div"),s&&s.c(),n=x(),B(t,"class","grid-cell svelte-1n44z7j"),$(t,"title-row",o[3].titleRow),$(t,"title-column",o[3].titleColumn)},m(e,o){b(e,t,o),s&&s.m(t,null),h(t,n)},p(e,o){e[3].value&&s.p(e,o),0&o&&$(t,"title-row",e[3].titleRow),0&o&&$(t,"title-column",e[3].titleColumn)},d(e){e&&y(t),s&&s.d()}}}function yo(e){let o,t=e[0],n=[];for(let o=0;o<t.length;o+=1)n[o]=bo(po(e,t,o));return{c(){for(let e=0;e<n.length;e+=1)n[e].c();o=v()},m(e,t){for(let o=0;o<n.length;o+=1)n[o].m(e,t);b(e,o,t)},p(e,s){if(0&s){let r;for(t=e[0],r=0;r<t.length;r+=1){const a=po(e,t,r);n[r]?n[r].p(a,s):(n[r]=bo(a),n[r].c(),n[r].m(o.parentNode,o))}for(;r<n.length;r+=1)n[r].d(1);n.length=t.length}},d(e){g(n,e),e&&y(o)}}}function go(o){let t,n=uo,s=[];for(let e=0;e<n.length;e+=1)s[e]=yo(ho(o,n,e));return{c(){t=w("div");for(let e=0;e<s.length;e+=1)s[e].c();B(t,"class","grid-container svelte-1n44z7j")},m(e,o){b(e,t,o);for(let e=0;e<s.length;e+=1)s[e].m(t,null)},p(e,[o]){if(0&o){let r;for(n=uo,r=0;r<n.length;r+=1){const a=ho(e,n,r);s[r]?s[r].p(a,o):(s[r]=yo(a),s[r].c(),s[r].m(t,null))}for(;r<s.length;r+=1)s[r].d(1);s.length=n.length}},i:e,o:e,d(e){e&&y(t),g(s,e)}}}class wo extends be{constructor(e){super(),he(this,e,null,go,l,{})}}function Co(e){let o,t,n,s,r,a,l,i;const c=new Ce({props:{filtered:e[1],allRows:fo,filterRows:e[6]}}),d=new eo({props:{updateAtom:e[3],rows:e[0],atom:e[2]}}),m=new wo({}),u=new ye({});return{c(){o=w("main"),t=w("header"),n=w("h1"),n.textContent="Periodic Table",s=x(),me(c.$$.fragment),r=x(),me(d.$$.fragment),a=x(),me(m.$$.fragment),l=x(),me(u.$$.fragment),B(n,"class","svelte-pdnuqd"),B(t,"class","svelte-pdnuqd"),B(o,"class","table-container svelte-pdnuqd")},m(e,f){b(e,o,f),h(o,t),h(t,n),h(t,s),ue(c,t,null),h(o,r),ue(d,o,null),h(o,a),ue(m,o,null),b(e,l,f),ue(u,e,f),i=!0},p(e,[o]){const t={};2&o&&(t.filtered=e[1]),1&o&&(t.filterRows=e[6]),c.$set(t);const n={};1&o&&(n.rows=e[0]),4&o&&(n.atom=e[2]),d.$set(n)},i(e){i||(ne(c.$$.fragment,e),ne(d.$$.fragment,e),ne(m.$$.fragment,e),ne(u.$$.fragment,e),i=!0)},o(e){se(c.$$.fragment,e),se(d.$$.fragment,e),se(m.$$.fragment,e),se(u.$$.fragment,e),i=!1},d(e){e&&y(o),fe(c),fe(d),fe(m),e&&y(l),fe(u,e)}}}function Ro(e,o,t){let n=[],s=!1,r=null;O(()=>{t(0,n=fo)});return[n,s,r,e=>{t(2,r=null),setTimeout(()=>t(2,r=e),10)},[],()=>{t(2,r=null),t(0,n=[]),t(1,s=!1),t(0,n=fo)},e=>{t(0,n=e)}]}return new class extends be{constructor(e){super(),he(this,e,Ro,Co,l,{})}}({target:document.querySelector(".pt-container"),hydrate:!0})}();
+`;
+
+    function LightenDarkenColor(col, amt) {
+      var usePound = false;
+
+      if (col[0] == "#") {
+          col = col.slice(1);
+          usePound = true;
+      }
+
+      var num = parseInt(col,16);
+
+      var r = (num >> 16) + amt;
+
+      if (r > 255) r = 255;
+      else if  (r < 0) r = 0;
+
+      var b = ((num >> 8) & 0x00FF) + amt;
+
+      if (b > 255) b = 255;
+      else if  (b < 0) b = 0;
+
+      var g = (num & 0x0000FF) + amt;
+
+      if (g > 255) g = 255;
+      else if (g < 0) g = 0;
+
+      return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
+
+    }
+
+    /* src/Element.svelte generated by Svelte v3.19.1 */
+    const file$1 = "src/Element.svelte";
+
+    // (83:0) {:else}
+    function create_else_block(ctx) {
+    	let div;
+    	let div_class_value;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			attr_dev(div, "class", div_class_value = "" + (null_to_empty(elementStyle(/*color*/ ctx[4], /*visible*/ ctx[5], /*count*/ ctx[6])) + " svelte-1e0mg8r"));
+    			add_location(div, file$1, 83, 2, 1480);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*color, visible, count*/ 112 && div_class_value !== (div_class_value = "" + (null_to_empty(elementStyle(/*color*/ ctx[4], /*visible*/ ctx[5], /*count*/ ctx[6])) + " svelte-1e0mg8r"))) {
+    				attr_dev(div, "class", div_class_value);
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block.name,
+    		type: "else",
+    		source: "(83:0) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (71:0) {#if visible}
+    function create_if_block(ctx) {
+    	let div;
+    	let p0;
+    	let t0;
+    	let t1;
+    	let p1;
+    	let t2;
+    	let t3;
+    	let p2;
+    	let t4;
+    	let t5;
+    	let p3;
+    	let t6;
+    	let div_class_value;
+    	let div_intro;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			p0 = element("p");
+    			t0 = text(/*id*/ ctx[0]);
+    			t1 = space();
+    			p1 = element("p");
+    			t2 = text(/*symbol*/ ctx[1]);
+    			t3 = space();
+    			p2 = element("p");
+    			t4 = text(/*name*/ ctx[2]);
+    			t5 = space();
+    			p3 = element("p");
+    			t6 = text(/*mass*/ ctx[3]);
+    			attr_dev(p0, "class", "id svelte-1e0mg8r");
+    			add_location(p0, file$1, 77, 4, 1341);
+    			attr_dev(p1, "class", "symbol svelte-1e0mg8r");
+    			add_location(p1, file$1, 78, 4, 1368);
+    			attr_dev(p2, "class", "name svelte-1e0mg8r");
+    			add_location(p2, file$1, 79, 4, 1403);
+    			attr_dev(p3, "class", "mass svelte-1e0mg8r");
+    			add_location(p3, file$1, 80, 4, 1434);
+    			attr_dev(div, "class", div_class_value = "" + (null_to_empty(elementStyle(/*color*/ ctx[4], /*visible*/ ctx[5])) + " svelte-1e0mg8r"));
+    			toggle_class(div, "inactive", /*inactive*/ ctx[8]);
+    			add_location(div, file$1, 71, 2, 1146);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, p0);
+    			append_dev(p0, t0);
+    			append_dev(div, t1);
+    			append_dev(div, p1);
+    			append_dev(p1, t2);
+    			append_dev(div, t3);
+    			append_dev(div, p2);
+    			append_dev(p2, t4);
+    			append_dev(div, t5);
+    			append_dev(div, p3);
+    			append_dev(p3, t6);
+    			/*div_binding*/ ctx[17](div);
+    			dispose = listen_dev(div, "click", /*click_handler*/ ctx[18], false, false, false);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*id*/ 1) set_data_dev(t0, /*id*/ ctx[0]);
+    			if (dirty & /*symbol*/ 2) set_data_dev(t2, /*symbol*/ ctx[1]);
+    			if (dirty & /*name*/ 4) set_data_dev(t4, /*name*/ ctx[2]);
+    			if (dirty & /*mass*/ 8) set_data_dev(t6, /*mass*/ ctx[3]);
+
+    			if (dirty & /*color, visible*/ 48 && div_class_value !== (div_class_value = "" + (null_to_empty(elementStyle(/*color*/ ctx[4], /*visible*/ ctx[5])) + " svelte-1e0mg8r"))) {
+    				attr_dev(div, "class", div_class_value);
+    			}
+
+    			if (dirty & /*color, visible, inactive*/ 304) {
+    				toggle_class(div, "inactive", /*inactive*/ ctx[8]);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (!div_intro) {
+    				add_render_callback(() => {
+    					div_intro = create_in_transition(div, fly, { delay: 5 * /*id*/ ctx[0], y: -20 });
+    					div_intro.start();
+    				});
+    			}
+    		},
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			/*div_binding*/ ctx[17](null);
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(71:0) {#if visible}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$2(ctx) {
+    	let if_block_anchor;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*visible*/ ctx[5]) return create_if_block;
+    		return create_else_block;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			transition_in(if_block);
+    		},
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$2.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$1($$self, $$props, $$invalidate) {
+    	let { id } = $$props;
+    	let { symbol } = $$props;
+    	let { name } = $$props;
+    	let { mass } = $$props;
+    	let { RCow } = $$props;
+    	let { RVdW } = $$props;
+    	let { maxBonds } = $$props;
+    	let { color } = $$props;
+    	let { color2 } = $$props;
+    	let { posX } = $$props;
+    	let { posY } = $$props;
+    	let { visible } = $$props;
+    	let { count } = $$props;
+    	let { updateAtom } = $$props;
+    	let { inactive } = $$props;
+    	let detailDirection;
+    	let element;
+
+    	onMount(() => {
+    		$$invalidate(9, detailDirection = "left");
+
+    		if (posY > 3) {
+    			$$invalidate(9, detailDirection = "top");
+    		}
+
+    		if (posY > 12) {
+    			$$invalidate(9, detailDirection = "right");
+    		}
+    	});
+
+    	const writable_props = [
+    		"id",
+    		"symbol",
+    		"name",
+    		"mass",
+    		"RCow",
+    		"RVdW",
+    		"maxBonds",
+    		"color",
+    		"color2",
+    		"posX",
+    		"posY",
+    		"visible",
+    		"count",
+    		"updateAtom",
+    		"inactive"
+    	];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Element> was created with unknown prop '${key}'`);
+    	});
+
+    	function div_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			$$invalidate(10, element = $$value);
+    		});
+    	}
+
+    	const click_handler = () => updateAtom(element, detailDirection);
+
+    	$$self.$set = $$props => {
+    		if ("id" in $$props) $$invalidate(0, id = $$props.id);
+    		if ("symbol" in $$props) $$invalidate(1, symbol = $$props.symbol);
+    		if ("name" in $$props) $$invalidate(2, name = $$props.name);
+    		if ("mass" in $$props) $$invalidate(3, mass = $$props.mass);
+    		if ("RCow" in $$props) $$invalidate(11, RCow = $$props.RCow);
+    		if ("RVdW" in $$props) $$invalidate(12, RVdW = $$props.RVdW);
+    		if ("maxBonds" in $$props) $$invalidate(13, maxBonds = $$props.maxBonds);
+    		if ("color" in $$props) $$invalidate(4, color = $$props.color);
+    		if ("color2" in $$props) $$invalidate(14, color2 = $$props.color2);
+    		if ("posX" in $$props) $$invalidate(15, posX = $$props.posX);
+    		if ("posY" in $$props) $$invalidate(16, posY = $$props.posY);
+    		if ("visible" in $$props) $$invalidate(5, visible = $$props.visible);
+    		if ("count" in $$props) $$invalidate(6, count = $$props.count);
+    		if ("updateAtom" in $$props) $$invalidate(7, updateAtom = $$props.updateAtom);
+    		if ("inactive" in $$props) $$invalidate(8, inactive = $$props.inactive);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		fly,
+    		fade,
+    		onMount,
+    		afterUpdate,
+    		elementStyle,
+    		id,
+    		symbol,
+    		name,
+    		mass,
+    		RCow,
+    		RVdW,
+    		maxBonds,
+    		color,
+    		color2,
+    		posX,
+    		posY,
+    		visible,
+    		count,
+    		updateAtom,
+    		inactive,
+    		detailDirection,
+    		element
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("id" in $$props) $$invalidate(0, id = $$props.id);
+    		if ("symbol" in $$props) $$invalidate(1, symbol = $$props.symbol);
+    		if ("name" in $$props) $$invalidate(2, name = $$props.name);
+    		if ("mass" in $$props) $$invalidate(3, mass = $$props.mass);
+    		if ("RCow" in $$props) $$invalidate(11, RCow = $$props.RCow);
+    		if ("RVdW" in $$props) $$invalidate(12, RVdW = $$props.RVdW);
+    		if ("maxBonds" in $$props) $$invalidate(13, maxBonds = $$props.maxBonds);
+    		if ("color" in $$props) $$invalidate(4, color = $$props.color);
+    		if ("color2" in $$props) $$invalidate(14, color2 = $$props.color2);
+    		if ("posX" in $$props) $$invalidate(15, posX = $$props.posX);
+    		if ("posY" in $$props) $$invalidate(16, posY = $$props.posY);
+    		if ("visible" in $$props) $$invalidate(5, visible = $$props.visible);
+    		if ("count" in $$props) $$invalidate(6, count = $$props.count);
+    		if ("updateAtom" in $$props) $$invalidate(7, updateAtom = $$props.updateAtom);
+    		if ("inactive" in $$props) $$invalidate(8, inactive = $$props.inactive);
+    		if ("detailDirection" in $$props) $$invalidate(9, detailDirection = $$props.detailDirection);
+    		if ("element" in $$props) $$invalidate(10, element = $$props.element);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		id,
+    		symbol,
+    		name,
+    		mass,
+    		color,
+    		visible,
+    		count,
+    		updateAtom,
+    		inactive,
+    		detailDirection,
+    		element,
+    		RCow,
+    		RVdW,
+    		maxBonds,
+    		color2,
+    		posX,
+    		posY,
+    		div_binding,
+    		click_handler
+    	];
+    }
+
+    class Element extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(this, options, instance$1, create_fragment$2, safe_not_equal, {
+    			id: 0,
+    			symbol: 1,
+    			name: 2,
+    			mass: 3,
+    			RCow: 11,
+    			RVdW: 12,
+    			maxBonds: 13,
+    			color: 4,
+    			color2: 14,
+    			posX: 15,
+    			posY: 16,
+    			visible: 5,
+    			count: 6,
+    			updateAtom: 7,
+    			inactive: 8
+    		});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Element",
+    			options,
+    			id: create_fragment$2.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*id*/ ctx[0] === undefined && !("id" in props)) {
+    			console.warn("<Element> was created without expected prop 'id'");
+    		}
+
+    		if (/*symbol*/ ctx[1] === undefined && !("symbol" in props)) {
+    			console.warn("<Element> was created without expected prop 'symbol'");
+    		}
+
+    		if (/*name*/ ctx[2] === undefined && !("name" in props)) {
+    			console.warn("<Element> was created without expected prop 'name'");
+    		}
+
+    		if (/*mass*/ ctx[3] === undefined && !("mass" in props)) {
+    			console.warn("<Element> was created without expected prop 'mass'");
+    		}
+
+    		if (/*RCow*/ ctx[11] === undefined && !("RCow" in props)) {
+    			console.warn("<Element> was created without expected prop 'RCow'");
+    		}
+
+    		if (/*RVdW*/ ctx[12] === undefined && !("RVdW" in props)) {
+    			console.warn("<Element> was created without expected prop 'RVdW'");
+    		}
+
+    		if (/*maxBonds*/ ctx[13] === undefined && !("maxBonds" in props)) {
+    			console.warn("<Element> was created without expected prop 'maxBonds'");
+    		}
+
+    		if (/*color*/ ctx[4] === undefined && !("color" in props)) {
+    			console.warn("<Element> was created without expected prop 'color'");
+    		}
+
+    		if (/*color2*/ ctx[14] === undefined && !("color2" in props)) {
+    			console.warn("<Element> was created without expected prop 'color2'");
+    		}
+
+    		if (/*posX*/ ctx[15] === undefined && !("posX" in props)) {
+    			console.warn("<Element> was created without expected prop 'posX'");
+    		}
+
+    		if (/*posY*/ ctx[16] === undefined && !("posY" in props)) {
+    			console.warn("<Element> was created without expected prop 'posY'");
+    		}
+
+    		if (/*visible*/ ctx[5] === undefined && !("visible" in props)) {
+    			console.warn("<Element> was created without expected prop 'visible'");
+    		}
+
+    		if (/*count*/ ctx[6] === undefined && !("count" in props)) {
+    			console.warn("<Element> was created without expected prop 'count'");
+    		}
+
+    		if (/*updateAtom*/ ctx[7] === undefined && !("updateAtom" in props)) {
+    			console.warn("<Element> was created without expected prop 'updateAtom'");
+    		}
+
+    		if (/*inactive*/ ctx[8] === undefined && !("inactive" in props)) {
+    			console.warn("<Element> was created without expected prop 'inactive'");
+    		}
+    	}
+
+    	get id() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set id(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get symbol() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set symbol(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get name() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set name(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get mass() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set mass(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get RCow() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set RCow(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get RVdW() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set RVdW(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get maxBonds() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set maxBonds(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get color() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set color(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get color2() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set color2(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get posX() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set posX(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get posY() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set posY(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get visible() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set visible(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get count() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set count(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get updateAtom() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set updateAtom(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get inactive() {
+    		throw new Error("<Element>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set inactive(value) {
+    		throw new Error("<Element>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/Atom.svelte generated by Svelte v3.19.1 */
+    const file$2 = "src/Atom.svelte";
+
+    function create_fragment$3(ctx) {
+    	let div;
+    	let canvas_1;
+    	let div_class_value;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			canvas_1 = element("canvas");
+    			attr_dev(canvas_1, "id", "atomCanvas");
+    			attr_dev(canvas_1, "height", "150");
+    			attr_dev(canvas_1, "width", "300");
+    			add_location(canvas_1, file$2, 132, 2, 2795);
+    			attr_dev(div, "class", div_class_value = "" + (null_to_empty(canvasStyle) + " svelte-18iom2i"));
+    			add_location(div, file$2, 131, 0, 2767);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, canvas_1);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$3.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$2($$self, $$props, $$invalidate) {
+    	let { atom } = $$props;
+    	let electrons = atom.id;
+    	let i = 0;
+    	let z = 0;
+    	let canvas;
+    	let ctx;
+    	let electronsAnim;
+    	let drawAnim;
+
+    	function draw() {
+    		const h = canvas.height;
+    		const w = canvas.width;
+
+    		var circle = function (color, r) {
+    			ctx.fillStyle = color;
+    			ctx.beginPath();
+    			ctx.arc(0, 0, r, 0, 2 * Math.PI, true);
+    			ctx.closePath();
+    			ctx.fill();
+    		};
+
+    		ctx.save();
+    		ctx.fillStyle = "white";
+    		ctx.fillRect(0, 0, w, h);
+
+    		// set origin to center
+    		ctx.translate(w / 2, h / 2);
+
+    		// draw sun
+    		circle("#999999", 5);
+
+    		ctx.restore();
+    		drawAnim = window.requestAnimationFrame(draw);
+    	}
+
+    	let rotation = 0;
+    	let speed = 0;
+
+    	function drawElectron(e) {
+    		const idx = e && e < electrons ? e : electrons;
+
+    		return function () {
+    			ctx.save();
+    			const h = canvas.height;
+    			const w = canvas.width;
+    			const v = idx * 20;
+
+    			var valence = r => {
+    				ctx.beginPath();
+    				ctx.arc(0, 0, r, 0, 2 * Math.PI, true);
+    				ctx.closePath();
+    				ctx.strokeStyle = "#ccc";
+    				ctx.stroke();
+    			};
+
+    			var circle = function (color, r) {
+    				ctx.fillStyle = color;
+    				ctx.beginPath();
+    				ctx.arc(0, 0, r, 0, 2 * Math.PI, true);
+    				ctx.closePath();
+    				ctx.fill();
+    			};
+
+    			// set origin to center
+    			ctx.translate(w / 2, h / 2);
+
+    			valence(v);
+
+    			// rotate + move along x
+    			// ctx.rotate(rotation/(v));
+    			ctx.translate(v, 0);
+
+    			// draw planet
+    			circle("red", 2);
+
+    			rotation += 0.04;
+    			electronsAnim = window.requestAnimationFrame(drawElectron(idx));
+    			ctx.restore();
+    		};
+    	}
+
+    	const redraw = () => {
+    		if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+    		rotation = 0;
+    		electrons = 0;
+    		electrons = atom.id;
+    		ctx.restore();
+    		if (electronsAnim) cancelAnimationFrame(electronsAnim);
+    		if (drawAnim) cancelAnimationFrame(drawAnim);
+    		draw();
+
+    		for (let e = 0; e <= electrons; e++) {
+    			electronsAnim = window.requestAnimationFrame(drawElectron(e));
+    		}
+    	};
+
+    	onMount(() => {
+    		canvas = document.getElementById("atomCanvas");
+    		ctx = canvas.getContext("2d");
+    		redraw();
+    	});
+
+    	afterUpdate(() => {
+    		ctx.save();
+    		redraw();
+    	});
+
+    	const writable_props = ["atom"];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Atom> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$set = $$props => {
+    		if ("atom" in $$props) $$invalidate(0, atom = $$props.atom);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		canvasStyle,
+    		onMount,
+    		afterUpdate,
+    		atom,
+    		electrons,
+    		i,
+    		z,
+    		canvas,
+    		ctx,
+    		electronsAnim,
+    		drawAnim,
+    		draw,
+    		rotation,
+    		speed,
+    		drawElectron,
+    		redraw,
+    		Math,
+    		window,
+    		cancelAnimationFrame,
+    		document
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("atom" in $$props) $$invalidate(0, atom = $$props.atom);
+    		if ("electrons" in $$props) electrons = $$props.electrons;
+    		if ("i" in $$props) i = $$props.i;
+    		if ("z" in $$props) z = $$props.z;
+    		if ("canvas" in $$props) canvas = $$props.canvas;
+    		if ("ctx" in $$props) ctx = $$props.ctx;
+    		if ("electronsAnim" in $$props) electronsAnim = $$props.electronsAnim;
+    		if ("drawAnim" in $$props) drawAnim = $$props.drawAnim;
+    		if ("rotation" in $$props) rotation = $$props.rotation;
+    		if ("speed" in $$props) speed = $$props.speed;
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [atom];
+    }
+
+    class Atom extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$2, create_fragment$3, safe_not_equal, { atom: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Atom",
+    			options,
+    			id: create_fragment$3.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*atom*/ ctx[0] === undefined && !("atom" in props)) {
+    			console.warn("<Atom> was created without expected prop 'atom'");
+    		}
+    	}
+
+    	get atom() {
+    		throw new Error("<Atom>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set atom(value) {
+    		throw new Error("<Atom>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/ElementDetail.svelte generated by Svelte v3.19.1 */
+    const file$3 = "src/ElementDetail.svelte";
+
+    // (86:0) {:else}
+    function create_else_block$1(ctx) {
+    	let div3;
+    	let svg;
+    	let if_block0_anchor;
+    	let if_block1_anchor;
+    	let svg_class_value;
+    	let t0;
+    	let button0;
+    	let t2;
+    	let h3;
+    	let t3_value = /*atom*/ ctx[3].name + "";
+    	let t3;
+    	let t4;
+    	let div0;
+    	let t5;
+    	let div1;
+    	let t7;
+    	let div2;
+    	let button1;
+    	let div3_intro;
+    	let div3_outro;
+    	let current;
+    	let dispose;
+    	let if_block0 = /*direction*/ ctx[5] === "left" && create_if_block_3(ctx);
+    	let if_block1 = /*direction*/ ctx[5] === "top" && create_if_block_2(ctx);
+    	let if_block2 = /*direction*/ ctx[5] === "right" && create_if_block_1(ctx);
+
+    	const atom_1 = new Atom({
+    			props: { atom: /*atom*/ ctx[3] },
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			div3 = element("div");
+    			svg = svg_element("svg");
+    			if (if_block0) if_block0.c();
+    			if_block0_anchor = empty();
+    			if (if_block1) if_block1.c();
+    			if_block1_anchor = empty();
+    			if (if_block2) if_block2.c();
+    			t0 = space();
+    			button0 = element("button");
+    			button0.textContent = "x";
+    			t2 = space();
+    			h3 = element("h3");
+    			t3 = text(t3_value);
+    			t4 = space();
+    			div0 = element("div");
+    			create_component(atom_1.$$.fragment);
+    			t5 = space();
+    			div1 = element("div");
+    			div1.textContent = "Lorem ipsum";
+    			t7 = space();
+    			div2 = element("div");
+    			button1 = element("button");
+    			button1.textContent = "More";
+    			attr_dev(svg, "class", svg_class_value = "pointer-" + /*direction*/ ctx[5] + " svelte-1folhot");
+    			attr_dev(svg, "width", "30");
+    			attr_dev(svg, "height", "30");
+    			attr_dev(svg, "xmlns", "http://www.w3.org/2000/svg");
+    			add_location(svg, file$3, 92, 4, 2068);
+    			attr_dev(button0, "class", "close svelte-1folhot");
+    			add_location(button0, file$3, 110, 4, 2806);
+    			add_location(h3, file$3, 111, 4, 2860);
+    			attr_dev(div0, "class", "atom-card svelte-1folhot");
+    			add_location(div0, file$3, 112, 4, 2885);
+    			attr_dev(div1, "class", "detail-body py-4");
+    			add_location(div1, file$3, 115, 4, 2951);
+    			add_location(button1, file$3, 119, 31, 3043);
+    			attr_dev(div2, "class", "detail-footer");
+    			add_location(div2, file$3, 119, 4, 3016);
+    			attr_dev(div3, "class", "detail-card svelte-1folhot");
+    			set_style(div3, "left", /*x*/ ctx[0] + "px");
+    			set_style(div3, "top", /*y*/ ctx[1] + "px");
+    			add_location(div3, file$3, 86, 2, 1908);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div3, anchor);
+    			append_dev(div3, svg);
+    			if (if_block0) if_block0.m(svg, null);
+    			append_dev(svg, if_block0_anchor);
+    			if (if_block1) if_block1.m(svg, null);
+    			append_dev(svg, if_block1_anchor);
+    			if (if_block2) if_block2.m(svg, null);
+    			append_dev(div3, t0);
+    			append_dev(div3, button0);
+    			append_dev(div3, t2);
+    			append_dev(div3, h3);
+    			append_dev(h3, t3);
+    			append_dev(div3, t4);
+    			append_dev(div3, div0);
+    			mount_component(atom_1, div0, null);
+    			append_dev(div3, t5);
+    			append_dev(div3, div1);
+    			append_dev(div3, t7);
+    			append_dev(div3, div2);
+    			append_dev(div2, button1);
+    			/*div3_binding*/ ctx[15](div3);
+    			current = true;
+
+    			dispose = [
+    				listen_dev(
+    					button0,
+    					"click",
+    					function () {
+    						if (is_function(/*close*/ ctx[4])) /*close*/ ctx[4].apply(this, arguments);
+    					},
+    					false,
+    					false,
+    					false
+    				),
+    				listen_dev(button1, "click", /*handleFullDetail*/ ctx[8], false, false, false)
+    			];
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+
+    			if (/*direction*/ ctx[5] === "left") {
+    				if (!if_block0) {
+    					if_block0 = create_if_block_3(ctx);
+    					if_block0.c();
+    					if_block0.m(svg, if_block0_anchor);
+    				}
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
+    			}
+
+    			if (/*direction*/ ctx[5] === "top") {
+    				if (!if_block1) {
+    					if_block1 = create_if_block_2(ctx);
+    					if_block1.c();
+    					if_block1.m(svg, if_block1_anchor);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
+    			}
+
+    			if (/*direction*/ ctx[5] === "right") {
+    				if (!if_block2) {
+    					if_block2 = create_if_block_1(ctx);
+    					if_block2.c();
+    					if_block2.m(svg, null);
+    				}
+    			} else if (if_block2) {
+    				if_block2.d(1);
+    				if_block2 = null;
+    			}
+
+    			if (!current || dirty & /*direction*/ 32 && svg_class_value !== (svg_class_value = "pointer-" + /*direction*/ ctx[5] + " svelte-1folhot")) {
+    				attr_dev(svg, "class", svg_class_value);
+    			}
+
+    			if ((!current || dirty & /*atom*/ 8) && t3_value !== (t3_value = /*atom*/ ctx[3].name + "")) set_data_dev(t3, t3_value);
+    			const atom_1_changes = {};
+    			if (dirty & /*atom*/ 8) atom_1_changes.atom = /*atom*/ ctx[3];
+    			atom_1.$set(atom_1_changes);
+
+    			if (!current || dirty & /*x*/ 1) {
+    				set_style(div3, "left", /*x*/ ctx[0] + "px");
+    			}
+
+    			if (!current || dirty & /*y*/ 2) {
+    				set_style(div3, "top", /*y*/ ctx[1] + "px");
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(atom_1.$$.fragment, local);
+
+    			add_render_callback(() => {
+    				if (div3_outro) div3_outro.end(1);
+    				if (!div3_intro) div3_intro = create_in_transition(div3, fly, /*flyOptions*/ ctx[7]);
+    				div3_intro.start();
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(atom_1.$$.fragment, local);
+    			if (div3_intro) div3_intro.invalidate();
+    			div3_outro = create_out_transition(div3, fly, /*flyOptions*/ ctx[7]);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div3);
+    			if (if_block0) if_block0.d();
+    			if (if_block1) if_block1.d();
+    			if (if_block2) if_block2.d();
+    			destroy_component(atom_1);
+    			/*div3_binding*/ ctx[15](null);
+    			if (detaching && div3_outro) div3_outro.end();
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$1.name,
+    		type: "else",
+    		source: "(86:0) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (69:0) {#if fullDetail}
+    function create_if_block$1(ctx) {
+    	let div1;
+    	let button;
+    	let t1;
+    	let t2;
+    	let div0;
+    	let div1_transition;
+    	let current;
+    	let dispose;
+    	const element_1_spread_levels = [/*atom*/ ctx[3]];
+    	let element_1_props = {};
+
+    	for (let i = 0; i < element_1_spread_levels.length; i += 1) {
+    		element_1_props = assign(element_1_props, element_1_spread_levels[i]);
+    	}
+
+    	const element_1 = new Element({ props: element_1_props, $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			button = element("button");
+    			button.textContent = "x";
+    			t1 = space();
+    			create_component(element_1.$$.fragment);
+    			t2 = space();
+    			div0 = element("div");
+    			div0.textContent = "Lorem ipsum";
+    			attr_dev(button, "class", "close svelte-1folhot");
+    			add_location(button, file$3, 74, 2, 1657);
+    			attr_dev(div0, "class", "detail-body py-4");
+    			add_location(div0, file$3, 79, 2, 1831);
+    			attr_dev(div1, "class", "detail-card full svelte-1folhot");
+    			add_location(div1, file$3, 69, 2, 1567);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, button);
+    			append_dev(div1, t1);
+    			mount_component(element_1, div1, null);
+    			append_dev(div1, t2);
+    			append_dev(div1, div0);
+    			/*div1_binding*/ ctx[14](div1);
+    			current = true;
+
+    			dispose = listen_dev(
+    				button,
+    				"click",
+    				function () {
+    					if (is_function((/*click_handler*/ ctx[13], /*close*/ ctx[4]()))) (/*click_handler*/ ctx[13], /*close*/ ctx[4]()).apply(this, arguments);
+    				},
+    				false,
+    				false,
+    				false
+    			);
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+
+    			const element_1_changes = (dirty & /*atom*/ 8)
+    			? get_spread_update(element_1_spread_levels, [get_spread_object(/*atom*/ ctx[3])])
+    			: {};
+
+    			element_1.$set(element_1_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(element_1.$$.fragment, local);
+
+    			add_render_callback(() => {
+    				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fly, {}, true);
+    				div1_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(element_1.$$.fragment, local);
+    			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fly, {}, false);
+    			div1_transition.run(0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div1);
+    			destroy_component(element_1);
+    			/*div1_binding*/ ctx[14](null);
+    			if (detaching && div1_transition) div1_transition.end();
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$1.name,
+    		type: "if",
+    		source: "(69:0) {#if fullDetail}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (94:6) {#if direction === "left"}
+    function create_if_block_3(ctx) {
+    	let g;
+    	let rect;
+
+    	const block = {
+    		c: function create() {
+    			g = svg_element("g");
+    			rect = svg_element("rect");
+    			attr_dev(rect, "width", "15");
+    			attr_dev(rect, "height", "15");
+    			attr_dev(rect, "fill", "white");
+    			attr_dev(rect, "stroke", "#ccc");
+    			attr_dev(rect, "stroke-dasharray", "15 15 0");
+    			add_location(rect, file$3, 95, 10, 2256);
+    			attr_dev(g, "transform", "translate(4, 10) rotate(-45)");
+    			add_location(g, file$3, 94, 8, 2201);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, g, anchor);
+    			append_dev(g, rect);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(g);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_3.name,
+    		type: "if",
+    		source: "(94:6) {#if direction === \\\"left\\\"}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (99:6) {#if direction === "top"}
+    function create_if_block_2(ctx) {
+    	let g;
+    	let rect;
+
+    	const block = {
+    		c: function create() {
+    			g = svg_element("g");
+    			rect = svg_element("rect");
+    			attr_dev(rect, "width", "15");
+    			attr_dev(rect, "height", "15");
+    			attr_dev(rect, "fill", "white");
+    			attr_dev(rect, "stroke", "#ccc");
+    			attr_dev(rect, "stroke-dasharray", "15 15 0");
+    			add_location(rect, file$3, 100, 10, 2467);
+    			attr_dev(g, "transform", "translate(4, 10) rotate(-135 7 7)");
+    			add_location(g, file$3, 99, 8, 2407);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, g, anchor);
+    			append_dev(g, rect);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(g);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2.name,
+    		type: "if",
+    		source: "(99:6) {#if direction === \\\"top\\\"}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (104:6) {#if direction === "right"}
+    function create_if_block_1(ctx) {
+    	let g;
+    	let rect;
+
+    	const block = {
+    		c: function create() {
+    			g = svg_element("g");
+    			rect = svg_element("rect");
+    			attr_dev(rect, "width", "15");
+    			attr_dev(rect, "height", "15");
+    			attr_dev(rect, "fill", "white");
+    			attr_dev(rect, "stroke", "#ccc");
+    			attr_dev(rect, "stroke-dasharray", "15 15 0");
+    			add_location(rect, file$3, 105, 10, 2679);
+    			attr_dev(g, "transform", "translate(4, 10) rotate(135 7 7)");
+    			add_location(g, file$3, 104, 8, 2620);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, g, anchor);
+    			append_dev(g, rect);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(g);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(104:6) {#if direction === \\\"right\\\"}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$4(ctx) {
+    	let current_block_type_index;
+    	let if_block;
+    	let if_block_anchor;
+    	let current;
+    	const if_block_creators = [create_if_block$1, create_else_block$1];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*fullDetail*/ ctx[2]) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			if_blocks[current_block_type_index].m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block = if_blocks[current_block_type_index];
+
+    				if (!if_block) {
+    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block.c();
+    				}
+
+    				transition_in(if_block, 1);
+    				if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if_blocks[current_block_type_index].d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$4.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$3($$self, $$props, $$invalidate) {
+    	let { atom } = $$props;
+    	let { close } = $$props;
+    	let { selectedEl } = $$props;
+    	let { x } = $$props;
+    	let { y } = $$props;
+    	let { direction } = $$props;
+    	let { fullDetail = false } = $$props;
+    	let detailElement;
+    	let detailRect = { height: 0 };
+    	let scrollY;
+
+    	const handleFullDetail = () => {
+    		$$invalidate(2, fullDetail = true);
+    	};
+
+    	const getFlyOptions = dir => {
+    		let opts;
+
+    		switch (dir) {
+    			case "top":
+    				opts = { y: -5, speed: 50 };
+    				break;
+    			case "left":
+    				opts = { x: -5, speed: 50 };
+    				break;
+    			case "right":
+    				opts = { x: 10, speed: 50 };
+    				break;
+    			default:
+    				opts = { y: -5, speed: 50 };
+    		}
+
+    		return opts;
+    	};
+
+    	onMount(() => {
+    		detailRect = detailElement.getBoundingClientRect();
+    	});
+
+    	afterUpdate(() => {
+    		scrollY = window.scrollY;
+    		scrollX = window.scrollX;
+
+    		if (direction === "left") {
+    			$$invalidate(0, x = selectedEl.x + selectedEl.width + 15);
+    			$$invalidate(1, y = selectedEl.y - (detailRect.height / 2 - selectedEl.height / 2) + scrollY);
+    		}
+
+    		if (direction === "top") {
+    			$$invalidate(0, x = selectedEl.x - (detailRect.width / 2 - selectedEl.width / 2) + scrollX);
+    			$$invalidate(1, y = selectedEl.y - detailRect.height - 15 + scrollY);
+    		}
+
+    		if (direction === "right") {
+    			$$invalidate(0, x = selectedEl.x - (detailRect.width + 15));
+    			$$invalidate(1, y = selectedEl.y - (detailRect.height / 2 - selectedEl.height / 2) + scrollY);
+    		}
+    	});
+
+    	const writable_props = ["atom", "close", "selectedEl", "x", "y", "direction", "fullDetail"];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<ElementDetail> was created with unknown prop '${key}'`);
+    	});
+
+    	const click_handler = () => $$invalidate(2, fullDetail = false);
+
+    	function div1_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			$$invalidate(6, detailElement = $$value);
+    		});
+    	}
+
+    	function div3_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			$$invalidate(6, detailElement = $$value);
+    		});
+    	}
+
+    	$$self.$set = $$props => {
+    		if ("atom" in $$props) $$invalidate(3, atom = $$props.atom);
+    		if ("close" in $$props) $$invalidate(4, close = $$props.close);
+    		if ("selectedEl" in $$props) $$invalidate(9, selectedEl = $$props.selectedEl);
+    		if ("x" in $$props) $$invalidate(0, x = $$props.x);
+    		if ("y" in $$props) $$invalidate(1, y = $$props.y);
+    		if ("direction" in $$props) $$invalidate(5, direction = $$props.direction);
+    		if ("fullDetail" in $$props) $$invalidate(2, fullDetail = $$props.fullDetail);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		onMount,
+    		afterUpdate,
+    		fly,
+    		slide,
+    		Atom,
+    		Element,
+    		atom,
+    		close,
+    		selectedEl,
+    		x,
+    		y,
+    		direction,
+    		fullDetail,
+    		detailElement,
+    		detailRect,
+    		scrollY,
+    		handleFullDetail,
+    		getFlyOptions,
+    		flyOptions,
+    		window,
+    		scrollX
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("atom" in $$props) $$invalidate(3, atom = $$props.atom);
+    		if ("close" in $$props) $$invalidate(4, close = $$props.close);
+    		if ("selectedEl" in $$props) $$invalidate(9, selectedEl = $$props.selectedEl);
+    		if ("x" in $$props) $$invalidate(0, x = $$props.x);
+    		if ("y" in $$props) $$invalidate(1, y = $$props.y);
+    		if ("direction" in $$props) $$invalidate(5, direction = $$props.direction);
+    		if ("fullDetail" in $$props) $$invalidate(2, fullDetail = $$props.fullDetail);
+    		if ("detailElement" in $$props) $$invalidate(6, detailElement = $$props.detailElement);
+    		if ("detailRect" in $$props) detailRect = $$props.detailRect;
+    		if ("scrollY" in $$props) scrollY = $$props.scrollY;
+    		if ("flyOptions" in $$props) $$invalidate(7, flyOptions = $$props.flyOptions);
+    	};
+
+    	let flyOptions;
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*direction*/ 32) {
+    			 $$invalidate(7, flyOptions = getFlyOptions(direction));
+    		}
+    	};
+
+    	return [
+    		x,
+    		y,
+    		fullDetail,
+    		atom,
+    		close,
+    		direction,
+    		detailElement,
+    		flyOptions,
+    		handleFullDetail,
+    		selectedEl,
+    		detailRect,
+    		scrollY,
+    		getFlyOptions,
+    		click_handler,
+    		div1_binding,
+    		div3_binding
+    	];
+    }
+
+    class ElementDetail extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(this, options, instance$3, create_fragment$4, safe_not_equal, {
+    			atom: 3,
+    			close: 4,
+    			selectedEl: 9,
+    			x: 0,
+    			y: 1,
+    			direction: 5,
+    			fullDetail: 2
+    		});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "ElementDetail",
+    			options,
+    			id: create_fragment$4.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*atom*/ ctx[3] === undefined && !("atom" in props)) {
+    			console.warn("<ElementDetail> was created without expected prop 'atom'");
+    		}
+
+    		if (/*close*/ ctx[4] === undefined && !("close" in props)) {
+    			console.warn("<ElementDetail> was created without expected prop 'close'");
+    		}
+
+    		if (/*selectedEl*/ ctx[9] === undefined && !("selectedEl" in props)) {
+    			console.warn("<ElementDetail> was created without expected prop 'selectedEl'");
+    		}
+
+    		if (/*x*/ ctx[0] === undefined && !("x" in props)) {
+    			console.warn("<ElementDetail> was created without expected prop 'x'");
+    		}
+
+    		if (/*y*/ ctx[1] === undefined && !("y" in props)) {
+    			console.warn("<ElementDetail> was created without expected prop 'y'");
+    		}
+
+    		if (/*direction*/ ctx[5] === undefined && !("direction" in props)) {
+    			console.warn("<ElementDetail> was created without expected prop 'direction'");
+    		}
+    	}
+
+    	get atom() {
+    		throw new Error("<ElementDetail>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set atom(value) {
+    		throw new Error("<ElementDetail>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get close() {
+    		throw new Error("<ElementDetail>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set close(value) {
+    		throw new Error("<ElementDetail>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get selectedEl() {
+    		throw new Error("<ElementDetail>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set selectedEl(value) {
+    		throw new Error("<ElementDetail>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get x() {
+    		throw new Error("<ElementDetail>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set x(value) {
+    		throw new Error("<ElementDetail>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get y() {
+    		throw new Error("<ElementDetail>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set y(value) {
+    		throw new Error("<ElementDetail>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get direction() {
+    		throw new Error("<ElementDetail>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set direction(value) {
+    		throw new Error("<ElementDetail>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get fullDetail() {
+    		throw new Error("<ElementDetail>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set fullDetail(value) {
+    		throw new Error("<ElementDetail>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/Table.svelte generated by Svelte v3.19.1 */
+    const file$4 = "src/Table.svelte";
+
+    function get_each_context_1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[11] = list[i];
+    	return child_ctx;
+    }
+
+    function get_each_context(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[8] = list[i];
+    	return child_ctx;
+    }
+
+    // (29:0) {#if atom}
+    function create_if_block_1$1(ctx) {
+    	let current;
+
+    	const elementdetail = new ElementDetail({
+    			props: {
+    				selectedEl: /*selectedEl*/ ctx[2],
+    				direction: /*detailDirection*/ ctx[3],
+    				atom: /*atom*/ ctx[0],
+    				close: /*func*/ ctx[6]
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(elementdetail.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(elementdetail, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const elementdetail_changes = {};
+    			if (dirty & /*selectedEl*/ 4) elementdetail_changes.selectedEl = /*selectedEl*/ ctx[2];
+    			if (dirty & /*detailDirection*/ 8) elementdetail_changes.direction = /*detailDirection*/ ctx[3];
+    			if (dirty & /*atom*/ 1) elementdetail_changes.atom = /*atom*/ ctx[0];
+    			if (dirty & /*atom*/ 1) elementdetail_changes.close = /*func*/ ctx[6];
+    			elementdetail.$set(elementdetail_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(elementdetail.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(elementdetail.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(elementdetail, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$1.name,
+    		type: "if",
+    		source: "(29:0) {#if atom}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (38:4) {#if row}
+    function create_if_block$2(ctx) {
+    	let each_blocks = [];
+    	let each_1_lookup = new Map();
+    	let each_1_anchor;
+    	let current;
+    	let each_value_1 = /*row*/ ctx[8];
+    	validate_each_argument(each_value_1);
+    	const get_key = ctx => /*el*/ ctx[11].uuid;
+    	validate_each_keys(ctx, each_value_1, get_each_context_1, get_key);
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		let child_ctx = get_each_context_1(ctx, each_value_1, i);
+    		let key = get_key(child_ctx);
+    		each_1_lookup.set(key, each_blocks[i] = create_each_block_1(key, child_ctx));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(target, anchor);
+    			}
+
+    			insert_dev(target, each_1_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*toggleDetail, rows*/ 18) {
+    				const each_value_1 = /*row*/ ctx[8];
+    				validate_each_argument(each_value_1);
+    				group_outros();
+    				validate_each_keys(ctx, each_value_1, get_each_context_1, get_key);
+    				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value_1, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block_1, each_1_anchor, get_each_context_1);
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			for (let i = 0; i < each_value_1.length; i += 1) {
+    				transition_in(each_blocks[i]);
+    			}
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				transition_out(each_blocks[i]);
+    			}
+
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].d(detaching);
+    			}
+
+    			if (detaching) detach_dev(each_1_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$2.name,
+    		type: "if",
+    		source: "(38:4) {#if row}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (39:6) {#each row as el (el.uuid)}
+    function create_each_block_1(key_1, ctx) {
+    	let first;
+    	let current;
+
+    	function func_1(...args) {
+    		return /*func_1*/ ctx[7](/*el*/ ctx[11], ...args);
+    	}
+
+    	const element_1_spread_levels = [{ updateAtom: func_1 }, { count: /*row*/ ctx[8].length }, /*el*/ ctx[11]];
+    	let element_1_props = {};
+
+    	for (let i = 0; i < element_1_spread_levels.length; i += 1) {
+    		element_1_props = assign(element_1_props, element_1_spread_levels[i]);
+    	}
+
+    	const element_1 = new Element({ props: element_1_props, $$inline: true });
+
+    	const block = {
+    		key: key_1,
+    		first: null,
+    		c: function create() {
+    			first = empty();
+    			create_component(element_1.$$.fragment);
+    			this.first = first;
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, first, anchor);
+    			mount_component(element_1, target, anchor);
+    			current = true;
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+
+    			const element_1_changes = (dirty & /*toggleDetail, rows*/ 18)
+    			? get_spread_update(element_1_spread_levels, [
+    					element_1_spread_levels[0],
+    					dirty & /*rows*/ 2 && { count: /*row*/ ctx[8].length },
+    					dirty & /*rows*/ 2 && get_spread_object(/*el*/ ctx[11])
+    				])
+    			: {};
+
+    			element_1.$set(element_1_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(element_1.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(element_1.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(first);
+    			destroy_component(element_1, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_1.name,
+    		type: "each",
+    		source: "(39:6) {#each row as el (el.uuid)}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (37:2) {#each rows as row}
+    function create_each_block(ctx) {
+    	let if_block_anchor;
+    	let current;
+    	let if_block = /*row*/ ctx[8] && create_if_block$2(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (/*row*/ ctx[8]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    					transition_in(if_block, 1);
+    				} else {
+    					if_block = create_if_block$2(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block.name,
+    		type: "each",
+    		source: "(37:2) {#each rows as row}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$5(ctx) {
+    	let t;
+    	let div;
+    	let current;
+    	let if_block = /*atom*/ ctx[0] && create_if_block_1$1(ctx);
+    	let each_value = /*rows*/ ctx[1];
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    	}
+
+    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
+    		each_blocks[i] = null;
+    	});
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			t = space();
+    			div = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			attr_dev(div, "class", "svelte-z58mtu");
+    			add_location(div, file$4, 35, 0, 983);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, t, anchor);
+    			insert_dev(target, div, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div, null);
+    			}
+
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (/*atom*/ ctx[0]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    					transition_in(if_block, 1);
+    				} else {
+    					if_block = create_if_block_1$1(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(t.parentNode, t);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (dirty & /*rows, toggleDetail*/ 18) {
+    				each_value = /*rows*/ ctx[1];
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    						transition_in(each_blocks[i], 1);
+    					} else {
+    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						transition_in(each_blocks[i], 1);
+    						each_blocks[i].m(div, null);
+    					}
+    				}
+
+    				group_outros();
+
+    				for (i = each_value.length; i < each_blocks.length; i += 1) {
+    					out(i);
+    				}
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+
+    			for (let i = 0; i < each_value.length; i += 1) {
+    				transition_in(each_blocks[i]);
+    			}
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			each_blocks = each_blocks.filter(Boolean);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				transition_out(each_blocks[i]);
+    			}
+
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(div);
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$5.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$4($$self, $$props, $$invalidate) {
+    	let { rows } = $$props;
+    	let { atom } = $$props;
+    	let { updateAtom } = $$props;
+    	let selectedEl;
+    	let detailDirection = "left";
+
+    	const toggleDetail = (el, dom, direction) => {
+    		if (dom) {
+    			$$invalidate(0, atom = el);
+    			$$invalidate(2, selectedEl = dom.getBoundingClientRect());
+    			$$invalidate(3, detailDirection = direction);
+    		}
+    	};
+
+    	const writable_props = ["rows", "atom", "updateAtom"];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Table> was created with unknown prop '${key}'`);
+    	});
+
+    	const func = () => $$invalidate(0, atom = null);
+    	const func_1 = (el, domEl, direction) => toggleDetail(el, domEl, direction);
+
+    	$$self.$set = $$props => {
+    		if ("rows" in $$props) $$invalidate(1, rows = $$props.rows);
+    		if ("atom" in $$props) $$invalidate(0, atom = $$props.atom);
+    		if ("updateAtom" in $$props) $$invalidate(5, updateAtom = $$props.updateAtom);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		Element,
+    		ElementDetail,
+    		rows,
+    		atom,
+    		updateAtom,
+    		selectedEl,
+    		detailDirection,
+    		toggleDetail
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("rows" in $$props) $$invalidate(1, rows = $$props.rows);
+    		if ("atom" in $$props) $$invalidate(0, atom = $$props.atom);
+    		if ("updateAtom" in $$props) $$invalidate(5, updateAtom = $$props.updateAtom);
+    		if ("selectedEl" in $$props) $$invalidate(2, selectedEl = $$props.selectedEl);
+    		if ("detailDirection" in $$props) $$invalidate(3, detailDirection = $$props.detailDirection);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [
+    		atom,
+    		rows,
+    		selectedEl,
+    		detailDirection,
+    		toggleDetail,
+    		updateAtom,
+    		func,
+    		func_1
+    	];
+    }
+
+    class Table extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$4, create_fragment$5, safe_not_equal, { rows: 1, atom: 0, updateAtom: 5 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Table",
+    			options,
+    			id: create_fragment$5.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*rows*/ ctx[1] === undefined && !("rows" in props)) {
+    			console.warn("<Table> was created without expected prop 'rows'");
+    		}
+
+    		if (/*atom*/ ctx[0] === undefined && !("atom" in props)) {
+    			console.warn("<Table> was created without expected prop 'atom'");
+    		}
+
+    		if (/*updateAtom*/ ctx[5] === undefined && !("updateAtom" in props)) {
+    			console.warn("<Table> was created without expected prop 'updateAtom'");
+    		}
+    	}
+
+    	get rows() {
+    		throw new Error("<Table>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set rows(value) {
+    		throw new Error("<Table>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get atom() {
+    		throw new Error("<Table>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set atom(value) {
+    		throw new Error("<Table>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get updateAtom() {
+    		throw new Error("<Table>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set updateAtom(value) {
+    		throw new Error("<Table>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    // Unique ID creation requires a high quality random # generator. In the browser we therefore
+    // require the crypto API and do not support built-in fallback to lower quality random number
+    // generators (like Math.random()).
+    // getRandomValues needs to be invoked in a context where "this" is a Crypto implementation. Also,
+    // find the complete implementation of crypto (msCrypto) on IE11.
+    var getRandomValues = typeof crypto != 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto != 'undefined' && typeof window.msCrypto.getRandomValues == 'function' && msCrypto.getRandomValues.bind(msCrypto);
+    var rnds8 = new Uint8Array(16); // eslint-disable-line no-undef
+
+    function rng() {
+      if (!getRandomValues) {
+        throw new Error('uuid: This browser does not seem to support crypto.getRandomValues(). If you need to support this browser, please provide a custom random number generator through options.rng.');
+      }
+
+      return getRandomValues(rnds8);
+    }
+
+    /**
+     * Convert array of 16 byte values to UUID string format of the form:
+     * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+     */
+    var byteToHex = [];
+
+    for (var i = 0; i < 256; ++i) {
+      byteToHex[i] = (i + 0x100).toString(16).substr(1);
+    }
+
+    function bytesToUuid(buf, offset) {
+      var i = offset || 0;
+      var bth = byteToHex; // join used to fix memory issue caused by concatenation: https://bugs.chromium.org/p/v8/issues/detail?id=3175#c4
+
+      return [bth[buf[i++]], bth[buf[i++]], bth[buf[i++]], bth[buf[i++]], '-', bth[buf[i++]], bth[buf[i++]], '-', bth[buf[i++]], bth[buf[i++]], '-', bth[buf[i++]], bth[buf[i++]], '-', bth[buf[i++]], bth[buf[i++]], bth[buf[i++]], bth[buf[i++]], bth[buf[i++]], bth[buf[i++]]].join('');
+    }
+
+    function v4(options, buf, offset) {
+      var i = buf && offset || 0;
+
+      if (typeof options == 'string') {
+        buf = options === 'binary' ? new Array(16) : null;
+        options = null;
+      }
+
+      options = options || {};
+      var rnds = options.random || (options.rng || rng)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+
+      rnds[6] = rnds[6] & 0x0f | 0x40;
+      rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
+
+      if (buf) {
+        for (var ii = 0; ii < 16; ++ii) {
+          buf[i + ii] = rnds[ii];
+        }
+      }
+
+      return buf || bytesToUuid(rnds);
+    }
+
+    var chemElements = createCommonjsModule(function (module, exports) {
+    !function(o,s){module.exports=s();}("undefined"!=typeof self?self:commonjsGlobal,(function(){return function(o){var s={};function m(l){if(s[l])return s[l].exports;var a=s[l]={i:l,l:!1,exports:{}};return o[l].call(a.exports,a,a.exports,m),a.l=!0,a.exports}return m.m=o,m.c=s,m.d=function(o,s,l){m.o(o,s)||Object.defineProperty(o,s,{enumerable:!0,get:l});},m.r=function(o){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(o,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(o,"__esModule",{value:!0});},m.t=function(o,s){if(1&s&&(o=m(o)),8&s)return o;if(4&s&&"object"==typeof o&&o&&o.__esModule)return o;var l=Object.create(null);if(m.r(l),Object.defineProperty(l,"default",{enumerable:!0,value:o}),2&s&&"string"!=typeof o)for(var a in o)m.d(l,a,function(s){return o[s]}.bind(null,a));return l},m.n=function(o){var s=o&&o.__esModule?function(){return o.default}:function(){return o};return m.d(s,"a",s),s},m.o=function(o,s){return Object.prototype.hasOwnProperty.call(o,s)},m.p="",m(m.s=1)}([function(o,s,m){Object.defineProperty(s,"__esModule",{value:!0}),s.ChemElementData=[{id:0,symbol:"Q",RCow:.77,RVdW:0,maxBonds:0,mass:0,name:"Dummy",posX:1,posY:7,color:"#FFFFFF",color2:"#808080"},{id:1,symbol:"H",RCow:.37,RVdW:1.2,maxBonds:1,mass:1.00794,name:"Hydrogen",posX:1,posY:1,color:"#FFFFFF",color2:"#808080"},{id:1,symbol:"D",RCow:.37,RVdW:1.2,maxBonds:1,mass:2,name:"Diyterium",posX:1,posY:8,color:"#FFFFFF",color2:"#808080"},{id:2,symbol:"He",RCow:.32,RVdW:1.4,maxBonds:0,mass:4.002602,name:"Helium",posX:1,posY:18,color:"#D9FFFF",color2:"#849B9B"},{id:3,symbol:"Li",RCow:1.34,RVdW:2.2,maxBonds:1,mass:6.941,name:"Lithium",posX:2,posY:1,color:"#CC80FF",color2:"#C87EFA"},{id:4,symbol:"Be",RCow:.9,RVdW:1.9,maxBonds:2,mass:9.012182,name:"Beryllium",posX:2,posY:2,color:"#C2FF00",color2:"#82AB00"},{id:5,symbol:"B",RCow:.82,RVdW:1.8,maxBonds:3,mass:10.811,name:"Boron",posX:2,posY:13,color:"#FFB5B5",color2:"#F090A0"},{id:6,symbol:"C",RCow:.77,RVdW:1.7,maxBonds:4,mass:12.0107,name:"Carbon",posX:2,posY:14,color:"#909090",color2:"#000000"},{id:7,symbol:"N",RCow:.75,RVdW:1.6,maxBonds:4,mass:14.0067,name:"Nitrogen",posX:2,posY:15,color:"#3050F8",color2:"#304FF7"},{id:8,symbol:"O",RCow:.73,RVdW:1.55,maxBonds:2,mass:15.9994,name:"Oxygen",posX:2,posY:16,color:"#FF0D0D",color2:"#FF0D0D"},{id:9,symbol:"F",RCow:.71,RVdW:1.5,maxBonds:1,mass:18.9984032,name:"Fluorine",posX:2,posY:17,color:"#90E050",color2:"#228B22"},{id:10,symbol:"Ne",RCow:.69,RVdW:1.54,maxBonds:0,mass:20.1797,name:"Neon",posX:2,posY:18,color:"#B3E3F5",color2:"#7B9CA8"},{id:11,symbol:"Na",RCow:1.54,RVdW:2.4,maxBonds:1,mass:22.98977,name:"Sodium",posX:3,posY:1,color:"#AB5CF2",color2:"#AB5CF2"},{id:12,symbol:"Mg",RCow:1.3,RVdW:2.2,maxBonds:2,mass:24.305,name:"Magnesium",posX:3,posY:2,color:"#8AFF00",color2:"#61B400"},{id:13,symbol:"Al",RCow:1.18,RVdW:2.1,maxBonds:6,mass:26.981538,name:"Aluminium",posX:3,posY:13,color:"#BFA6A6",color2:"#A79191"},{id:14,symbol:"Si",RCow:1.11,RVdW:2.1,maxBonds:6,mass:28.0855,name:"Silicon",posX:3,posY:14,color:"#F0C8A0",color2:"#B09276"},{id:15,symbol:"P",RCow:1.06,RVdW:1.95,maxBonds:5,mass:30.973761,name:"Phosphorus",posX:3,posY:15,color:"#FF8000",color2:"#FF8000"},{id:16,symbol:"S",RCow:1.02,RVdW:1.8,maxBonds:6,mass:32.065,name:"Sulfur",posX:3,posY:16,color:"#FFFF30",color2:"#FFC832"},{id:17,symbol:"Cl",RCow:.99,RVdW:1.8,maxBonds:1,mass:35.453,name:"Chlorine",posX:3,posY:17,color:"#1FF01F",color2:"#1DC51D"},{id:18,symbol:"Ar",RCow:.97,RVdW:1.88,maxBonds:0,mass:39.948,name:"Argon",posX:3,posY:18,color:"#80D1E3",color2:"#63A2B0"},{id:19,symbol:"K",RCow:1.96,RVdW:2.8,maxBonds:1,mass:39.0983,name:"Potassium",posX:4,posY:1,color:"#8F40D4",color2:"#8F40D4"},{id:20,symbol:"Ca",RCow:1.74,RVdW:2.4,maxBonds:2,mass:40.078,name:"Calcium",posX:4,posY:2,color:"#3DFF00",color2:"#2FC300"},{id:21,symbol:"Sc",RCow:1.44,RVdW:2.3,maxBonds:6,mass:44.95591,name:"Scandium",posX:4,posY:3,color:"#E6E6E6",color2:"#969696"},{id:22,symbol:"Ti",RCow:1.36,RVdW:2.15,maxBonds:6,mass:47.867,name:"Titanium",posX:4,posY:4,color:"#BFC2C7",color2:"#94969A"},{id:23,symbol:"V",RCow:1.25,RVdW:2.05,maxBonds:6,mass:50.9415,name:"Vanadium",posX:4,posY:5,color:"#A6A6AB",color2:"#96969A"},{id:24,symbol:"Cr",RCow:1.27,RVdW:2.05,maxBonds:6,mass:51.9961,name:"Chromium",posX:4,posY:6,color:"#8A99C7",color2:"#8796C3"},{id:25,symbol:"Mn",RCow:1.39,RVdW:2.05,maxBonds:8,mass:54.938049,name:"Manganese",posX:4,posY:7,color:"#9C7AC7",color2:"#9C7AC7"},{id:26,symbol:"Fe",RCow:1.25,RVdW:2.05,maxBonds:6,mass:55.845,name:"Iron",posX:4,posY:8,color:"#E06633",color2:"#E06633"},{id:27,symbol:"Co",RCow:1.26,RVdW:2,maxBonds:6,mass:58.9332,name:"Cobalt",posX:4,posY:9,color:"#F090A0",color2:"#DB8293"},{id:28,symbol:"Ni",RCow:1.21,RVdW:2,maxBonds:6,mass:58.6934,name:"Nickel",posX:4,posY:10,color:"#50D050",color2:"#45B645"},{id:29,symbol:"Cu",RCow:1.38,RVdW:2,maxBonds:6,mass:63.546,name:"Copper",posX:4,posY:11,color:"#C88033",color2:"#C78033"},{id:30,symbol:"Zn",RCow:1.31,RVdW:2.1,maxBonds:6,mass:65.409,name:"Zinc",posX:4,posY:12,color:"#7D80B0",color2:"#7D80B0"},{id:31,symbol:"Ga",RCow:1.26,RVdW:2.1,maxBonds:3,mass:69.723,name:"Gallium",posX:4,posY:13,color:"#C28F8F",color2:"#BD8C8C"},{id:32,symbol:"Ge",RCow:1.22,RVdW:2.1,maxBonds:4,mass:72.64,name:"Germanium",posX:4,posY:14,color:"#668F8F",color2:"#668F8F"},{id:33,symbol:"As",RCow:1.19,RVdW:2.05,maxBonds:3,mass:74.9216,name:"Arsenic",posX:4,posY:15,color:"#BD80E3",color2:"#BD80E3"},{id:34,symbol:"Se",RCow:1.16,RVdW:1.9,maxBonds:2,mass:78.96,name:"Selenium",posX:4,posY:16,color:"#FFA100",color2:"#E28F00"},{id:35,symbol:"Br",RCow:1.14,RVdW:1.9,maxBonds:1,mass:79.904,name:"Bromine",posX:4,posY:17,color:"#A62929",color2:"#A62929"},{id:36,symbol:"Kr",RCow:1.1,RVdW:2.02,maxBonds:0,mass:83.798,name:"Krypton",posX:4,posY:18,color:"#5CB8D1",color2:"#53A6BC"},{id:37,symbol:"Rb",RCow:2.11,RVdW:2.9,maxBonds:1,mass:85.4678,name:"Rubidium",posX:5,posY:1,color:"#702EB0",color2:"#702EB0"},{id:38,symbol:"Sr",RCow:1.92,RVdW:2.55,maxBonds:2,mass:87.62,name:"Strontium",posX:5,posY:2,color:"#00FF00",color2:"#00D000"},{id:39,symbol:"Y",RCow:1.62,RVdW:2.4,maxBonds:6,mass:88.90585,name:"Yttrium",posX:5,posY:3,color:"#94FFFF",color2:"#5FA4A4"},{id:40,symbol:"Zr",RCow:1.48,RVdW:2.3,maxBonds:6,mass:91.224,name:"Zirconium",posX:5,posY:4,color:"#94E0E0",color2:"#6BA2A2"},{id:41,symbol:"Nb",RCow:1.37,RVdW:2.15,maxBonds:6,mass:92.90638,name:"Niobium",posX:5,posY:5,color:"#73C2C9",color2:"#61A4A9"},{id:42,symbol:"Mo",RCow:1.45,RVdW:2.1,maxBonds:6,mass:95.94,name:"Molybdenum",posX:5,posY:6,color:"#54B5B5",color2:"#4EA9A9"},{id:43,symbol:"Tc",RCow:1.56,RVdW:2.05,maxBonds:6,mass:98,name:"Technetium",posX:5,posY:7,color:"#3B9E9E",color2:"#4EA9A9"},{id:44,symbol:"Ru",RCow:1.26,RVdW:2.05,maxBonds:6,mass:101.07,name:"Ruthenium",posX:5,posY:8,color:"#248F8F",color2:"#248F8F"},{id:45,symbol:"Rh",RCow:1.35,RVdW:2,maxBonds:6,mass:102.9055,name:"Rhodium",posX:5,posY:9,color:"#0A7D8C",color2:"#0A7D8C"},{id:46,symbol:"Pd",RCow:1.31,RVdW:2.05,maxBonds:6,mass:106.42,name:"Palladium",posX:5,posY:10,color:"#006985",color2:"#006985"},{id:47,symbol:"Ag",RCow:1.53,RVdW:2.1,maxBonds:6,mass:107.8682,name:"Silver",posX:5,posY:11,color:"#C0C0C0",color2:"#969696"},{id:48,symbol:"Cd",RCow:1.48,RVdW:2.2,maxBonds:6,mass:112.411,name:"Cadmium",posX:5,posY:12,color:"#FFD98F",color2:"#AE9462"},{id:49,symbol:"In",RCow:1.44,RVdW:2.2,maxBonds:3,mass:114.818,name:"Indium",posX:5,posY:13,color:"#A67573",color2:"#A67573"},{id:50,symbol:"Sn",RCow:1.41,RVdW:2.25,maxBonds:4,mass:118.71,name:"Tin",posX:5,posY:14,color:"#668080",color2:"#668080"},{id:51,symbol:"Sb",RCow:1.38,RVdW:2.2,maxBonds:3,mass:121.76,name:"Antimony",posX:5,posY:15,color:"#9E63B5",color2:"#9E63B5"},{id:52,symbol:"Te",RCow:1.35,RVdW:2.1,maxBonds:2,mass:127.6,name:"Tellurium",posX:5,posY:16,color:"#D47A00",color2:"#D47A00"},{id:53,symbol:"I",RCow:1.33,RVdW:2.1,maxBonds:1,mass:126.90447,name:"Iodine",posX:5,posY:17,color:"#940094",color2:"#940094"},{id:54,symbol:"Xe",RCow:1.3,RVdW:2.16,maxBonds:0,mass:131.293,name:"Xenon",posX:5,posY:18,color:"#429EB0",color2:"#429EB0"},{id:55,symbol:"Cs",RCow:2.25,RVdW:3,maxBonds:1,mass:132.90545,name:"Cesium",posX:6,posY:1,color:"#57178F",color2:"#57178F"},{id:56,symbol:"Ba",RCow:1.98,RVdW:2.7,maxBonds:2,mass:137.327,name:"Barium",posX:6,posY:2,color:"#00C900",color2:"#00C900"},{id:57,symbol:"La",RCow:1.69,RVdW:2.5,maxBonds:12,mass:138.9055,name:"Lanthanum",posX:9,posY:3,color:"#70D4FF",color2:"#57A4C5"},{id:58,symbol:"Ce",RCow:1.6,RVdW:2.48,maxBonds:6,mass:140.116,name:"Cerium",posX:9,posY:4,color:"#FFFFC7",color2:"#989877"},{id:59,symbol:"Pr",RCow:1.6,RVdW:2.47,maxBonds:6,mass:140.90765,name:"Praseodymium",posX:9,posY:5,color:"#D9FFC7",color2:"#869D7B"},{id:60,symbol:"Nd",RCow:1.6,RVdW:2.45,maxBonds:6,mass:144.24,name:"Neodymium",posX:9,posY:6,color:"#C7FFC7",color2:"#7DA07D"},{id:61,symbol:"Pm",RCow:1.6,RVdW:2.43,maxBonds:6,mass:145,name:"Promethium",posX:9,posY:7,color:"#A3FFC7",color2:"#69A581"},{id:62,symbol:"Sm",RCow:1.6,RVdW:2.42,maxBonds:6,mass:150.36,name:"Samarium",posX:9,posY:8,color:"#8FFFC7",color2:"#5EA883"},{id:63,symbol:"Eu",RCow:1.6,RVdW:2.4,maxBonds:6,mass:151.964,name:"Europium",posX:9,posY:9,color:"#61FFC7",color2:"#43B089"},{id:64,symbol:"Gd",RCow:1.6,RVdW:2.38,maxBonds:6,mass:157.25,name:"Gadolinium",posX:9,posY:10,color:"#45FFC7",color2:"#31B48D"},{id:65,symbol:"Tb",RCow:1.6,RVdW:2.37,maxBonds:6,mass:158.92534,name:"Terbium",posX:9,posY:11,color:"#30FFC7",color2:"#23B890"},{id:66,symbol:"Dy",RCow:1.6,RVdW:2.35,maxBonds:6,mass:162.5,name:"Dysprosium",posX:9,posY:12,color:"#1FFFC7",color2:"#17BB92"},{id:67,symbol:"Ho",RCow:1.6,RVdW:2.33,maxBonds:6,mass:164.93032,name:"Holmium",posX:9,posY:13,color:"#00FF9C",color2:"#00C578"},{id:68,symbol:"Er",RCow:1.6,RVdW:2.32,maxBonds:6,mass:167.259,name:"Erbium",posX:9,posY:14,color:"#00E675",color2:"#00C765"},{id:69,symbol:"Tm",RCow:1.6,RVdW:2.3,maxBonds:6,mass:168.93421,name:"Thulium",posX:9,posY:15,color:"#00D452",color2:"#00C94E"},{id:70,symbol:"Yb",RCow:1.6,RVdW:2.28,maxBonds:6,mass:173.04,name:"Ytterbium",posX:9,posY:16,color:"#00BF38",color2:"#00BF38"},{id:71,symbol:"Lu",RCow:1.6,RVdW:2.27,maxBonds:6,mass:174.967,name:"Lutetium",posX:9,posY:17,color:"#00AB24",color2:"#00AB24"},{id:72,symbol:"Hf",RCow:1.5,RVdW:2.25,maxBonds:6,mass:178.49,name:"Hafnium",posX:6,posY:4,color:"#4DC2FF",color2:"#42A8DC"},{id:73,symbol:"Ta",RCow:1.38,RVdW:2.2,maxBonds:6,mass:180.9479,name:"Tantalum",posX:6,posY:5,color:"#4DA6FF",color2:"#4BA2F9"},{id:74,symbol:"W",RCow:1.46,RVdW:2.1,maxBonds:6,mass:183.84,name:"Tungsten",posX:6,posY:6,color:"#2194D6",color2:"#2194D6"},{id:75,symbol:"Re",RCow:1.59,RVdW:2.05,maxBonds:6,mass:186.207,name:"Rhenium",posX:6,posY:7,color:"#267DAB",color2:"#267DAB"},{id:76,symbol:"Os",RCow:1.28,RVdW:2,maxBonds:6,mass:190.23,name:"Osmium",posX:6,posY:8,color:"#266696",color2:"#266696"},{id:77,symbol:"Ir",RCow:1.37,RVdW:2,maxBonds:6,mass:192.217,name:"Iridium",posX:6,posY:9,color:"#175487",color2:"#175487"},{id:78,symbol:"Pt",RCow:1.28,RVdW:2.05,maxBonds:6,mass:195.078,name:"Platinum",posX:6,posY:10,color:"#D0D0E0",color2:"#9595A0"},{id:79,symbol:"Au",RCow:1.44,RVdW:2.1,maxBonds:6,mass:196.96655,name:"Gold",posX:6,posY:11,color:"#FFD123",color2:"#B9981A"},{id:80,symbol:"Hg",RCow:1.49,RVdW:2.05,maxBonds:6,mass:200.59,name:"Mercury",posX:6,posY:12,color:"#B8B8D0",color2:"#9595A9"},{id:81,symbol:"Tl",RCow:1.48,RVdW:2.2,maxBonds:3,mass:204.3833,name:"Thallium",posX:6,posY:13,color:"#A6544D",color2:"#A6544D"},{id:82,symbol:"Pb",RCow:1.47,RVdW:2.3,maxBonds:4,mass:207.2,name:"Lead",posX:6,posY:14,color:"#575961",color2:"#575961"},{id:83,symbol:"Bi",RCow:1.46,RVdW:2.3,maxBonds:3,mass:208.98038,name:"Bismuth",posX:6,posY:15,color:"#9E4FB5",color2:"#9E4FB5"},{id:84,symbol:"Po",RCow:1.6,RVdW:2,maxBonds:2,mass:209,name:"Polonium",posX:6,posY:16,color:"#AB5C00",color2:"#AB5C00"},{id:85,symbol:"At",RCow:1.6,RVdW:2,maxBonds:1,mass:210,name:"Astatine",posX:6,posY:17,color:"#754F45",color2:"#754F45"},{id:86,symbol:"Rn",RCow:1.45,RVdW:2,maxBonds:0,mass:222,name:"Radon",posX:6,posY:18,color:"#428296",color2:"#428296"},{id:87,symbol:"Fr",RCow:1.6,RVdW:2,maxBonds:1,mass:223,name:"Francium",posX:7,posY:1,color:"#420066",color2:"#420066"},{id:88,symbol:"Ra",RCow:1.6,RVdW:2,maxBonds:2,mass:226,name:"Radium",posX:7,posY:2,color:"#007D00",color2:"#007D00"},{id:89,symbol:"Ac",RCow:1.6,RVdW:2,maxBonds:6,mass:227,name:"Actinium",posX:10,posY:3,color:"#70ABFA",color2:"#669CE4"},{id:90,symbol:"Th",RCow:1.6,RVdW:2.4,maxBonds:6,mass:232.0381,name:"Thorium",posX:10,posY:4,color:"#00BAFF",color2:"#00B8FC"},{id:91,symbol:"Pa",RCow:1.6,RVdW:2,maxBonds:6,mass:231.03588,name:"Protactinium",posX:10,posY:5,color:"#00A1FF",color2:"#00A1FF"},{id:92,symbol:"U",RCow:1.6,RVdW:2.3,maxBonds:6,mass:238.02891,name:"Uranium",posX:10,posY:6,color:"#008FFF",color2:"#008FFF"},{id:93,symbol:"Np",RCow:1.6,RVdW:2,maxBonds:6,mass:237,name:"Neptunium",posX:10,posY:7,color:"#0080FF",color2:"#0080FF"},{id:94,symbol:"Pu",RCow:1.6,RVdW:2,maxBonds:6,mass:244,name:"Plutonium",posX:10,posY:8,color:"#006BFF",color2:"#006BFF"},{id:95,symbol:"Am",RCow:1.6,RVdW:2,maxBonds:6,mass:243,name:"Americium",posX:10,posY:9,color:"#545CF2",color2:"#545CF2"},{id:96,symbol:"Cm",RCow:1.6,RVdW:2,maxBonds:6,mass:247,name:"Curium",posX:10,posY:10,color:"#785CE3",color2:"#785CE3"},{id:97,symbol:"Bk",RCow:1.6,RVdW:2,maxBonds:6,mass:247,name:"Berkelium",posX:10,posY:11,color:"#8A4FE3",color2:"#8A4FE3"},{id:98,symbol:"Cf",RCow:1.6,RVdW:2,maxBonds:6,mass:251,name:"Californium",posX:10,posY:12,color:"#A136D4",color2:"#A136D4"},{id:99,symbol:"Es",RCow:1.6,RVdW:2,maxBonds:6,mass:252,name:"Einsteinium",posX:10,posY:13,color:"#B31FD4",color2:"#B31FD4"},{id:100,symbol:"Fm",RCow:1.6,RVdW:2,maxBonds:6,mass:257,name:"Fermium",posX:10,posY:14,color:"#B31FBA",color2:"#B31FBA"},{id:101,symbol:"Md",RCow:1.6,RVdW:2,maxBonds:6,mass:258,name:"Mendelevium",posX:10,posY:15,color:"#B30DA6",color2:"#B30DA6"},{id:102,symbol:"No",RCow:1.6,RVdW:2,maxBonds:6,mass:259,name:"Nobelium",posX:10,posY:16,color:"#BD0D87",color2:"#BD0D87"},{id:103,symbol:"Lr",RCow:1.6,RVdW:2,maxBonds:6,mass:262,name:"Lawrencium",posX:10,posY:17,color:"#C70066",color2:"#C70066"},{id:104,symbol:"Rf",RCow:1.6,RVdW:2,maxBonds:6,mass:261,name:"Rutherfordium",posX:7,posY:4,color:"#CC0059",color2:"#42A8DC"},{id:105,symbol:"Db",RCow:1.6,RVdW:2,maxBonds:6,mass:262,name:"Dubnium",posX:7,posY:5,color:"#D1004F",color2:"#4BA2F9"},{id:106,symbol:"Sg",RCow:1.6,RVdW:2,maxBonds:6,mass:266,name:"Seaborgium",posX:7,posY:6,color:"#D90045",color2:"#2194D6"},{id:107,symbol:"Bh",RCow:1.6,RVdW:2,maxBonds:6,mass:264,name:"Bohrium",posX:7,posY:7,color:"#E00038",color2:"#267DAB"},{id:108,symbol:"Hs",RCow:1.6,RVdW:2,maxBonds:6,mass:277,name:"Hassium",posX:7,posY:8,color:"#E6002E",color2:"#266696"},{id:109,symbol:"Mt",RCow:1.6,RVdW:2,maxBonds:6,mass:268,name:"Meitnerium",posX:7,posY:9,color:"#EB0026",color2:"#175487"},{id:110,symbol:"Ds",RCow:1.6,RVdW:2,maxBonds:6,mass:281,name:"Darmstadtium",posX:7,posY:10,color:"#FF1493",color2:"#9595A0"},{id:111,symbol:"Rg",RCow:1.6,RVdW:2,maxBonds:6,mass:272,name:"Roentgenium",posX:7,posY:11,color:"#FF1494",color2:"#B9981A"},{id:112,symbol:"Cn",RCow:1.6,RVdW:2,maxBonds:6,mass:277,name:"Copernicium",posX:7,posY:12,color:"#FF1495",color2:"#9595A9"}];},function(o,s,m){function l(o){for(var m in o)s.hasOwnProperty(m)||(s[m]=o[m]);}Object.defineProperty(s,"__esModule",{value:!0}),l(m(2)),l(m(0));},function(o,s,m){Object.defineProperty(s,"__esModule",{value:!0});var l=m(0),a=function(){function o(){}return o.getById=function(o){for(var s=0,m=l.ChemElementData;s<m.length;s++){var a=m[s];if(a.id===o)return a}return null},o.getBySymbol=function(o){for(var s=(o||"").replace(/[^a-z]/gim,"").toLowerCase(),m=s.charAt(0).toUpperCase()+s.slice(1),a=0,n=l.ChemElementData;a<n.length;a++){var d=n[a];if(d.symbol===m)return d}return null},o.getAll=function(){return l.ChemElementData.filter((function(o){return "Q"!==o.symbol&&"D"!==o.symbol}))},o.getAllSymbols=function(){return o.getAll().map((function(o){return o.symbol}))},o}();s.ChemElements=a;}])}));
+    //# sourceMappingURL=chem-elements.js.map
+    });
+
+    var Elements = unwrapExports(chemElements);
+
+    const { ChemElements, ChemElementData } = Elements;
+
+    const emptyElTemplate = () => {
+      return {
+        uuid: v4(),
+        visible: false
+      }
+    };
+
+    const isRowHeader = (row, col) => {
+      return col === 0 && row > 0
+    };
+    const isColumnHeader = (row, col) => {
+      if (row === 0 && col === 1) return true
+      if (row === 1 && col === 2) return true
+      if (row === 0 && col === 18) return true
+      if (row === 3 && col > 2 && col < 13) return true
+      if (row === 1 && col >= 13 && col < 18) return true
+    };
+
+    const gridData = [...Array(8)].map((_, rowIdx) => {
+      const columns = [...Array(19)].map((_, colIdx) => {
+        const obj = { titleColumn: false, titleRow: false, value: null, id: `${rowIdx}-${colIdx}-${Math.random()}`};
+        if (isColumnHeader(rowIdx, colIdx)) {
+          obj.titleColumn = true;
+          obj.value = colIdx;
+        } else if (colIdx === 0 && rowIdx === 0) {
+          obj.titleRow = true;
+        }
+
+        if (isRowHeader(rowIdx, colIdx)) {
+          obj.titleRow = true;
+          obj.value = rowIdx;
+        }
+
+        return obj
+      });
+
+      return columns
+    });
+
+    console.log(gridData);
+
+    const defaultTableData = ChemElementData.reduce((table, el) => {
+      if (el.name === "Dummy" || el.symbol === "D") return table;
+      el = Object.assign(el, emptyElTemplate());
+
+      const x = el.posX - 1;
+      const y = el.posY - 1;
+
+      if (table[x] === undefined) {
+        const newRow = new Array(18);
+        for (let step = 0; step < 18; step++) {
+          newRow[step] = emptyElTemplate();
+        }
+        table[x] = newRow;
+      }
+
+      el.visible = true;
+      table[x][y] = el;
+
+      return table;
+    }, new Array(9));
+
+    /* src/Grid.svelte generated by Svelte v3.19.1 */
+    const file$5 = "src/Grid.svelte";
+
+    function get_each_context_1$1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[3] = list[i];
+    	return child_ctx;
+    }
+
+    function get_each_context$1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[0] = list[i];
+    	return child_ctx;
+    }
+
+    // (12:6) {#if cell.value}
+    function create_if_block$3(ctx) {
+    	let t_value = /*cell*/ ctx[3].value + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text(t_value);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$3.name,
+    		type: "if",
+    		source: "(12:6) {#if cell.value}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (10:4) {#each row as cell}
+    function create_each_block_1$1(ctx) {
+    	let div;
+    	let t;
+    	let if_block = /*cell*/ ctx[3].value && create_if_block$3(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			if (if_block) if_block.c();
+    			t = space();
+    			attr_dev(div, "class", "grid-cell svelte-1n44z7j");
+    			toggle_class(div, "title-row", /*cell*/ ctx[3].titleRow);
+    			toggle_class(div, "title-column", /*cell*/ ctx[3].titleColumn);
+    			add_location(div, file$5, 10, 6, 189);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			if (if_block) if_block.m(div, null);
+    			append_dev(div, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (/*cell*/ ctx[3].value) if_block.p(ctx, dirty);
+
+    			if (dirty & /*gridData*/ 0) {
+    				toggle_class(div, "title-row", /*cell*/ ctx[3].titleRow);
+    			}
+
+    			if (dirty & /*gridData*/ 0) {
+    				toggle_class(div, "title-column", /*cell*/ ctx[3].titleColumn);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (if_block) if_block.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_1$1.name,
+    		type: "each",
+    		source: "(10:4) {#each row as cell}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (9:2) {#each gridData as row}
+    function create_each_block$1(ctx) {
+    	let each_1_anchor;
+    	let each_value_1 = /*row*/ ctx[0];
+    	validate_each_argument(each_value_1);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(target, anchor);
+    			}
+
+    			insert_dev(target, each_1_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*gridData*/ 0) {
+    				each_value_1 = /*row*/ ctx[0];
+    				validate_each_argument(each_value_1);
+    				let i;
+
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1$1(ctx, each_value_1, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block_1$1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value_1.length;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			destroy_each(each_blocks, detaching);
+    			if (detaching) detach_dev(each_1_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$1.name,
+    		type: "each",
+    		source: "(9:2) {#each gridData as row}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$6(ctx) {
+    	let div;
+    	let each_value = gridData;
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			attr_dev(div, "class", "grid-container svelte-1n44z7j");
+    			add_location(div, file$5, 7, 0, 104);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div, null);
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*gridData*/ 0) {
+    				each_value = gridData;
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$1(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block$1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$6.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$5($$self, $$props, $$invalidate) {
+    	$$self.$capture_state = () => ({ gridData, gridCellStyle });
+    	return [];
+    }
+
+    class Grid extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$5, create_fragment$6, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Grid",
+    			options,
+    			id: create_fragment$6.name
+    		});
+    	}
+    }
+
+    /* src/App.svelte generated by Svelte v3.19.1 */
+    const file$6 = "src/App.svelte";
+
+    function create_fragment$7(ctx) {
+    	let main;
+    	let header;
+    	let h1;
+    	let t1;
+    	let t2;
+    	let t3;
+    	let t4;
+    	let current;
+
+    	const filters_1 = new Filters({
+    			props: {
+    				filtered: /*filtered*/ ctx[1],
+    				allRows: defaultTableData,
+    				filterRows: /*func*/ ctx[7]
+    			},
+    			$$inline: true
+    		});
+
+    	const table = new Table({
+    			props: {
+    				updateAtom: /*updateAtom*/ ctx[3],
+    				rows: /*rows*/ ctx[0],
+    				atom: /*atom*/ ctx[2]
+    			},
+    			$$inline: true
+    		});
+
+    	const grid = new Grid({ $$inline: true });
+    	const tailwindcss = new Tailwindcss({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			main = element("main");
+    			header = element("header");
+    			h1 = element("h1");
+    			h1.textContent = "Periodic Table";
+    			t1 = space();
+    			create_component(filters_1.$$.fragment);
+    			t2 = space();
+    			create_component(table.$$.fragment);
+    			t3 = space();
+    			create_component(grid.$$.fragment);
+    			t4 = space();
+    			create_component(tailwindcss.$$.fragment);
+    			attr_dev(h1, "class", "svelte-pdnuqd");
+    			add_location(h1, file$6, 37, 4, 685);
+    			attr_dev(header, "class", "svelte-pdnuqd");
+    			add_location(header, file$6, 36, 2, 672);
+    			attr_dev(main, "class", "table-container svelte-pdnuqd");
+    			add_location(main, file$6, 35, 0, 639);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, main, anchor);
+    			append_dev(main, header);
+    			append_dev(header, h1);
+    			append_dev(header, t1);
+    			mount_component(filters_1, header, null);
+    			append_dev(main, t2);
+    			mount_component(table, main, null);
+    			append_dev(main, t3);
+    			mount_component(grid, main, null);
+    			insert_dev(target, t4, anchor);
+    			mount_component(tailwindcss, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const filters_1_changes = {};
+    			if (dirty & /*filtered*/ 2) filters_1_changes.filtered = /*filtered*/ ctx[1];
+    			if (dirty & /*rows*/ 1) filters_1_changes.filterRows = /*func*/ ctx[7];
+    			filters_1.$set(filters_1_changes);
+    			const table_changes = {};
+    			if (dirty & /*rows*/ 1) table_changes.rows = /*rows*/ ctx[0];
+    			if (dirty & /*atom*/ 4) table_changes.atom = /*atom*/ ctx[2];
+    			table.$set(table_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(filters_1.$$.fragment, local);
+    			transition_in(table.$$.fragment, local);
+    			transition_in(grid.$$.fragment, local);
+    			transition_in(tailwindcss.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(filters_1.$$.fragment, local);
+    			transition_out(table.$$.fragment, local);
+    			transition_out(grid.$$.fragment, local);
+    			transition_out(tailwindcss.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(main);
+    			destroy_component(filters_1);
+    			destroy_component(table);
+    			destroy_component(grid);
+    			if (detaching) detach_dev(t4);
+    			destroy_component(tailwindcss, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$7.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$6($$self, $$props, $$invalidate) {
+    	let rows = [];
+    	let filtered = false;
+    	let filteredByNobleGases = false;
+    	let atom = null;
+    	const filters = [];
+
+    	const updateAtom = el => {
+    		$$invalidate(2, atom = null);
+    		setTimeout(() => $$invalidate(2, atom = el), 10);
+    	};
+
+    	const all = () => {
+    		$$invalidate(2, atom = null);
+    		$$invalidate(0, rows = []);
+    		$$invalidate(1, filtered = false);
+    		$$invalidate(0, rows = defaultTableData);
+    	};
+
+    	onMount(() => {
+    		$$invalidate(0, rows = defaultTableData);
+    	});
+
+    	const func = filteredRows => {
+    		$$invalidate(0, rows = filteredRows);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		onMount,
+    		Tailwindcss,
+    		Filters,
+    		Table,
+    		Grid,
+    		defaultTableData,
+    		rows,
+    		filtered,
+    		filteredByNobleGases,
+    		atom,
+    		filters,
+    		updateAtom,
+    		all,
+    		setTimeout
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("rows" in $$props) $$invalidate(0, rows = $$props.rows);
+    		if ("filtered" in $$props) $$invalidate(1, filtered = $$props.filtered);
+    		if ("filteredByNobleGases" in $$props) filteredByNobleGases = $$props.filteredByNobleGases;
+    		if ("atom" in $$props) $$invalidate(2, atom = $$props.atom);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [rows, filtered, atom, updateAtom, filteredByNobleGases, filters, all, func];
+    }
+
+    class App extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$6, create_fragment$7, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "App",
+    			options,
+    			id: create_fragment$7.name
+    		});
+    	}
+    }
+
+    const app = new App({
+      target: document.querySelector('.pt-container'),
+
+    });
+
+    return app;
+
+}());
 //# sourceMappingURL=bundle.js.map
