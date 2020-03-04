@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import styles from './Page.module.scss';
+import Layout from '../Layout/index';
 
 type Props = {
   title?: string,
@@ -14,14 +15,16 @@ const Page = ({ title, children }: Props) => {
   });
 
   return (
-    <div ref={pageRef} className={styles['page']}>
-      <div className={styles['page__inner']}>
-        { title && <h1 className={styles['page__title']}>{title}</h1>}
-        <div className={styles['page__body']}>
-          {children}
+    <Layout>
+      <div ref={pageRef} className={styles['page']}>
+        <div className={styles['page__inner']}>
+          { title && <h1 className={styles['page__title']}>{title}</h1>}
+          <div className={styles['page__body']}>
+            {children}
+          </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

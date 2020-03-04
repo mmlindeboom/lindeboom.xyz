@@ -6,20 +6,19 @@ import Layout from '../../components/Layout';
 export default class extends PureComponent {
   render() {
     return (
-      <Layout>
-        <Helmet bodyAttributes={{
-          class: 'periodic-table'
-        }}>
-          <html lang="en" />
-          <title>Periodic Table</title>
-          <meta name='viewport' content='width=device-width,initial-scale=1' />
-          <title>Periodic Table</title>
-          <link rel='stylesheet' href={withPrefix('pt/bundle.css')} />
+        <div>
+          <Helmet bodyAttributes={{
+            class: 'periodic-table'
+          }}>
+            <html lang="en" />
+            <meta name='viewport' content='width=device-width,initial-scale=1' />
+            <title>Periodic Table</title>
+            <link rel='stylesheet' href={withPrefix('pt/bundle.css')} />
 
-          <script defer src={withPrefix('pt/bundle.js')}></script>
-        </Helmet>
-        <div className='pt-container' ></div>
-      </Layout>
+            <script src={withPrefix('pt/bundle.js')}></script>
+          </Helmet>
+          <div className='pt-container'></div>
+      </div>
     );
   }
 }
