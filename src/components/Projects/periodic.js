@@ -14,7 +14,7 @@ export default class extends PureComponent {
             <title>Periodic Table</title>
             <link rel='stylesheet' href={withPrefix('pt/bundle.css')} />
 
-            <script src={withPrefix('pt/bundle.js')}></script>
+            <script defer src={withPrefix('pt/bundle.js')}></script>
           </Helmet>
           <div className='pt-container'></div>
       </div>
