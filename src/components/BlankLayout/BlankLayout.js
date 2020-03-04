@@ -2,7 +2,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import type { Node as ReactNode } from 'react';
-import styles from './Layout.module.scss';
 
 
 type Props = {
@@ -11,7 +10,7 @@ type Props = {
   description?: string
 };
 
-const Layout = ({ children, title, description }: Props) => (
+const BlankLayout = ({ children, title, description }: Props) => (
   <div>
     <Helmet>
       <html lang="en" />
@@ -23,4 +22,4 @@ const Layout = ({ children, title, description }: Props) => (
   </div>
 );
 
-export default Layout;
+export default BlankLayout;

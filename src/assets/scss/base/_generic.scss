@@ -119,7 +119,7 @@ ul {
 
 }
 
-body {
+body:not(.project) {
   @include line-height(1);
   @include margin-bottom(1);
 }
