@@ -7,4 +7,4 @@ featuredImage: hyrogen.ping
 * **Interactive Periodic Table**
 * built in Svelte.js
 * [demo](/projects/periodic)
-* [github](http://www.github.com/mmlindeboom/periodic-table)
+* [github](http://www.github.com/mmlindeboom/periodic-table-svelte)
