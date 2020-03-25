@@ -1,7 +1,7 @@
 ---
 title: "Projects"
 template: "page"
-featuredImage: hyrogen.ping
+featuredImage: hyrogen.png
 ---
 ![hydrogen](/media/hydrogen.png)
 * **Interactive Periodic Table**
