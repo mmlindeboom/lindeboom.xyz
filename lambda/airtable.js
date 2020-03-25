@@ -1,8 +1,8 @@
 const Airtable = require('airtable');
 
-Airtable.config({ apiKey: 'keydVeD210bV4LfwK' });
+Airtable.configure({ apiKey: 'keydVeD210bV4LfwK' });
 
-const base = Airtable.base('appEiY7TPH1blDtAt');
+const base = Airtable.base('appUfMV0Mfw6l4Wqx');
 const table = base('PeriodicTable');
 
 exports.handler = function handler(event, context, callback) {
