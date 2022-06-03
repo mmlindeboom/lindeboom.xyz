@@ -60,7 +60,7 @@
     "gatsby-plugin-flow": "^1.0.6",
     "gatsby-plugin-google-gtag": "^1.0.17",
     "gatsby-plugin-manifest": "^2.1.1",
-    "gatsby-plugin-mdx": "^1.0.75",
+    "gatsby-plugin-mdx": "^2.14.1",
     "gatsby-plugin-netlify": "^2.0.17",
     "gatsby-plugin-netlify-cms": "^3.0.18",
     "gatsby-plugin-offline": "^2.1.1",
